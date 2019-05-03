@@ -7,11 +7,15 @@
 //
 
 #import "MenuMetersMenuExtraBase.h"
+#import "MenuMetersApp/AppDelegate.h"
 
 @implementation MenuMetersMenuExtraBase
+static AppDelegate *appDelegate;
+
 -(instancetype)initWithBundle:(NSBundle*)bundle
 {
     self=[super initWithBundle:bundle];
+    appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return self;
 }
 -(void)willUnload {
@@ -65,6 +69,10 @@
     statusItem.menu.delegate = self;
 }
 - (void)menuWillOpen:(NSMenu*)menu {
+    if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
+    {
+        [appDelegate showPreferences];
+    }
     _isMenuVisible = YES;
 }
 - (void)menuDidClose:(NSMenu*)menu {

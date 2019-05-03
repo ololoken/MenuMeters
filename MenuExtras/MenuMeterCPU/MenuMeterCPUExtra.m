@@ -266,6 +266,9 @@
             //((cpuCount - 1) / [ourPrefs cpuHorizontalRows]) + 1;
         // Calculate a column width
         float columnWidth = (menuWidth - 1.0f) / columnCount;
+        if ([ourPrefs cpuShowTempreture]) {
+            columnWidth -= kCPUTemperatureDisplayWidth;
+        }
         // Image height
         float imageHeight = (float) ([currentImage size].height);
         // Calculate a thermometer height

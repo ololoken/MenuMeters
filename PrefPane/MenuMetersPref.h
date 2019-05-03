@@ -120,6 +120,10 @@
 	IBOutlet NSColorWell			*netTxColor;
 	IBOutlet NSColorWell			*netRxColor;
 	IBOutlet NSColorWell			*netInactiveColor;
+    //SMC pane controls
+    IBOutlet NSButton               *smcMeterToggle;
+    IBOutlet NSTextField            *smcIntervalDisplay;
+    IBOutlet NSSlider               *smcInterval;
 
 } // MenuMetersPref
 

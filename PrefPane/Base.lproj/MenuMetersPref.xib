@@ -77,6 +77,9 @@
                 <outlet property="netThroughputLabeling" destination="362" id="370"/>
                 <outlet property="netTxColor" destination="333" id="345"/>
                 <outlet property="prefTabs" destination="99" id="117"/>
+                <outlet property="smcInterval" destination="gsk-cf-qFd" id="VeP-WN-aBy"/>
+                <outlet property="smcIntervalDisplay" destination="Xj1-d3-ahh" id="BaO-Mp-wMz"/>
+                <outlet property="smcMeterToggle" destination="gaZ-N3-O2C" id="Kr4-65-Xpt"/>
                 <outlet property="versionDisplay" destination="355" id="410"/>
             </connections>
         </customObject>
@@ -457,7 +460,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <button verticalHuggingPriority="750" id="zYV-YS-fXt">
-                                                    <rect key="frame" x="249" y="542" width="178" height="18"/>
+                                                    <rect key="frame" x="249" y="540" width="178" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="check" title="Include CPU Temperature" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5r7-xY-4OH">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1264,12 +1267,89 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
+                            <tabViewItem label="SMC" identifier="" id="i4t-CM-0xe">
+                                <view key="view" id="9m8-mV-OB0">
+                                    <rect key="frame" x="10" y="33" width="548" height="606"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <customView id="82j-ZJ-GqV">
+                                            <rect key="frame" x="0.0" y="52" width="554" height="571"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <subviews>
+                                                <textField verticalHuggingPriority="750" id="reK-4i-oBf">
+                                                    <rect key="frame" x="18" y="486" width="168" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):" id="Olj-7G-KQh">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <slider verticalHuggingPriority="750" id="gsk-cf-qFd">
+                                                    <rect key="frame" x="19" y="454" width="515" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <sliderCell key="cell" continuous="YES" alignment="left" minValue="0.5" maxValue="10" doubleValue="1.5" tickMarkPosition="below" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="0Ts-dV-OaJ">
+                                                        <font key="font" size="12" name="Helvetica"/>
+                                                    </sliderCell>
+                                                    <connections>
+                                                        <action selector="liveUpdateInterval:" target="-2" id="gyL-Bs-EMG"/>
+                                                    </connections>
+                                                </slider>
+                                                <popUpButton verticalHuggingPriority="750" id="50x-eX-Mgw">
+                                                    <rect key="frame" x="249" y="516" width="286" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <popUpButtonCell key="cell" type="push" title="Horizontal Thermometer" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Ft8-Er-Sao" id="AFI-ck-8hn">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="menu"/>
+                                                        <menu key="menu" title="OtherViews" id="6A0-fV-kyH">
+                                                            <items>
+                                                                <menuItem title="Percentage" id="vxi-2D-QS4"/>
+                                                                <menuItem title="Graph" id="yAc-8b-5Q0"/>
+                                                                <menuItem title="Graph and Percentage" id="Qe1-VO-V1V"/>
+                                                                <menuItem title="Thermometer" id="ptt-Vq-rEU"/>
+                                                                <menuItem title="Percentage and Thermometer" id="Ne1-If-LyV"/>
+                                                                <menuItem title="Graph and Thermometer" id="Qst-UE-DkC"/>
+                                                                <menuItem title="Graph, Percentage and Thermometer" id="D5j-iR-ulc"/>
+                                                                <menuItem title="Horizontal Thermometer" state="on" id="Ft8-Er-Sao" userLabel="Menu Item - Horizontal Thermometer"/>
+                                                            </items>
+                                                        </menu>
+                                                    </popUpButtonCell>
+                                                    <connections>
+                                                        <action selector="cpuPrefChange:" target="-2" id="V88-X0-MyK"/>
+                                                        <binding destination="bru-Vu-JCG" name="contentValues" keyPath="values" id="fq0-tZ-Cpu"/>
+                                                    </connections>
+                                                </popUpButton>
+                                                <button id="gaZ-N3-O2C">
+                                                    <rect key="frame" x="19" y="516" width="227" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <buttonCell key="cell" type="check" title="Display SMC Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6Bg-sv-SOb">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="cpuPrefChange:" target="-2" id="U7c-xs-9s0"/>
+                                                    </connections>
+                                                </button>
+                                                <textField verticalHuggingPriority="750" id="Xj1-d3-ahh">
+                                                    <rect key="frame" x="183" y="486" width="54" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="x" id="ZXo-Xu-SHj">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                        </customView>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
                         </tabViewItems>
                     </tabView>
                     <textField verticalHuggingPriority="750" id="355">
                         <rect key="frame" x="-3" y="0.0" width="600" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                        <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="center" title="MenuMeters, © 2002-2009 Alex Harper (http://www.ragingmenace.com)" id="1078">
+                        <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="center" title="MenuMeters, © 2002-2019 Alex Harper (http://www.ragingmenace.com), and many others." id="1078">
                             <font key="font" metaFont="system" size="10"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1277,6 +1357,7 @@
                     </textField>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="139" y="146.5"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="bru-Vu-JCG"/>
     </objects>

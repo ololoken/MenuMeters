@@ -65,9 +65,8 @@
 
 @implementation MenuMeterDefaults
 
-+ (MenuMeterDefaults*)sharedMenuMeterDefaults
-{
-    static MenuMeterDefaults*foo=nil;
++ (MenuMeterDefaults*)sharedMenuMeterDefaults {
+    static MenuMeterDefaults *foo = nil;
     if(!foo){
         foo=[[MenuMeterDefaults alloc] init];
     }

@@ -25,6 +25,8 @@
 #import <Carbon/Carbon.h>
 #import "MenuMeters.h"
 
+#define StateValue(b) b ? NSControlStateValueOn : NSControlStateValueOff
+
 @interface MenuMeterDefaults : NSObject
 
 - (BOOL)loadBoolPref:(NSString *)prefName defaultValue:(BOOL)defaultValue;

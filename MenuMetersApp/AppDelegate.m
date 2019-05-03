@@ -11,33 +11,37 @@
 #import "MenuMeterDiskExtra.h"
 #import "MenuMeterMemExtra.h"
 #import "MenuMeterNetExtra.h"
+#import "PreferencesController.h"
 
 @interface AppDelegate ()
 
-@property (weak) IBOutlet NSWindow *window;
 @end
 
 @implementation AppDelegate
 {
-    MenuMeterCPUExtra*cpuExtra;
-    MenuMeterDiskExtra*diskExtra;
-    MenuMeterNetExtra*netExtra;
-    MenuMeterMemExtra*memExtra;
-    
-    
-    NSTimer*timer;
+    PreferencesController *preferencesController;
+
+    MenuMeterCPUExtra *cpuExtra;
+    MenuMeterDiskExtra *diskExtra;
+    MenuMeterNetExtra *netExtra;
+    MenuMeterMemExtra *memExtra;
+
+    NSTimer *timer;
 }
 
+//@synthesize preferences;
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
-    cpuExtra=[[MenuMeterCPUExtra alloc] initWithBundle:[NSBundle mainBundle]];
-    
-    diskExtra=[[MenuMeterDiskExtra alloc] initWithBundle:[NSBundle mainBundle]];
+    cpuExtra = [[MenuMeterCPUExtra alloc] initWithBundle:[NSBundle mainBundle]];
+    diskExtra = [[MenuMeterDiskExtra alloc] initWithBundle:[NSBundle mainBundle]];
+    netExtra = [[MenuMeterNetExtra alloc] initWithBundle:[NSBundle mainBundle]];
+    memExtra = [[MenuMeterMemExtra alloc] initWithBundle:[NSBundle mainBundle]];
 
-    netExtra=[[MenuMeterNetExtra alloc] initWithBundle:[NSBundle mainBundle]];
+    preferencesController = [[PreferencesController alloc] init];
+}
 
-    memExtra=[[MenuMeterMemExtra alloc] initWithBundle:[NSBundle mainBundle]];
-
+- (void)showPreferences{
+    [preferencesController showWindow:self];
 }
 
 

@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		308FC0C9227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */; };
+		308FC0CD227C627B00B459B0 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308FC0CC227C627B00B459B0 /* PreferencesController.m */; };
+		308FC0D3227C675600B459B0 /* CubeRootScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0CF227C675600B459B0 /* CubeRootScale.tiff */; };
+		308FC0D4227C675600B459B0 /* SquareRootScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D0227C675600B459B0 /* SquareRootScale.tiff */; };
+		308FC0D5227C675600B459B0 /* LinearScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D1227C675600B459B0 /* LinearScale.tiff */; };
+		308FC0D6227C675600B459B0 /* LogScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D2227C675600B459B0 /* LogScale.tiff */; };
+		308FC0DA227CB33700B459B0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D9227CB30E00B459B0 /* MainMenu.xib */; };
 		30C0F2A7227A19BF003E6699 /* libsmc_reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C0F2A12279F52D003E6699 /* libsmc_reader.a */; };
 		30C0F2A8227A3AD2003E6699 /* libsmc_reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C0F2A12279F52D003E6699 /* libsmc_reader.a */; };
-		33281A491B6BFB01001EA811 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3383C1C11B69DB0D00915D5D /* MainMenu.xib */; };
 		33281A4A1B6BFB05001EA811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3383C1781B69B72600915D5D /* Assets.xcassets */; };
 		332B0F8F1E0381780020CCBB /* MenuMeterDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D432074903D3DCBA00A87BC9 /* MenuMeterDefaults.m */; };
 		3345DD2C1B6BE7DB003843FC /* MenuMetersApp.app in Resources */ = {isa = PBXBuildFile; fileRef = 3383C1701B69B72500915D5D /* MenuMetersApp.app */; };
@@ -110,6 +116,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuMetersPreferencesWindow.xib; sourceTree = "<group>"; };
+		308FC0CB227C624E00B459B0 /* PreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
+		308FC0CC227C627B00B459B0 /* PreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; wrapsLines = 0; };
+		308FC0CF227C675600B459B0 /* CubeRootScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = CubeRootScale.tiff; sourceTree = "<group>"; };
+		308FC0D0227C675600B459B0 /* SquareRootScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SquareRootScale.tiff; sourceTree = "<group>"; };
+		308FC0D1227C675600B459B0 /* LinearScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = LinearScale.tiff; sourceTree = "<group>"; };
+		308FC0D2227C675600B459B0 /* LogScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = LogScale.tiff; sourceTree = "<group>"; };
+		308FC0D9227CB30E00B459B0 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		30C0F29C2279F52C003E6699 /* smc_reader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = smc_reader.xcodeproj; path = smc_reader/smc_reader.xcodeproj; sourceTree = "<group>"; };
 		330D68B32105AB950041B689 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "MenuExtras/MenuMeterCPU/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		330D68B42105AB950041B689 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "MenuExtras/MenuMeterDisk/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -125,7 +139,6 @@
 		3383C1761B69B72600915D5D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3383C1781B69B72600915D5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3383C17D1B69B72600915D5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3383C1C11B69DB0D00915D5D /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		3383C1DA1B69DD2D00915D5D /* English.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = English.lproj; sourceTree = "<group>"; };
 		3383C1DB1B69DD2D00915D5D /* French.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = French.lproj; sourceTree = "<group>"; };
 		3383C1DC1B69DD2D00915D5D /* German.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = German.lproj; sourceTree = "<group>"; };
@@ -306,6 +319,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		308FC0CE227C675600B459B0 /* Scales */ = {
+			isa = PBXGroup;
+			children = (
+				308FC0CF227C675600B459B0 /* CubeRootScale.tiff */,
+				308FC0D0227C675600B459B0 /* SquareRootScale.tiff */,
+				308FC0D1227C675600B459B0 /* LinearScale.tiff */,
+				308FC0D2227C675600B459B0 /* LogScale.tiff */,
+			);
+			path = Scales;
+			sourceTree = "<group>";
+		};
 		30C0F29D2279F52C003E6699 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,11 +350,12 @@
 			children = (
 				3383C1721B69B72500915D5D /* AppDelegate.h */,
 				3383C1731B69B72600915D5D /* AppDelegate.m */,
-				3383C1C11B69DB0D00915D5D /* MainMenu.xib */,
 				3383C1781B69B72600915D5D /* Assets.xcassets */,
 				33BA36D41B69E48300B4220E /* Resources */,
 				3383C17D1B69B72600915D5D /* Info.plist */,
 				3383C1751B69B72600915D5D /* Supporting Files */,
+				308FC0CB227C624E00B459B0 /* PreferencesController.h */,
+				308FC0CC227C627B00B459B0 /* PreferencesController.m */,
 			);
 			path = MenuMetersApp;
 			sourceTree = "<group>";
@@ -346,6 +371,7 @@
 		33BA36D41B69E48300B4220E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				308FC0CE227C675600B459B0 /* Scales */,
 				33C91649215BD88B00DEA006 /* Base.lproj */,
 				3383C1DA1B69DD2D00915D5D /* English.lproj */,
 				3383C1DB1B69DD2D00915D5D /* French.lproj */,
@@ -354,6 +380,8 @@
 				3383C1DF1B69DD2D00915D5D /* Japanese.lproj */,
 				3383C1E01B69DD2D00915D5D /* nl.lproj */,
 				3383C1E11B69DD2D00915D5D /* zh_CN.lproj */,
+				308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */,
+				308FC0D9227CB30E00B459B0 /* MainMenu.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -744,14 +772,19 @@
 			files = (
 				3383C1971B69D8D000915D5D /* ArrowsIdle.tiff in Resources */,
 				3383C1981B69D8D000915D5D /* ArrowsReadWrite.tiff in Resources */,
+				308FC0D3227C675600B459B0 /* CubeRootScale.tiff in Resources */,
 				3383C1991B69D8D000915D5D /* ArrowsWrite.tiff in Resources */,
 				3383C19A1B69D8D000915D5D /* ArrowsRead.tiff in Resources */,
 				3383C19B1B69D8D000915D5D /* Color ArrowsWrite.tiff in Resources */,
+				308FC0D6227C675600B459B0 /* LogScale.tiff in Resources */,
 				3383C19C1B69D8D000915D5D /* Color ArrowsRead.tiff in Resources */,
+				308FC0DA227CB33700B459B0 /* MainMenu.xib in Resources */,
 				3383C1E91B69DD2D00915D5D /* zh_CN.lproj in Resources */,
 				3383C1E71B69DD2D00915D5D /* Japanese.lproj in Resources */,
+				308FC0D5227C675600B459B0 /* LinearScale.tiff in Resources */,
 				3383C19D1B69D8D000915D5D /* Color ArrowsIdle.tiff in Resources */,
 				3383C1E41B69DD2D00915D5D /* German.lproj in Resources */,
+				308FC0D4227C675600B459B0 /* SquareRootScale.tiff in Resources */,
 				33C9164A215BD88B00DEA006 /* Base.lproj in Resources */,
 				3383C19E1B69D8D000915D5D /* Color ArrowsReadWrite.tiff in Resources */,
 				3383C19F1B69D8D000915D5D /* Dark ArrowsIdle.tiff in Resources */,
@@ -765,6 +798,7 @@
 				3383C1A61B69D8D000915D5D /* Dark Color ArrowsWrite.tiff in Resources */,
 				3383C1A71B69D8D000915D5D /* LightsWrite.tiff in Resources */,
 				3383C1A81B69D8D000915D5D /* LightsIdle.tiff in Resources */,
+				308FC0C9227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib in Resources */,
 				3383C1A91B69D8D000915D5D /* LightsRead.tiff in Resources */,
 				3383C1AA1B69D8D000915D5D /* LightsReadWrite.tiff in Resources */,
 				3383C1E31B69DD2D00915D5D /* French.lproj in Resources */,
@@ -777,7 +811,6 @@
 				3383C1AF1B69D8D000915D5D /* Disk ArrowsRead.tiff in Resources */,
 				3383C1B01B69D8D000915D5D /* Disk ArrowsReadWrite.tiff in Resources */,
 				3383C1B11B69D8D000915D5D /* Disk ArrowsWrite.tiff in Resources */,
-				33281A491B6BFB01001EA811 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +837,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				308FC0CD227C627B00B459B0 /* PreferencesController.m in Sources */,
 				3383C1951B69C78B00915D5D /* MenuMeterDiskExtra.m in Sources */,
 				3383C1831B69B88800915D5D /* MenuMeterWorkarounds.m in Sources */,
 				3383C1771B69B72600915D5D /* main.m in Sources */,
@@ -1119,6 +1153,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = Common;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx10.4][arch=ppc]" = 10.10;
 				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx10.5][arch=*]" = 10.10;
@@ -1171,6 +1206,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = Common;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx10.4][arch=ppc]" = 10.10;
 				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx10.5][arch=*]" = 10.10;

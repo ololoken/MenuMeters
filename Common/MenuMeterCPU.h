@@ -128,7 +128,7 @@ enum {
 #define kCPUPowerMateDefault				NO
 
 // Show CPU temperature
-#define kCPUShowTemperatureDefault          YES
+#define kCPUShowTemperatureDefault          NO
 
 // Colors
 											// Maraschino
