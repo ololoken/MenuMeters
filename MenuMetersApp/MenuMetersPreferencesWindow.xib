@@ -24,6 +24,40 @@
                 <outlet property="cpuTemperatureColor" destination="sQ8-Lg-Tma" id="6Pv-Oh-ZsQ"/>
                 <outlet property="cpuTemperatureToggle" destination="uGj-cz-8dG" id="xQJ-2i-gXw"/>
                 <outlet property="cpuUserColor" destination="W48-ft-mnn" id="LPp-fE-lcs"/>
+                <outlet property="diskImageSet" destination="Fgj-QH-MvL" id="NC3-ET-Bo2"/>
+                <outlet property="diskInterval" destination="C8g-1V-mKw" id="lfE-dI-CVv"/>
+                <outlet property="diskIntervalDisplay" destination="vYQ-Vj-pxA" id="bTq-AM-IEJ"/>
+                <outlet property="diskMeterToggle" destination="9qu-kn-1wJ" id="YAW-Dh-Zfk"/>
+                <outlet property="diskSelectMode" destination="iMd-IV-wNR" id="Efq-Yn-yic"/>
+                <outlet property="memActiveColor" destination="0QO-Sg-fIm" id="jP1-Bb-Hbf"/>
+                <outlet property="memCompressedColor" destination="ErQ-88-vzs" id="K5K-5t-mui"/>
+                <outlet property="memDisplayMode" destination="d3L-yc-DaE" id="SMN-Hb-sGZ"/>
+                <outlet property="memFreeUsedLabeling" destination="lyj-Mr-LAh" id="ncG-RM-c9d"/>
+                <outlet property="memGraphWidth" destination="kep-kI-riq" id="whf-c6-FYz"/>
+                <outlet property="memInactiveColor" destination="6sV-20-7x8" id="A9A-nd-OUV"/>
+                <outlet property="memInterval" destination="Y4W-8b-SOg" id="Ywx-2z-6WU"/>
+                <outlet property="memIntervalDisplay" destination="LQH-zT-Lp5" id="76B-mU-NCW"/>
+                <outlet property="memMeterToggle" destination="P50-It-HBC" id="hxa-4H-S0T"/>
+                <outlet property="memPageIndicator" destination="zl4-28-zMG" id="GhV-uR-aK4"/>
+                <outlet property="memPageinColor" destination="oNi-zm-KiK" id="KTW-mF-9hH"/>
+                <outlet property="memPageoutColor" destination="VCa-9y-GpF" id="Fkk-Eh-jUf"/>
+                <outlet property="memPressureMode" destination="XAM-0y-XY1" id="doo-gJ-gGD"/>
+                <outlet property="memWiredColor" destination="cON-Ui-Efl" id="vh5-Zh-8gG"/>
+                <outlet property="netDisplayMode" destination="lMG-AP-L8R" id="Odi-RS-wJr"/>
+                <outlet property="netDisplayOrientation" destination="fbo-KI-1e0" id="2jP-PR-U2g"/>
+                <outlet property="netGraphStyle" destination="giB-7i-aOW" id="MTQ-XM-vGQ"/>
+                <outlet property="netGraphWidth" destination="4Vx-nv-X5v" id="9Iz-OT-Jx4"/>
+                <outlet property="netInactiveColor" destination="qYZ-QY-AXS" id="o1K-fS-ikP"/>
+                <outlet property="netInterval" destination="f1g-Y3-wqj" id="YwL-Gc-sH0"/>
+                <outlet property="netIntervalDisplay" destination="mWg-7O-P0g" id="1wA-VR-uJV"/>
+                <outlet property="netMeterToggle" destination="L6I-fH-pqO" id="Py7-Iq-Tyk"/>
+                <outlet property="netPreferInterface" destination="LcZ-pS-nPx" id="Dh9-Th-2lt"/>
+                <outlet property="netRxColor" destination="5YZ-z1-b6T" id="ZfY-6B-WKk"/>
+                <outlet property="netScaleCalc" destination="K4Z-xT-5LH" id="29T-tm-Qfb"/>
+                <outlet property="netScaleMode" destination="kjU-oQ-ZZc" id="e73-sF-Dhl"/>
+                <outlet property="netThroughput1KBound" destination="rgG-Fc-7fM" id="5IX-DA-MlR"/>
+                <outlet property="netThroughputLabeling" destination="mCl-Fx-nYC" id="74b-lt-aoS"/>
+                <outlet property="netTxColor" destination="j4R-pp-NuL" id="bdQ-ys-aHt"/>
                 <outlet property="prefTabs" destination="YLO-66-PNz" id="muj-Th-XNy"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="XJ1-Ub-aQN"/>
             </connections>
@@ -403,18 +437,754 @@
                                 <view key="view" id="Ixq-39-Oln">
                                     <rect key="frame" x="10" y="33" width="565" height="611"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" id="fW6-Ck-zmA">
+                                            <rect key="frame" x="28" y="450" width="511" height="13"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="(Holding the Option key will reverse the behavior)" id="jS8-kM-buu">
+                                                <font key="font" metaFont="label"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="iMd-IV-wNR">
+                                            <rect key="frame" x="291" y="468" width="241" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="opens the volume" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="erP-WM-6Ir" id="L1g-hc-l4m">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="yjh-bj-9Wc">
+                                                    <items>
+                                                        <menuItem title="opens the volume" state="on" id="erP-WM-6Ir"/>
+                                                        <menuItem title="unmounts/ejects the volume" id="Hrc-re-L6G"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="diskPrefChange:" target="-2" id="BEF-A2-jiv"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" id="teK-pi-7ur">
+                                            <rect key="frame" x="36" y="473" width="251" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Selecting a volume from the disk menu" id="JUs-Hh-DPc">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" id="JJe-Cy-a4Q">
+                                            <rect key="frame" x="25" y="545" width="168" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):" id="G1U-lB-U22">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="Fgj-QH-MvL">
+                                            <rect key="frame" x="280" y="575" width="262" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="ImageSet" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="IuR-L0-lwo" id="5Dp-aB-7GF">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="YIb-3m-gp6">
+                                                    <items>
+                                                        <menuItem title="ImageSet" state="on" id="IuR-L0-lwo"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="diskPrefChange:" target="-2" id="sVs-12-ZEb"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <slider verticalHuggingPriority="750" id="C8g-1V-mKw">
+                                            <rect key="frame" x="26" y="513" width="515" height="25"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <sliderCell key="cell" continuous="YES" alignment="left" minValue="0.10000000000000001" maxValue="5" doubleValue="0.30000000000000004" tickMarkPosition="below" numberOfTickMarks="50" allowsTickMarkValuesOnly="YES" sliderType="linear" id="0bC-Jv-rfF">
+                                                <font key="font" size="12" name="Helvetica"/>
+                                            </sliderCell>
+                                            <connections>
+                                                <action selector="diskPrefChange:" target="-2" id="bZq-v3-Fz2"/>
+                                            </connections>
+                                        </slider>
+                                        <textField verticalHuggingPriority="750" id="vYQ-Vj-pxA">
+                                            <rect key="frame" x="190" y="545" width="54" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="x" id="oBv-uK-uUD">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button id="9qu-kn-1wJ">
+                                            <rect key="frame" x="26" y="575" width="251" height="27"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Display Disk Activity Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2gh-kY-Gco">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="diskPrefChange:" target="-2" id="QVa-xA-CWX"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Memory" identifier="" id="Dws-mZ-5dN">
                                 <view key="view" id="EDC-XJ-WgG">
                                     <rect key="frame" x="10" y="33" width="565" height="611"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button id="zl4-28-zMG">
+                                            <rect key="frame" x="178" y="449" width="212" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Show paging activity indicator" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="GPZ-0q-1pa">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="Kwg-Bz-Wms"/>
+                                            </connections>
+                                        </button>
+                                        <box verticalHuggingPriority="750" boxType="separator" id="bem-ng-ToV">
+                                            <rect key="frame" x="82" y="474" width="457" height="5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" id="13h-5L-NNY">
+                                            <rect key="frame" x="25" y="473" width="189" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="General" id="9ge-Rf-wRP">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button id="lyj-Mr-LAh">
+                                            <rect key="frame" x="178" y="429" width="212" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Show Used/Free labels" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="pF9-vl-G0S">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="UA1-0e-XDz"/>
+                                            </connections>
+                                        </button>
+                                        <slider verticalHuggingPriority="750" id="Y4W-8b-SOg">
+                                            <rect key="frame" x="26" y="513" width="515" height="25"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <sliderCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="60" doubleValue="15" tickMarkPosition="below" numberOfTickMarks="60" allowsTickMarkValuesOnly="YES" sliderType="linear" id="hc5-J3-S5u">
+                                                <font key="font" size="12" name="Helvetica"/>
+                                            </sliderCell>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="fiV-dC-GlO"/>
+                                            </connections>
+                                        </slider>
+                                        <textField verticalHuggingPriority="750" id="ClB-BL-96B">
+                                            <rect key="frame" x="25" y="545" width="168" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):" id="c66-aJ-1lL">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="d3L-yc-DaE">
+                                            <rect key="frame" x="280" y="575" width="262" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="Usage Chart" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="zpJ-0R-o8O" id="YNt-EL-oHt">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="rmS-fL-bIp">
+                                                    <items>
+                                                        <menuItem title="Usage Chart" state="on" id="zpJ-0R-o8O"/>
+                                                        <menuItem title="Usage Bar" id="yAN-dQ-75B"/>
+                                                        <menuItem title="Usage History Graph" id="vx4-n9-UQC"/>
+                                                        <menuItem title="Used/Free Totals" id="ucq-pg-Xkv"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="Ug4-Xg-0Dw"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" id="LQH-zT-Lp5">
+                                            <rect key="frame" x="190" y="545" width="54" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="x" id="h4R-lu-bFg">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button id="P50-It-HBC">
+                                            <rect key="frame" x="26" y="575" width="251" height="27"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Display Memory Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="DhC-30-EWD">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="38K-Ks-Hvl"/>
+                                            </connections>
+                                        </button>
+                                        <button id="XAM-0y-XY1">
+                                            <rect key="frame" x="177" y="409" width="212" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Display memory pressure" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="yvM-bL-LUu">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="ciX-Wd-eec"/>
+                                            </connections>
+                                        </button>
+                                        <tabView drawsBackground="NO" type="noTabsNoBorder" id="L5G-f9-12Y">
+                                            <rect key="frame" x="148" y="225" width="271" height="71"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <font key="font" metaFont="message"/>
+                                            <tabViewItems>
+                                                <tabViewItem identifier="" id="1rh-fL-Vmc">
+                                                    <view key="view" id="wge-Mf-ODG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="271" height="71"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <colorWell id="6sV-20-7x8">
+                                                                <rect key="frame" x="200" y="9" width="53" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <connections>
+                                                                    <action selector="memPrefChange:" target="-2" id="AZZ-HR-OKY"/>
+                                                                </connections>
+                                                            </colorWell>
+                                                            <colorWell id="cON-Ui-Efl">
+                                                                <rect key="frame" x="111" y="9" width="53" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <connections>
+                                                                    <action selector="memPrefChange:" target="-2" id="Vuu-c5-Io0"/>
+                                                                </connections>
+                                                            </colorWell>
+                                                            <colorWell id="0QO-Sg-fIm">
+                                                                <rect key="frame" x="22" y="9" width="53" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <connections>
+                                                                    <action selector="memPrefChange:" target="-2" id="haF-3T-NsS"/>
+                                                                </connections>
+                                                            </colorWell>
+                                                            <textField verticalHuggingPriority="750" id="K3v-tq-nus">
+                                                                <rect key="frame" x="-2" y="47" width="100" height="14"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Active" id="OLT-Uc-ZxU">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField verticalHuggingPriority="750" id="vNh-hq-MMh">
+                                                                <rect key="frame" x="176" y="47" width="100" height="14"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Inactive" id="2Hw-q0-Pdv">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField verticalHuggingPriority="750" id="GNj-5q-UeV">
+                                                                <rect key="frame" x="87" y="47" width="100" height="14"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Wired" id="OrL-wH-ugO">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                                <tabViewItem identifier="" id="mO3-kO-egs">
+                                                    <view key="view" id="Dgu-wE-4BG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="271" height="71"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <colorWell id="YJb-iz-BHU">
+                                                                <rect key="frame" x="155" y="9" width="53" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </colorWell>
+                                                            <textField verticalHuggingPriority="750" id="lMw-xL-n3D">
+                                                                <rect key="frame" x="79" y="47" width="27" height="14"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Free" id="e2D-Mg-bVS">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField verticalHuggingPriority="750" id="hbh-CQ-Tzt">
+                                                                <rect key="frame" x="166" y="47" width="31" height="14"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Used" id="RGs-gY-iPX">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <colorWell id="aK7-Ec-piI">
+                                                                <rect key="frame" x="66" y="9" width="53" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </colorWell>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                            </tabViewItems>
+                                        </tabView>
+                                        <box verticalHuggingPriority="750" boxType="separator" id="nyk-vL-f7c">
+                                            <rect key="frame" x="122" y="376" width="417" height="5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </box>
+                                        <slider verticalHuggingPriority="750" id="kep-kI-riq">
+                                            <rect key="frame" x="179" y="341" width="299" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <sliderCell key="cell" controlSize="small" alignment="left" minValue="11" maxValue="88" doubleValue="33" tickMarkPosition="below" numberOfTickMarks="8" allowsTickMarkValuesOnly="YES" sliderType="linear" id="jdW-Hd-rI6">
+                                                <font key="font" size="12" name="Helvetica"/>
+                                            </sliderCell>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="5C2-IB-ALK"/>
+                                            </connections>
+                                        </slider>
+                                        <textField verticalHuggingPriority="750" id="67c-wk-19i">
+                                            <rect key="frame" x="25" y="378" width="93" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Graph Display" id="msA-NV-TH9">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" id="vAT-9f-pw6">
+                                            <rect key="frame" x="87" y="348" width="87" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Graph width:" id="bI0-Iy-pwZ">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField hidden="YES" verticalHuggingPriority="750" id="qwD-8j-wbx">
+                                            <rect key="frame" x="323" y="208" width="100" height="14"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Paging Rate" id="NFo-tl-Tq8">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <colorWell hidden="YES" id="ErQ-88-vzs">
+                                            <rect key="frame" x="347" y="170" width="53" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="pg9-SY-6bU"/>
+                                            </connections>
+                                        </colorWell>
+                                        <textField verticalHuggingPriority="750" id="eyx-gR-Sjb">
+                                            <rect key="frame" x="234" y="208" width="100" height="14"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Pageout" id="MAt-Di-yYn">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <colorWell id="VCa-9y-GpF">
+                                            <rect key="frame" x="258" y="170" width="53" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="8V4-Os-Tpe"/>
+                                            </connections>
+                                        </colorWell>
+                                        <textField verticalHuggingPriority="750" id="JcB-l6-OGw">
+                                            <rect key="frame" x="145" y="208" width="100" height="14"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Pagein" id="gTs-Rz-dbz">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <colorWell id="oNi-zm-KiK">
+                                            <rect key="frame" x="169" y="170" width="53" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="memPrefChange:" target="-2" id="Eoj-mf-hoN"/>
+                                            </connections>
+                                        </colorWell>
+                                        <box verticalHuggingPriority="750" boxType="separator" id="jbz-89-Phc">
+                                            <rect key="frame" x="75" y="302" width="464" height="5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" id="dXP-wi-QWh">
+                                            <rect key="frame" x="25" y="301" width="45" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Colors" id="qcl-Bq-tUR">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Network" identifier="" id="mY6-lo-c1j">
                                 <view key="view" id="cxO-g0-MvV">
                                     <rect key="frame" x="10" y="33" width="565" height="611"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <colorWell id="qYZ-QY-AXS">
+                                            <rect key="frame" x="348" y="90" width="53" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="0f0-Dy-hE3"/>
+                                            </connections>
+                                        </colorWell>
+                                        <textField verticalHuggingPriority="750" id="tsd-fe-aYV">
+                                            <rect key="frame" x="324" y="128" width="100" height="14"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Inactive" id="Zwh-ox-M6t">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="fbo-KI-1e0">
+                                            <rect key="frame" x="229" y="444" width="172" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="Transmit/Receive" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="mtU-Vy-OuD" id="uej-uu-hbn">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="Q8F-jk-3WD">
+                                                    <items>
+                                                        <menuItem title="Transmit/Receive" state="on" id="mtU-Vy-OuD"/>
+                                                        <menuItem title="Receive/Transmit" id="2Id-x0-UTo"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="hdM-7a-UC7"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" id="FaL-CI-0D5">
+                                            <rect key="frame" x="101" y="449" width="128" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Display orientation:" id="dGH-L2-gax">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="K4Z-xT-5LH">
+                                            <rect key="frame" x="229" y="366" width="158" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="Linear" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="7dc-nF-vyM" id="XBm-6f-xAq">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="Hq2-dZ-M0i">
+                                                    <items>
+                                                        <menuItem title="Linear" state="on" id="7dc-nF-vyM"/>
+                                                        <menuItem title="Square root" id="mn1-ft-6aS"/>
+                                                        <menuItem title="Cube root" id="umV-28-Jeb"/>
+                                                        <menuItem title="Logarithmic" id="0KU-nF-PBp"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="0bX-4q-KQS"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" id="rD9-J9-xiQ">
+                                            <rect key="frame" x="126" y="372" width="103" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Display scaling:" id="Spb-PR-y0D">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="kjU-oQ-ZZc">
+                                            <rect key="frame" x="229" y="392" width="158" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="Interface speed" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="l2I-vn-syT" id="tIf-wz-x3e">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="zwK-ar-9Sb">
+                                                    <items>
+                                                        <menuItem title="Interface speed" state="on" id="l2I-vn-syT"/>
+                                                        <menuItem title="Peak traffic" id="R0O-f7-79C"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="Tey-XY-hmh"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" id="qkk-XU-T6a">
+                                            <rect key="frame" x="115" y="398" width="114" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Display scales to:" id="l1K-VI-uBO">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <box verticalHuggingPriority="750" boxType="separator" id="kHS-rU-g0A">
+                                            <rect key="frame" x="82" y="474" width="457" height="5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" id="seg-zF-9D7">
+                                            <rect key="frame" x="25" y="475" width="64" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="General" id="RO6-PD-6Jx">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="LcZ-pS-nPx">
+                                            <rect key="frame" x="229" y="418" width="273" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="Primary (automatic)" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="v4K-LZ-vGy" id="hTg-cx-f6n">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="ZbI-IW-hOh">
+                                                    <items>
+                                                        <menuItem title="Primary (automatic)" state="on" id="v4K-LZ-vGy"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="7IA-vh-U7w"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" id="CUA-BF-qe9">
+                                            <rect key="frame" x="66" y="424" width="163" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Display prefers interface:" id="vh3-h1-Od9">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <box verticalHuggingPriority="750" boxType="separator" id="urq-Yu-xvL">
+                                            <rect key="frame" x="75" y="148" width="464" height="5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" id="U7t-lv-khg">
+                                            <rect key="frame" x="25" y="147" width="45" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Colors" id="XO1-zw-vT9">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <box verticalHuggingPriority="750" boxType="separator" id="cYL-13-7DK">
+                                            <rect key="frame" x="123" y="252" width="416" height="5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" id="As2-n3-ejh">
+                                            <rect key="frame" x="25" y="251" width="93" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Graph Display" id="r3w-4h-0MB">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <box verticalHuggingPriority="750" boxType="separator" id="PgA-bh-X1U">
+                                            <rect key="frame" x="160" y="331" width="379" height="5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" id="qMr-Gp-gxo">
+                                            <rect key="frame" x="25" y="330" width="130" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Throughput Display" id="j9T-7d-wTV">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="giB-7i-aOW">
+                                            <rect key="frame" x="169" y="215" width="165" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="Standard" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="6BD-MP-iL1" id="B8h-q8-Vu4">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="S13-Wj-4fs">
+                                                    <items>
+                                                        <menuItem title="Standard" state="on" id="6BD-MP-iL1"/>
+                                                        <menuItem title="Centered" id="xsv-Fe-SWA"/>
+                                                        <menuItem title="Opposed" id="Tqc-iP-Bfr"/>
+                                                        <menuItem title="Inverse Opposed" id="lNo-qt-mK9"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="PZK-qJ-BQZ"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" id="jDc-1N-tO6">
+                                            <rect key="frame" x="81" y="194" width="86" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Graph width:" id="FOK-wP-DUj">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" id="eqj-Ie-wQ5">
+                                            <rect key="frame" x="87" y="221" width="80" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Graph style:" id="Tjb-qp-Euw">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button id="rgG-Fc-7fM">
+                                            <rect key="frame" x="169" y="309" width="191" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Ignore values below 1KB/s" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="GZE-4f-iFA">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="Lvr-Zk-DNL"/>
+                                            </connections>
+                                        </button>
+                                        <button id="mCl-Fx-nYC">
+                                            <rect key="frame" x="169" y="289" width="230" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Show throughput labels (Tx/Rx)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zP9-fn-zmA">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="TF6-Kp-RFK"/>
+                                            </connections>
+                                        </button>
+                                        <colorWell id="5YZ-z1-b6T">
+                                            <rect key="frame" x="258" y="90" width="53" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="ptg-NS-ASK"/>
+                                            </connections>
+                                        </colorWell>
+                                        <slider verticalHuggingPriority="750" id="4Vx-nv-X5v">
+                                            <rect key="frame" x="172" y="187" width="313" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <sliderCell key="cell" controlSize="small" alignment="left" minValue="11" maxValue="88" doubleValue="33" tickMarkPosition="below" numberOfTickMarks="8" allowsTickMarkValuesOnly="YES" sliderType="linear" id="U9Z-02-iaX">
+                                                <font key="font" size="12" name="Helvetica"/>
+                                            </sliderCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="orq-NW-uA6"/>
+                                            </connections>
+                                        </slider>
+                                        <colorWell id="j4R-pp-NuL">
+                                            <rect key="frame" x="168" y="90" width="53" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="QNp-sa-ECg"/>
+                                            </connections>
+                                        </colorWell>
+                                        <textField verticalHuggingPriority="750" id="uD6-lE-FAX">
+                                            <rect key="frame" x="234" y="128" width="100" height="14"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Receive" id="QMR-ZJ-kdW">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" id="T7E-cB-7NW">
+                                            <rect key="frame" x="145" y="128" width="100" height="14"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Transmit" id="uJq-tB-gzG">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" id="Ujd-Vw-W8g">
+                                            <rect key="frame" x="25" y="545" width="168" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):" id="ETc-51-JO5">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="lMG-AP-L8R">
+                                            <rect key="frame" x="280" y="575" width="262" height="26"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <popUpButtonCell key="cell" type="push" title="Graph, Arrows and Throughput" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Uwh-7T-cyN" id="Ayu-Md-0OA">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="1PW-Yh-0VR">
+                                                    <items>
+                                                        <menuItem title="Arrows" id="44m-L5-CMk"/>
+                                                        <menuItem title="Throughput" id="udh-0z-GGn"/>
+                                                        <menuItem title="Arrows and Throughput" id="y59-vQ-xA6"/>
+                                                        <menuItem title="Graph" id="zB8-ok-1yi"/>
+                                                        <menuItem title="Graph and Arrows" id="cYU-LO-ecs"/>
+                                                        <menuItem title="Graph and Throughput" id="kx6-nP-zdd"/>
+                                                        <menuItem title="Graph, Arrows and Throughput" state="on" id="Uwh-7T-cyN"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="8Rb-HN-Xkb"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <button id="L6I-fH-pqO">
+                                            <rect key="frame" x="26" y="575" width="251" height="27"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Display Network Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="oaT-aM-3zz">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="u9m-q2-g1h"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" id="mWg-7O-P0g">
+                                            <rect key="frame" x="190" y="545" width="54" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="x" id="GZM-9m-QlR">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" id="f1g-Y3-wqj">
+                                            <rect key="frame" x="26" y="513" width="515" height="25"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <sliderCell key="cell" continuous="YES" alignment="left" minValue="0.5" maxValue="20" doubleValue="2" tickMarkPosition="below" numberOfTickMarks="40" allowsTickMarkValuesOnly="YES" sliderType="linear" id="JdH-93-Y3i">
+                                                <font key="font" size="12" name="Helvetica"/>
+                                            </sliderCell>
+                                            <connections>
+                                                <action selector="netPrefChange:" target="-2" id="Cfw-Wa-Bx3"/>
+                                            </connections>
+                                        </slider>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="SMC" identifier="" id="Y5e-Ab-Evf">

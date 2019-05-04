@@ -902,7 +902,6 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     }
     [netPreferInterface selectItemAtIndex:selectIndex];
     [self netPrefChange:netPreferInterface];
-
 } // updateNetInterfaceMenu
 
 ///////////////////////////////////////////////////////////////
