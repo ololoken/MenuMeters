@@ -12,41 +12,56 @@
                 <outlet property="cpuAvgProcs" destination="pyT-KO-HYx" id="fQq-sB-En3"/>
                 <outlet property="cpuDisplayMode" destination="OfJ-zD-1bp" id="Oxm-3n-EbI"/>
                 <outlet property="cpuGraphWidth" destination="WNf-zv-AUH" id="Wad-bu-3F6"/>
+                <outlet property="cpuGraphWidthLabel" destination="2B6-Pg-vRm" id="vOO-Qh-36m"/>
                 <outlet property="cpuHorizontalRows" destination="riV-gC-7Lx" id="NWU-ER-lrQ"/>
+                <outlet property="cpuHorizontalRowsLabel" destination="Vyo-p2-PKn" id="2RY-bb-Q8F"/>
                 <outlet property="cpuInterval" destination="hpz-DK-v40" id="nkO-E4-SoO"/>
                 <outlet property="cpuIntervalDisplay" destination="Z7G-R3-Jza" id="asX-W1-pjF"/>
                 <outlet property="cpuMaxProcessCount" destination="wQm-B7-8Jc" id="Agh-tJ-GL7"/>
+                <outlet property="cpuMaxProcessCountCountLabel" destination="IBs-7G-XmR" id="wta-yb-LyD"/>
                 <outlet property="cpuMenuWidth" destination="4hA-yr-mPw" id="KuH-OM-wTP"/>
+                <outlet property="cpuMenuWidthLabel" destination="b3u-ro-8V3" id="zcH-sn-8tG"/>
                 <outlet property="cpuMeterToggle" destination="ZY7-Zz-Phh" id="6mt-oy-oOl"/>
                 <outlet property="cpuPercentMode" destination="Pno-nR-IsK" id="vPB-iv-mXw"/>
+                <outlet property="cpuPercentModeLabel" destination="lP6-YG-Lgx" id="bKt-Gl-xgq"/>
                 <outlet property="cpuSortByUsage" destination="R3W-3p-AKv" id="F97-qZ-JNl"/>
                 <outlet property="cpuSystemColor" destination="6qe-QH-l3h" id="06K-ei-u81"/>
+                <outlet property="cpuSystemColorLabel" destination="FW7-OL-lUE" id="e49-fA-7cq"/>
                 <outlet property="cpuTemperatureColor" destination="sQ8-Lg-Tma" id="6Pv-Oh-ZsQ"/>
                 <outlet property="cpuTemperatureToggle" destination="uGj-cz-8dG" id="xQJ-2i-gXw"/>
                 <outlet property="cpuUserColor" destination="W48-ft-mnn" id="LPp-fE-lcs"/>
+                <outlet property="cpuUserColorLabel" destination="a91-DF-EDP" id="RxA-2h-xGG"/>
                 <outlet property="diskImageSet" destination="Fgj-QH-MvL" id="NC3-ET-Bo2"/>
                 <outlet property="diskInterval" destination="C8g-1V-mKw" id="lfE-dI-CVv"/>
                 <outlet property="diskIntervalDisplay" destination="vYQ-Vj-pxA" id="bTq-AM-IEJ"/>
                 <outlet property="diskMeterToggle" destination="9qu-kn-1wJ" id="YAW-Dh-Zfk"/>
                 <outlet property="diskSelectMode" destination="iMd-IV-wNR" id="Efq-Yn-yic"/>
                 <outlet property="memActiveColor" destination="0QO-Sg-fIm" id="jP1-Bb-Hbf"/>
+                <outlet property="memColorTab" destination="L5G-f9-12Y" id="Rbi-eE-1ZA"/>
                 <outlet property="memCompressedColor" destination="ErQ-88-vzs" id="K5K-5t-mui"/>
                 <outlet property="memDisplayMode" destination="d3L-yc-DaE" id="SMN-Hb-sGZ"/>
+                <outlet property="memFreeColor" destination="aK7-Ec-piI" id="Bgj-Ur-0mp"/>
                 <outlet property="memFreeUsedLabeling" destination="lyj-Mr-LAh" id="ncG-RM-c9d"/>
                 <outlet property="memGraphWidth" destination="kep-kI-riq" id="whf-c6-FYz"/>
+                <outlet property="memGraphWidthLabel" destination="vAT-9f-pw6" id="xpT-pY-PDH"/>
                 <outlet property="memInactiveColor" destination="6sV-20-7x8" id="A9A-nd-OUV"/>
                 <outlet property="memInterval" destination="Y4W-8b-SOg" id="Ywx-2z-6WU"/>
                 <outlet property="memIntervalDisplay" destination="LQH-zT-Lp5" id="76B-mU-NCW"/>
                 <outlet property="memMeterToggle" destination="P50-It-HBC" id="hxa-4H-S0T"/>
                 <outlet property="memPageIndicator" destination="zl4-28-zMG" id="GhV-uR-aK4"/>
                 <outlet property="memPageinColor" destination="oNi-zm-KiK" id="KTW-mF-9hH"/>
+                <outlet property="memPageinColorLabel" destination="JcB-l6-OGw" id="mlw-gX-qzl"/>
                 <outlet property="memPageoutColor" destination="VCa-9y-GpF" id="Fkk-Eh-jUf"/>
+                <outlet property="memPageoutColorLabel" destination="eyx-gR-Sjb" id="Ryo-Gb-uaL"/>
                 <outlet property="memPressureMode" destination="XAM-0y-XY1" id="doo-gJ-gGD"/>
+                <outlet property="memUsedColor" destination="YJb-iz-BHU" id="MBe-4b-P3t"/>
                 <outlet property="memWiredColor" destination="cON-Ui-Efl" id="vh5-Zh-8gG"/>
                 <outlet property="netDisplayMode" destination="lMG-AP-L8R" id="Odi-RS-wJr"/>
                 <outlet property="netDisplayOrientation" destination="fbo-KI-1e0" id="2jP-PR-U2g"/>
                 <outlet property="netGraphStyle" destination="giB-7i-aOW" id="MTQ-XM-vGQ"/>
+                <outlet property="netGraphStyleLabel" destination="eqj-Ie-wQ5" id="FWN-MD-4gq"/>
                 <outlet property="netGraphWidth" destination="4Vx-nv-X5v" id="9Iz-OT-Jx4"/>
+                <outlet property="netGraphWidthLabel" destination="jDc-1N-tO6" id="m4u-4v-54a"/>
                 <outlet property="netInactiveColor" destination="qYZ-QY-AXS" id="o1K-fS-ikP"/>
                 <outlet property="netInterval" destination="f1g-Y3-wqj" id="YwL-Gc-sH0"/>
                 <outlet property="netIntervalDisplay" destination="mWg-7O-P0g" id="1wA-VR-uJV"/>
@@ -54,7 +69,9 @@
                 <outlet property="netPreferInterface" destination="LcZ-pS-nPx" id="Dh9-Th-2lt"/>
                 <outlet property="netRxColor" destination="5YZ-z1-b6T" id="ZfY-6B-WKk"/>
                 <outlet property="netScaleCalc" destination="K4Z-xT-5LH" id="29T-tm-Qfb"/>
+                <outlet property="netScaleCalcLabel" destination="rD9-J9-xiQ" id="Yxp-4D-ip0"/>
                 <outlet property="netScaleMode" destination="kjU-oQ-ZZc" id="e73-sF-Dhl"/>
+                <outlet property="netScaleModeLabel" destination="qkk-XU-T6a" id="Gad-yv-kWn"/>
                 <outlet property="netThroughput1KBound" destination="rgG-Fc-7fM" id="5IX-DA-MlR"/>
                 <outlet property="netThroughputLabeling" destination="mCl-Fx-nYC" id="74b-lt-aoS"/>
                 <outlet property="netTxColor" destination="j4R-pp-NuL" id="bdQ-ys-aHt"/>

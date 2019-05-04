@@ -14,6 +14,7 @@
 		308FC0D5227C675600B459B0 /* LinearScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D1227C675600B459B0 /* LinearScale.tiff */; };
 		308FC0D6227C675600B459B0 /* LogScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D2227C675600B459B0 /* LogScale.tiff */; };
 		308FC0DA227CB33700B459B0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D9227CB30E00B459B0 /* MainMenu.xib */; };
+		308FC0DB227DB2D800B459B0 /* EMCLoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 908780A91FB087D70053DDC5 /* EMCLoginItem.m */; };
 		30C0F2A7227A19BF003E6699 /* libsmc_reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C0F2A12279F52D003E6699 /* libsmc_reader.a */; };
 		33281A4A1B6BFB05001EA811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3383C1781B69B72600915D5D /* Assets.xcassets */; };
 		332B0F8F1E0381780020CCBB /* MenuMeterDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D432074903D3DCBA00A87BC9 /* MenuMeterDefaults.m */; };
@@ -280,7 +281,6 @@
 				3383C1731B69B72600915D5D /* AppDelegate.m */,
 				3383C1781B69B72600915D5D /* Assets.xcassets */,
 				33BA36D41B69E48300B4220E /* Resources */,
-				3383C17D1B69B72600915D5D /* Info.plist */,
 				3383C1751B69B72600915D5D /* Supporting Files */,
 				308FC0CB227C624E00B459B0 /* PreferencesController.h */,
 				308FC0CC227C627B00B459B0 /* PreferencesController.m */,
@@ -310,6 +310,7 @@
 				3383C1E11B69DD2D00915D5D /* zh_CN.lproj */,
 				308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */,
 				308FC0D9227CB30E00B459B0 /* MainMenu.xib */,
+				3383C17D1B69B72600915D5D /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -321,7 +322,6 @@
 				D4510D7304F2F06100A87BC9 /* Docs */,
 				D40DB4B303D25F9E00A87BC9 /* Common */,
 				D40DB4A903D25F4C00A87BC9 /* MenuExtras */,
-				D4E4BF8B04F333B100A87BC9 /* PrefPane */,
 				D40DB4B803D2600C00A87BC9 /* System Frameworks */,
 				D40DB50803D262ED00A87BC9 /* System Private Frameworks */,
 				3383C1711B69B72500915D5D /* MenuMetersApp */,
@@ -352,6 +352,8 @@
 		D40DB4B303D25F9E00A87BC9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				908780A71FB087B90053DDC5 /* EMCLoginItem.h */,
+				908780A91FB087D70053DDC5 /* EMCLoginItem.m */,
 				30C0F29C2279F52C003E6699 /* smc_reader.xcodeproj */,
 				D48A784B10181DE6008E3207 /* AppleUndocumented.h */,
 				3345DD2D1B6BEFDE003843FC /* MenuMetersMenuExtraBase.h */,
@@ -534,15 +536,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		D4E4BF8B04F333B100A87BC9 /* PrefPane */ = {
-			isa = PBXGroup;
-			children = (
-				908780A71FB087B90053DDC5 /* EMCLoginItem.h */,
-				908780A91FB087D70053DDC5 /* EMCLoginItem.m */,
-			);
-			path = PrefPane;
-			sourceTree = "<group>";
-		};
 		D4ECB2C905FE6FA500954E26 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +689,7 @@
 				3383C1771B69B72600915D5D /* main.m in Sources */,
 				3383C1881B69BF7700915D5D /* MenuMeterCPUExtra.m in Sources */,
 				3383C18C1B69C75F00915D5D /* MenuMeterMemExtra.m in Sources */,
+				308FC0DB227DB2D800B459B0 /* EMCLoginItem.m in Sources */,
 				332B0F8F1E0381780020CCBB /* MenuMeterDefaults.m in Sources */,
 				3383C1841B69B88C00915D5D /* MenuMeterCPUStats.m in Sources */,
 				3345DD2F1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m in Sources */,
