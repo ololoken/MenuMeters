@@ -31,7 +31,6 @@
 #import "MenuMeterCPUStats.h"
 #import "MenuMeterCPUTopProcesses.h"
 #import "MenuMeterUptime.h"
-#import "MenuMeterPowerMate.h"
 #import "MenuMeterWorkarounds.h"
 
 
@@ -46,8 +45,6 @@
 	MenuMeterCPUStats				*cpuInfo;
     MenuMeterCPUTopProcesses        *cpuTopProcesses;
 	MenuMeterUptime					*uptimeInfo;
-	// PowerMate support
-	MenuMeterPowerMate				*powerMate;
 	// The length of the menu item
 	float							menuWidth;
 	// Prerendered percentage text displays and their calculated width

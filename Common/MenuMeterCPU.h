@@ -59,8 +59,6 @@
 #define kCPUSortByUsagePref				    @"CPUSortByUsage"
 #define kCPUSystemColorPref					@"CPUSystemColor"
 #define kCPUUserColorPref					@"CPUUserColor"
-#define kCPUPowerMatePref					@"CPUPowerMate"
-#define kCPUPowerMateMode					@"CPUPowerMateMode"
 #define kCPUShowTemperature                 @"CPUTemperature"
 #define kCPUTemperatureColor                @"CPUTemperatureColor"
 
@@ -85,15 +83,6 @@ enum {
 #define kCPUProcessCountMin                 0
 #define kCPUrocessCountMax                  25
 #define kCPUProcessCountDefault             5
-
-// PowerMate modes
-enum {
-	kCPUPowerMateGlow						= 0,
-	kCPUPowerMatePulse,
-	kCPUPowerMateInverseGlow,
-	kCPUPowerMateInversePulse
-};
-#define kCPUPowerMateModeDefault			kCPUPowerMateGlow
 
 // Timer
 #define kCPUUpdateIntervalMin				0.5f
@@ -123,9 +112,6 @@ enum {
 
 // Sorting by usage
 #define kCPUSortByUsageDefault				NO
-
-// PowerMate
-#define kCPUPowerMateDefault				NO
 
 // Show CPU temperature
 #define kCPUShowTemperatureDefault          NO

@@ -40,7 +40,6 @@
 
 // Timer callbacks
 - (void)updateMenuWhenDown;
-- (void)updatePowerMate;
 
 // Menu actions
 - (void)openProcessViewer:(id)sender;
@@ -642,11 +641,7 @@
 		[self updateMenuWhenDown];
 	}
 
-	// If we're supporting PowerMate do that now
-	if ([ourPrefs cpuPowerMate] && powerMate) {
-		[self updatePowerMate];
-	}
-	[super timerFired:timerFired];
+    [super timerFired:timerFired];
 } // timerFired
 
 - (void)updateMenuWhenDown {
@@ -658,36 +653,6 @@
 	LiveUpdateMenu(extraMenu);
 
 } // updateMenuWhenDown
-
-- (void)updatePowerMate {
-
-    int numberOfCPUs = [self numberOfCPUsToDisplay];
-
-	// Current load (if available)
-	NSArray *currentLoad = [loadHistory lastObject];
-	if (!currentLoad || ([currentLoad count] < numberOfCPUs)) return;
-
-	double totalLoad = 0;
-	for (uint32_t cpuNum = 0; cpuNum < numberOfCPUs; cpuNum++) {
-		MenuMeterCPULoad *load = currentLoad[cpuNum];
-		totalLoad += load.system + load.user;
-	}
-	totalLoad /= numberOfCPUs;
-	if (totalLoad > 1) totalLoad = 1;
-	if (totalLoad < 0) totalLoad = 0;
-
-	if ([ourPrefs cpuPowerMateMode] == kCPUPowerMateGlow) {
-		// Ramp to the glow point in half our update time
-		[powerMate setGlow:totalLoad rampInterval:[ourPrefs cpuInterval] / 2];
-	} else if ([ourPrefs cpuPowerMateMode] == kCPUPowerMatePulse) {
-		[powerMate setPulse:totalLoad];
-	} else if ([ourPrefs cpuPowerMateMode] == kCPUPowerMateInverseGlow) {
-		[powerMate setGlow:(1.0 - totalLoad) rampInterval:[ourPrefs cpuInterval] / 2];
-	} else if ([ourPrefs cpuPowerMateMode] == kCPUPowerMateInversePulse) {
-		[powerMate setPulse:(1.0 - totalLoad)];
-	}
-
-} // updatePowerMate
 
 ///////////////////////////////////////////////////////////////
 //
@@ -841,40 +806,6 @@
     if ([ourPrefs cpuShowTempreture]) {
         menuWidth += kCPUTemperatureDisplayWidth;
     }
-
-	// Handle PowerMate
-	if ([ourPrefs cpuPowerMate]) {
-		// Load PowerMate if needed, this grabs control of the PowerMate
-		if (!powerMate) {
-			powerMate = [[MenuMeterPowerMate alloc] init];
-		}
-		if (powerMate) {
-			// Configure its initial state
-			switch ([ourPrefs cpuPowerMateMode]) {
-				case kCPUPowerMateGlow:
-					[powerMate stopPulse];
-					[powerMate setGlow:0];
-					break;
-				case kCPUPowerMateInverseGlow:
-					[powerMate stopPulse];
-					[powerMate setGlow:1.0];
-					break;
-				case kCPUPowerMatePulse:
-					[powerMate setGlow:1.0];
-					[powerMate setPulse:0];
-					break;
-				case kCPUPowerMateInversePulse:
-					[powerMate setGlow:1.0];
-					[powerMate setPulse:1.0];
-					break;
-			}
-		} else {
-			NSLog(@"MenuMeterCPU unable to load PowerMate support.");
-		}
-	} else {
-		// Release control if the user wants it for something else
-		powerMate = nil;
-	}
 
 	// Resize the view
 	[extraView setFrameSize:NSMakeSize(menuWidth, [extraView frame].size.height)];

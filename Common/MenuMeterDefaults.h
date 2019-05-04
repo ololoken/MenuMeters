@@ -48,9 +48,7 @@
 - (BOOL)cpuAvgAllProcs;
 - (BOOL)cpuAvgLowerHalfProcs;
 - (BOOL)cpuSortByUsage;
-- (BOOL)cpuPowerMate;
 - (BOOL)cpuShowTempreture;
-- (int)cpuPowerMateMode;
 - (NSColor *)cpuSystemColor;
 - (NSColor *)cpuUserColor;
 - (NSColor *)cpuTemperatureColor;
@@ -64,9 +62,7 @@
 - (void)saveCpuAvgAllProcs:(BOOL)average;
 - (void)saveCpuAvgLowerHalfProcs:(BOOL)average;
 - (void)saveCpuSortByUsage:(BOOL)sort;
-- (void)saveCpuPowerMate:(BOOL)active;
 - (void)saveCpuTempreture:(BOOL)show;
-- (void)saveCpuPowerMateMode:(int)mode;
 - (void)saveCpuSystemColor:(NSColor *)color;
 - (void)saveCpuUserColor:(NSColor *)color;
 - (void)saveCpuTempretureColor:(NSColor *)color;

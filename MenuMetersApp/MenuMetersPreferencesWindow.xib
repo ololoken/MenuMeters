@@ -707,7 +707,7 @@
                                                 <tabViewItem identifier="" id="mO3-kO-egs">
                                                     <view key="view" id="Dgu-wE-4BG">
                                                         <rect key="frame" x="0.0" y="0.0" width="271" height="71"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <colorWell id="YJb-iz-BHU">
                                                                 <rect key="frame" x="155" y="9" width="53" height="30"/>

@@ -183,17 +183,6 @@
 	return [self loadBoolPref:kCPUSortByUsagePref defaultValue:kCPUSortByUsageDefault];
 } // cpuSortByUsage
 
-- (BOOL)cpuPowerMate {
-	return [self loadBoolPref:kCPUPowerMatePref defaultValue:kCPUPowerMateDefault];
-} // cpuPowerMate
-
-- (int)cpuPowerMateMode {
-	return [self loadIntPref:kCPUPowerMateMode
-					lowBound:kCPUPowerMateGlow
-				   highBound:kCPUPowerMateInversePulse
-				defaultValue:kCPUPowerMateModeDefault];
-} // cpuPowerMateMode
-
 - (NSColor *)cpuSystemColor {
 	return [self loadColorPref:kCPUSystemColorPref defaultValue:kCPUSystemColorDefault];
 } // cpuSystemColor
@@ -249,14 +238,6 @@
 - (void)saveCpuSortByUsage:(BOOL)sort {
 	[self saveBoolPref:kCPUSortByUsagePref value:sort];
 } // saveCpuSortByUsage
-
-- (void)saveCpuPowerMate:(BOOL)active {
-	[self saveBoolPref:kCPUPowerMatePref value:active];
-} // saveCpuPowerMate
-
-- (void)saveCpuPowerMateMode:(int)mode {
-	[self saveIntPref:kCPUPowerMateMode value:mode];
-} // saveCpuPowerMateMode
 
 - (void)saveCpuTempreture:(BOOL)show {
     [self saveBoolPref: kCPUShowTemperature value:show];
