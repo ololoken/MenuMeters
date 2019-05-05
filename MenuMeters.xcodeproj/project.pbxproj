@@ -102,7 +102,7 @@
 		3345DD2D1B6BEFDE003843FC /* MenuMetersMenuExtraBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuMetersMenuExtraBase.h; sourceTree = "<group>"; };
 		3345DD2E1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuMetersMenuExtraBase.m; sourceTree = "<group>"; };
 		336B59401E03BA68006DA445 /* MenuMeters.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuMeters.pch; sourceTree = "<group>"; };
-		3383C1701B69B72500915D5D /* MenuMetersApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuMetersApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3383C1701B69B72500915D5D /* MenuMeters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuMeters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3383C1721B69B72500915D5D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3383C1731B69B72600915D5D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; wrapsLines = 0; };
 		3383C1761B69B72600915D5D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -342,7 +342,7 @@
 		D40DB4B003D25F6400A87BC9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3383C1701B69B72500915D5D /* MenuMetersApp.app */,
+				3383C1701B69B72500915D5D /* MenuMeters.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -541,9 +541,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3383C16F1B69B72500915D5D /* MenuMetersApp */ = {
+		3383C16F1B69B72500915D5D /* MenuMeters */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3383C1801B69B72600915D5D /* Build configuration list for PBXNativeTarget "MenuMetersApp" */;
+			buildConfigurationList = 3383C1801B69B72600915D5D /* Build configuration list for PBXNativeTarget "MenuMeters" */;
 			buildPhases = (
 				3383C16C1B69B72500915D5D /* Sources */,
 				3383C16D1B69B72500915D5D /* Frameworks */,
@@ -553,9 +553,9 @@
 			);
 			dependencies = (
 			);
-			name = MenuMetersApp;
+			name = MenuMeters;
 			productName = MenuMetersApp;
-			productReference = 3383C1701B69B72500915D5D /* MenuMetersApp.app */;
+			productReference = 3383C1701B69B72500915D5D /* MenuMeters.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -596,7 +596,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				3383C16F1B69B72500915D5D /* MenuMetersApp */,
+				3383C16F1B69B72500915D5D /* MenuMeters */,
 			);
 		};
 /* End PBXProject section */
@@ -980,7 +980,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3383C1801B69B72600915D5D /* Build configuration list for PBXNativeTarget "MenuMetersApp" */ = {
+		3383C1801B69B72600915D5D /* Build configuration list for PBXNativeTarget "MenuMeters" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3383C17E1B69B72600915D5D /* Release */,
