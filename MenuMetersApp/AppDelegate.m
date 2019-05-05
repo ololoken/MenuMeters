@@ -40,8 +40,8 @@
     preferencesController = [[PreferencesController alloc] init];
 }
 
-- (void)showPreferences{
-    [preferencesController showWindow:self];
+- (void)showPreferences:(id)sender {
+    [preferencesController showWindow:sender];
 }
 
 

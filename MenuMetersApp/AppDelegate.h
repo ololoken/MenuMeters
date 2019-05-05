@@ -12,7 +12,7 @@
 
 }
 
-- (void)showPreferences;
+- (void)showPreferences:(id)sender;
 
 @end
 

@@ -27,9 +27,6 @@
 //
 ///////////////////////////////////////////////////////////////
 
-// Bundle directory name of the preferences bundle
-#define kPrefBundleName                 @"MenuMetersApp.app/Contents/Resources/MenuMeterDefaults.bundle"
-
 // Bundle ID for the CPU menu extra
 #define kCPUMenuBundleID				@"com.ragingmenace.MenuMeterCPU"
 
@@ -41,9 +38,6 @@
 
 // Bundle ID for the Net menu extra
 #define kNetMenuBundleID				@"com.ragingmenace.MenuMeterNet"
-
-// Bundle information for the pref pane
-#define kPrefPaneBundleID				@"com.ragingmenace.MenuMeters"
 
 ///////////////////////////////////////////////////////////////
 //
@@ -71,12 +65,6 @@
 
 // Preferences were changed
 #define kPrefChangeNotification			@"prefChange"
-
-// Extras unload
-#define kCPUMenuUnloadNotification		@"cpuMenuUnload"
-#define kDiskMenuUnloadNotification		@"diskMenuUnload"
-#define kMemMenuUnloadNotification		@"memMenuUnload"
-#define kNetMenuUnloadNotification		@"netMenuUnload"
 
 ///////////////////////////////////////////////////////////////
 //

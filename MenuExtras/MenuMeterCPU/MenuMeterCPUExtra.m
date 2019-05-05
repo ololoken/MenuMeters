@@ -23,6 +23,8 @@
 
 #import "MenuMeterCPUExtra.h"
 
+#define CLAMP(v, min, max) MIN(max, MAX(v, min))
+
 ///////////////////////////////////////////////////////////////
 //
 //	Private methods
@@ -220,11 +222,6 @@
 	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self
 															   name:nil
 															 object:nil];
-
-	// Let the pref panel know we have been removed
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kCPUMenuBundleID
-																   object:kCPUMenuUnloadNotification];
-
 	// Let super do the rest
 	[super willUnload];
 
@@ -437,16 +434,12 @@
 			user /= numberOfCPUs;
 		}
 		// Sanity and limit
-		if (system < 0) system = 0;
-		if (system > 1) system = 1;
-		if (user < 0) user = 0;
-		if (user > 1) user = 1;
+        system = CLAMP(system, 0, 1);
+        user = CLAMP(user, 0, 1);
 
 		// Update paths (adding baseline)
-		[userPath lineToPoint:NSMakePoint(offset + renderPosition,
-										  (((system + user) > 1 ? 1 : (system + user)) * renderHeight) + 0.5f)];
-		[systemPath lineToPoint:NSMakePoint(offset + renderPosition,
-											(system * renderHeight) + 0.5f)];
+		[userPath lineToPoint:NSMakePoint(offset + renderPosition, 0.5f + MIN(system + user, 1) * renderHeight)];
+		[systemPath lineToPoint:NSMakePoint(offset + renderPosition, (system * renderHeight) + 0.5f)];
 	}
 
 	// Return to lower edge (fill will close the graph)
@@ -483,8 +476,8 @@
 		}
 		totalLoad /= numberOfCPUs;
 	}
-	if (totalLoad > 1) totalLoad = 1;
-	if (totalLoad < 0) totalLoad = 0;
+
+    totalLoad = CLAMP(totalLoad, 0, 1);
 
 	// Get the prerendered text and draw
 	NSImage *percentImage = [singlePercentCache objectAtIndex:roundf(totalLoad * 100.0f)];
@@ -565,7 +558,7 @@
 	// Paths
 	float thermometerTotalHeight = (float)[image size].height - 3.0f;
 	NSBezierPath *userPath = [NSBezierPath bezierPathWithRect:NSMakeRect(offset + 1.5f, 1.5f, kCPUThermometerDisplayWidth - 3,
-																		 thermometerTotalHeight * ((user + system) > 1 ? 1 : (user + system)))];
+																		 thermometerTotalHeight * MIN(user + system, 1))];
 	NSBezierPath *systemPath = [NSBezierPath bezierPathWithRect:NSMakeRect(offset + 1.5f, 1.5f, kCPUThermometerDisplayWidth - 3,
 																		  thermometerTotalHeight * system)];
 	NSBezierPath *framePath = [NSBezierPath bezierPathWithRect:NSMakeRect(offset + 1.5f, 1.5f, kCPUThermometerDisplayWidth - 3, thermometerTotalHeight)];
@@ -595,7 +588,7 @@
 	// Paths
     NSBezierPath *rightCapPath = [NSBezierPath bezierPathWithRect:NSMakeRect((x + width) - 2.0f, y, 1.0f, height - 1.0f)];
 
-	NSBezierPath *userPath = [NSBezierPath bezierPathWithRect:NSMakeRect(x + 1.0f, y, (width - 2.0f) * ((user + system) > 1 ? 1 : (user + system)), height - 1.0f)];
+	NSBezierPath *userPath = [NSBezierPath bezierPathWithRect:NSMakeRect(x + 1.0f, y, (width - 2.0f) * MIN(user + system, 1), height - 1.0f)];
 
 	NSBezierPath *systemPath = [NSBezierPath bezierPathWithRect:NSMakeRect(x + 1.0f, y, (width - 2.0f) * system, height - 1.0f)];
 
@@ -840,14 +833,8 @@
             returnSystem:(double *)system
               returnUser:(double *)user
 {
-    *system = load.system;
-    *user = load.user;
-    // Sanity and limit
-    if (*system < 0) *system = 0;
-    if (*system > 1) *system = 1;
-    if (*user < 0) *user = 0;
-    if (*user > 1) *user = 1;
-    
+    *system = CLAMP(load.system, 0, 1);
+    *user = CLAMP(load.user, 0, 1);
 }
 
 @end

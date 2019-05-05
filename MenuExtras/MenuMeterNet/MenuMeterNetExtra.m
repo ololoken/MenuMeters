@@ -277,10 +277,6 @@
 															   name:nil
 															 object:nil];
 
-	// Let the pref panel know we have been removed
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kNetMenuBundleID
-																   object:kNetMenuUnloadNotification];
-
 	// Let super do the rest
     [super willUnload];
 
@@ -1354,8 +1350,6 @@
 	[ourPrefs saveNetPreferInterface:interfaceName];
 	[ourPrefs syncWithDisk];
 	// Send the notification to the pref pane
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kPrefPaneBundleID
-																   object:kPrefChangeNotification];
 
 } // switchDisplay
 

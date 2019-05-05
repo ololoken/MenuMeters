@@ -22,7 +22,10 @@
 //
 
 #import "PreferencesController.h"
-#import "EMCLoginItem.h"
+#import "MenuMeterCPUExtra.h"
+#import "MenuMeterDiskExtra.h"
+#import "MenuMeterMemExtra.h"
+#import "MenuMeterNetExtra.h"
 
 ///////////////////////////////////////////////////////////////
 //
@@ -31,10 +34,6 @@
 ///////////////////////////////////////////////////////////////
 
 @interface PreferencesController (PrivateMethods)
-
-// Notifications
-- (void)menuExtraUnloaded:(NSNotification *)notification;
-- (void)menuExtraChangedPrefs:(NSNotification *)notification;
 
 // Menu extra manipulations
 - (void)loadExtraAtURL:(NSURL *)extraURL withID:(NSString *)bundleID;
@@ -54,19 +53,6 @@
 - (NSDictionary *)sysconfigValueForKey:(NSString *)key;
 
 @end
-
-// MenuCracker
-#define kMenuCrackerURL                [NSURL fileURLWithPath:[[self bundle] pathForResource:@"MenuCracker" ofType:@"menu" inDirectory:@""]]
-
-// Paths to the menu extras
-#define kCPUMenuURL nil
-#define kDiskMenuURL nil
-#define kMemMenuURL nil
-#define kNetMenuURL nil
-
-// How long to wait for Extras to add once CoreMenuExtraAddMenuExtra returns?
-#define kWaitForExtraLoadMicroSec        10000000
-#define kWaitForExtraLoadStepMicroSec    250000
 
 // Mem panel hidden tabs for color controls
 enum {
@@ -94,11 +80,25 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     return self;
 }
 
-//this is a simple override of -showWindow: to ensure the window is always centered
+
 -(IBAction)showWindow:(id)sender {
     [self willShow];
     [super showWindow:sender];
     [[self window] center];
+    [[self window] makeKeyAndOrderFront:self];
+    [NSApp activateIgnoringOtherApps:YES];
+    if ([sender isKindOfClass:[MenuMeterCPUExtra class]]) {
+        [prefTabs selectTabViewItem:tabCpu];
+    }
+    else if ([sender isKindOfClass:[MenuMeterDiskExtra class]]) {
+        [prefTabs selectTabViewItem:tabDisk];
+    }
+    else if ([sender isKindOfClass:[MenuMeterMemExtra class]]) {
+        [prefTabs selectTabViewItem:tabMem];
+    }
+    else if ([sender isKindOfClass:[MenuMeterNetExtra class]]) {
+        [prefTabs selectTabViewItem:tabNet];
+    }
 }
 
 ///////////////////////////////////////////////////////////////
@@ -108,29 +108,20 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 ///////////////////////////////////////////////////////////////
 
 - (void)windowDidLoad {
-
-    // Check OS version
-    BOOL isLeopardOrLater = OSIsLeopardOrLater();
-
-    // Resize to be the new width of the System Preferences window for Leopard
-    if (isLeopardOrLater) {
-        //[[self mainView] setFrameSize:NSMakeSize(668, [[self mainView] frame].size.height)];
-    }
-
-    // On first load switch to the first tab
-    [prefTabs selectFirstTabViewItem:self];
-
     // Set the switches on each menu toggle
-    [cpuMeterToggle setState:([self extraWithBundleIDState:kCPUMenuBundleID])];
-    [diskMeterToggle setState:([self extraWithBundleIDState:kDiskMenuBundleID])];
-    [memMeterToggle setState:([self extraWithBundleIDState:kMemMenuBundleID])];
-    [netMeterToggle setState:([self extraWithBundleIDState:kNetMenuBundleID])];
 
-    // Reset the controls to match the prefs
-    [self menuExtraChangedPrefs:nil];
+    [cpuMeterToggle setState:([self isExtraWithBundleIDLoaded:kCPUMenuBundleID])];
+    [diskMeterToggle setState:([self isExtraWithBundleIDLoaded:kDiskMenuBundleID])];
+    [memMeterToggle setState:([self isExtraWithBundleIDLoaded:kMemMenuBundleID])];
+    [netMeterToggle setState:([self isExtraWithBundleIDLoaded:kNetMenuBundleID])];
+
+    [self cpuPrefChange:nil];
+    [self diskPrefChange:nil];
+    [self memPrefChange:nil];
+    [self netPrefChange:nil];
 
     // Build the preferred interface menu and select (this actually updates the net prefs too)
-    //[self updateNetInterfaceMenu];
+    [self updateNetInterfaceMenu];
 
     // On first load populate the image set menu
     NSEnumerator *diskImageSetEnum = [kDiskImageSets objectEnumerator];
@@ -138,30 +129,8 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     NSString *imageSetName = nil;
     while ((imageSetName = [diskImageSetEnum nextObject])) {
         [diskImageSet addItemWithTitle:
-         [[NSBundle bundleForClass:[self class]]
-          localizedStringForKey:imageSetName value:nil table:nil]];
+         [[NSBundle bundleForClass:[self class]] localizedStringForKey:imageSetName value:nil table:nil]];
     }
-
-    // On first load set the version string with a clickable link
-    //NSString*webpageURL=@"http://ragingmenace.com/";
-    NSString* webpageURL=@"http://member.ipmu.jp/yuji.tachikawa/MenuMetersElCapitan/";
-    NSMutableAttributedString *versionInfoString = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleGetInfoString"];
-    NSMutableAttributedString *linkedVersionString = [[NSMutableAttributedString alloc] initWithString: [NSString stringWithFormat:@"%@ (%@)", versionInfoString,webpageURL]];
-    [linkedVersionString beginEditing];
-    [linkedVersionString setAlignment:NSCenterTextAlignment range:NSMakeRange(0, [linkedVersionString length])];
-    [linkedVersionString addAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys: [NSFont systemFontOfSize:10.0f], NSFontAttributeName, nil]
-                                 range:NSMakeRange(0, [linkedVersionString length])];
-    [linkedVersionString addAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys: webpageURL,
-        NSLinkAttributeName, [NSColor blueColor], NSForegroundColorAttributeName,
-        [NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineStyleAttributeName, nil]
-                                 range:NSMakeRange([versionInfoString length] + 2, [webpageURL length])];
-    [linkedVersionString endEditing];
-    // See QA1487
-    [versionDisplay setAllowsEditingTextAttributes:YES];
-    [versionDisplay setSelectable:YES];
-    [versionDisplay setAttributedStringValue:linkedVersionString];
 
     // On first load turn off cpu averaging control if this is not a multiproc machine
     [cpuAvgProcs setEnabled:[self isMultiProcessor]];
@@ -170,10 +139,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     NSNumberFormatter *intervalFormatter = [[NSNumberFormatter alloc] init];
     [intervalFormatter setLocalizesFormat:YES];
     [intervalFormatter setFormat:@"###0.0"];
-    // Go through an archive/unarchive cycle to work around a bug on pre-10.2.2 systems
-    // see http://cocoa.mamasam.com/COCOADEV/2001/12/2/21029.php
-    intervalFormatter = [NSUnarchiver unarchiveObjectWithData:[NSArchiver archivedDataWithRootObject:intervalFormatter]];
-    // Now set the formatters
+
     [cpuIntervalDisplay setFormatter:intervalFormatter];
     [diskIntervalDisplay setFormatter:intervalFormatter];
     [netIntervalDisplay setFormatter:intervalFormatter];
@@ -188,17 +154,6 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LogScale" ofType:@"tiff"]]];
     [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLog] title]]];
 
-    /*
-    NSString *appPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"MenuMetersApp" ofType:@"app"];
-    [[NSWorkspace sharedWorkspace] launchApplication:appPath];
-
-    EMCLoginItem *loginItem = [EMCLoginItem loginItemWithPath:appPath];
-
-    if (![loginItem isLoginItem])
-    {
-        [loginItem addLoginItem];
-    }
-     */
 } // mainViewDidLoad
 
 - (void)willShow {
@@ -208,30 +163,6 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 
     // Hook up to SystemConfig Framework
     [self connectSystemConfig];
-
-    // Register for pref change notifications from the extras
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(menuExtraChangedPrefs:)
-                                                            name:kPrefPaneBundleID
-                                                          object:kPrefChangeNotification];
-
-    // Register for notifications from the extras when they unload
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(menuExtraUnloaded:)
-                                                            name:kCPUMenuBundleID
-                                                          object:kCPUMenuUnloadNotification];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(menuExtraUnloaded:)
-                                                            name:kDiskMenuBundleID
-                                                          object:kDiskMenuUnloadNotification];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(menuExtraUnloaded:)
-                                                            name:kMemMenuBundleID
-                                                          object:kMemMenuUnloadNotification];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(menuExtraUnloaded:)
-                                                            name:kNetMenuBundleID
-                                                          object:kNetMenuUnloadNotification];
 
 } // willShow
 
@@ -252,102 +183,60 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 
 ///////////////////////////////////////////////////////////////
 //
-//    Notifications
-//
-///////////////////////////////////////////////////////////////
-
-- (void)menuExtraUnloaded:(NSNotification *)notification {
-
-    NSString *bundleID = [notification name];
-    if (bundleID) {
-        if ([bundleID isEqualToString:kCPUMenuBundleID]) {
-            [cpuMeterToggle setState:NSOffState];
-        } else if ([bundleID isEqualToString:kDiskMenuBundleID]) {
-            [diskMeterToggle setState:NSOffState];
-        } else if ([bundleID isEqualToString:kMemMenuBundleID]) {
-            [memMeterToggle setState:NSOffState];
-        } else if ([bundleID isEqualToString:kNetMenuBundleID]) {
-            [netMeterToggle setState:NSOffState];
-        }
-    }
-
-} // menuExtraUnloaded
-
-- (void)menuExtraChangedPrefs:(NSNotification *)notification {
-
-    if (ourPrefs) {
-        [ourPrefs syncWithDisk];
-        [self cpuPrefChange:nil];
-        [self diskPrefChange:nil];
-        [self memPrefChange:nil];
-        [self netPrefChange:nil];
-    }
-
-} // menuExtraChangedDefaults
-
-///////////////////////////////////////////////////////////////
-//
 //    IB Targets
 //
 ///////////////////////////////////////////////////////////////
-
 - (IBAction)liveUpdateInterval:(id)sender {
-
-    // Clever solution to live updating by exploiting the difference between
-    // UI tracking and default runloop mode. See
-    // http://www.cocoabuilder.com/archive/message/cocoa/2008/10/17/220399
     if (sender == cpuInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                                 selector:@selector(cpuPrefChange:)
-                                                   object:cpuInterval];
-        [self performSelector:@selector(cpuPrefChange:)
-                   withObject:cpuInterval
-                   afterDelay:0.0];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(cpuPrefChange:) object:cpuInterval];
+        [self performSelector:@selector(cpuPrefChange:) withObject:cpuInterval afterDelay:0.0];
         [cpuIntervalDisplay takeDoubleValueFrom:cpuInterval];
-    } else if (sender == diskInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                                 selector:@selector(diskPrefChange:)
-                                                   object:diskInterval];
-        [self performSelector:@selector(diskPrefChange:)
-                   withObject:diskInterval
-                   afterDelay:0.0];
+    }
+    else if (sender == diskInterval) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(diskPrefChange:) object:diskInterval];
+        [self performSelector:@selector(diskPrefChange:) withObject:diskInterval afterDelay:0.0];
         [diskIntervalDisplay takeDoubleValueFrom:diskInterval];
-    } else if (sender == memInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                                 selector:@selector(memPrefChange:)
-                                                   object:memInterval];
-        [self performSelector:@selector(memPrefChange:)
-                   withObject:memInterval
-                   afterDelay:0.0];
+    }
+    else if (sender == memInterval) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(memPrefChange:) object:memInterval];
+        [self performSelector:@selector(memPrefChange:) withObject:memInterval afterDelay:0.0];
         [memIntervalDisplay takeDoubleValueFrom:memInterval];
-    } else if (sender == netInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                                 selector:@selector(netPrefChange:)
-                                                   object:netInterval];
-        [self performSelector:@selector(netPrefChange:)
-                   withObject:netInterval
-                   afterDelay:0.0];
+    }
+    else if (sender == netInterval) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(netPrefChange:) object:netInterval];
+        [self performSelector:@selector(netPrefChange:) withObject:netInterval afterDelay:0.0];
         [netIntervalDisplay takeDoubleValueFrom:netInterval];
     }
-
 } // liveUpdateInterval:
+
+- (void)toggleMenu:(NSButton *)toggle bundleID:(NSString *)bundleID {
+    [toggle state]
+        ? [self loadExtraWithId:bundleID]
+        : [self removeExtraWithBundleID:bundleID];
+    [toggle setState:[self isExtraWithBundleIDLoaded:bundleID]];
+}
+
+- (void)saveAndNotify:(NSString *)bundleID {
+    // Write prefs and notify
+    [ourPrefs syncWithDisk];
+    if ([self isExtraWithBundleIDLoaded:bundleID]) {
+        [[NSDistributedNotificationCenter defaultCenter]
+         postNotificationName:bundleID
+         object:kPrefChangeNotification
+         userInfo:nil deliverImmediately:YES];
+    }
+}
 
 - (IBAction)cpuPrefChange:(id)sender {
 
     // Extra load handler
-    if (([cpuMeterToggle state] == NSOnState) && ![self isExtraWithBundleIDLoaded:kCPUMenuBundleID]) {
-        [self loadExtraAtURL:kCPUMenuURL withID:kCPUMenuBundleID];
-    } else if (([cpuMeterToggle state] == NSOffState) && [self isExtraWithBundleIDLoaded:kCPUMenuBundleID]) {
-        [self removeExtraWithBundleID:kCPUMenuBundleID];
-    }
-    [cpuMeterToggle setState:StateValue([self isExtraWithBundleIDLoaded:kCPUMenuBundleID])];
+    [self toggleMenu:cpuMeterToggle bundleID:kCPUMenuBundleID];
 
     // Save changes
     if (sender == cpuDisplayMode) {
         [ourPrefs saveCpuDisplayMode:(int)[cpuDisplayMode indexOfSelectedItem] + 1];
     } else if (sender == cpuTemperatureToggle) {
-        bool show = [cpuTemperatureToggle state] == NSOnState ? YES : NO;
-        [ourPrefs saveCpuTempreture:show];
+        [ourPrefs saveCpuTempreture:[cpuTemperatureToggle state]];
     } else if (sender == cpuInterval) {
         [ourPrefs saveCpuInterval:[cpuInterval doubleValue]];
     } else if (sender == cpuPercentMode) {
@@ -361,20 +250,20 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     } else if (sender == cpuMenuWidth) {
         [ourPrefs saveCpuMenuWidth:[cpuMenuWidth intValue]];
     } else if (sender == cpuAvgProcs) {
-        bool avg = ([cpuAvgProcs state] == NSOnState) ? YES : NO;
+        bool avg = [cpuAvgProcs state];
         [ourPrefs saveCpuAvgAllProcs:avg];
         if (avg) {
             [ourPrefs saveCpuAvgLowerHalfProcs:NO];
             [ourPrefs saveCpuSortByUsage:NO];
         }
     } else if (sender == cpuAvgLowerHalfProcs) {
-        bool avg = ([cpuAvgLowerHalfProcs state] == NSOnState) ? YES : NO;
+        bool avg = [cpuAvgLowerHalfProcs state];
         [ourPrefs saveCpuAvgLowerHalfProcs:avg];
         if (avg) {
             [ourPrefs saveCpuAvgAllProcs:NO];
         }
     } else if (sender == cpuSortByUsage) {
-        BOOL sort = ([cpuSortByUsage state] == NSOnState) ? YES : NO;
+        bool sort = [cpuSortByUsage state];
         [ourPrefs saveCpuSortByUsage:sort];
         if (sort) {
             [ourPrefs saveCpuAvgAllProcs:NO];
@@ -405,17 +294,17 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     [cpuGraphWidth setIntValue:[ourPrefs cpuGraphLength]];
     [cpuHorizontalRows setIntValue:[ourPrefs cpuHorizontalRows]];
     [cpuMenuWidth setIntValue:[ourPrefs cpuMenuWidth]];
-    [cpuAvgProcs setState:StateValue([ourPrefs cpuAvgAllProcs])];
-    [cpuTemperatureToggle setState:StateValue([ourPrefs cpuShowTempreture])];
-    [cpuAvgLowerHalfProcs setState:StateValue([ourPrefs cpuAvgLowerHalfProcs])];
-    [cpuSortByUsage setState:StateValue([ourPrefs cpuSortByUsage])];
+    [cpuAvgProcs setState:[ourPrefs cpuAvgAllProcs]];
+    [cpuTemperatureToggle setState:[ourPrefs cpuShowTempreture]];
+    [cpuAvgLowerHalfProcs setState:[ourPrefs cpuAvgLowerHalfProcs]];
+    [cpuSortByUsage setState:[ourPrefs cpuSortByUsage]];
     [cpuUserColor setColor:[ourPrefs cpuUserColor]];
     [cpuSystemColor setColor:[ourPrefs cpuSystemColor]];
     [cpuTemperatureColor setColor:[ourPrefs cpuTemperatureColor]];
     [cpuIntervalDisplay takeDoubleValueFrom:cpuInterval];
 
     // Disable controls as needed
-    if ([cpuSortByUsage state] == NSOnState) {
+    if ([cpuSortByUsage state]) {
         [cpuAvgProcs setEnabled:NO];
         [cpuPercentModeLabel setTextColor:[NSColor lightGrayColor]];
         [cpuAvgLowerHalfProcs setEnabled:YES];
@@ -425,7 +314,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
         [cpuPercentModeLabel setTextColor:[NSColor controlTextColor]];
         [cpuAvgLowerHalfProcs setEnabled:NO];
     }
-    if ([cpuAvgProcs state] == NSOnState) {
+    if ([cpuAvgProcs state]) {
         [cpuSortByUsage setEnabled:NO];
     }
     else {
@@ -472,25 +361,14 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
             [cpuSystemColorLabel setTextColor:[NSColor lightGrayColor]];
         }
 
-    // Write prefs and notify
-    [ourPrefs syncWithDisk];
-    if ([self isExtraWithBundleIDLoaded:kCPUMenuBundleID]) {
-        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:kCPUMenuBundleID
-                                                                       object:kPrefChangeNotification
-                                                                     userInfo:nil deliverImmediately:YES];
-    }
+    [self saveAndNotify:kCPUMenuBundleID];
 
 } // cpuPrefChange
 
 - (IBAction)diskPrefChange:(id)sender {
 
     // Extra load
-    if (([diskMeterToggle state] == NSOnState) && ![self isExtraWithBundleIDLoaded:kDiskMenuBundleID]) {
-        [self loadExtraAtURL:kDiskMenuURL withID:kDiskMenuBundleID];
-    } else if (([diskMeterToggle state] == NSOffState) && [self isExtraWithBundleIDLoaded:kDiskMenuBundleID]) {
-        [self removeExtraWithBundleID:kDiskMenuBundleID];
-    }
-    [diskMeterToggle setState:([self isExtraWithBundleIDLoaded:kDiskMenuBundleID] ? NSOnState : NSOffState)];
+    [self toggleMenu:diskMeterToggle bundleID:kDiskMenuBundleID];
 
     // Save changes
     if (sender == diskImageSet) {
@@ -522,12 +400,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 - (IBAction)memPrefChange:(id)sender {
 
     // Extra load
-    if (([memMeterToggle state] == NSOnState) && ![self isExtraWithBundleIDLoaded:kMemMenuBundleID]) {
-        [self loadExtraAtURL:kMemMenuURL withID:kMemMenuBundleID];
-    } else if (([memMeterToggle state] == NSOffState) && [self isExtraWithBundleIDLoaded:kMemMenuBundleID]) {
-        [self removeExtraWithBundleID:kMemMenuBundleID];
-    }
-    [memMeterToggle setState:([self isExtraWithBundleIDLoaded:kMemMenuBundleID] ? NSOnState : NSOffState)];
+    [self toggleMenu:memMeterToggle bundleID:kMemMenuBundleID];
 
     // Save changes
     if (sender == memDisplayMode) {
@@ -535,11 +408,11 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     } else if (sender == memInterval) {
         [ourPrefs saveMemInterval:[memInterval doubleValue]];
     } else if (sender == memFreeUsedLabeling) {
-        [ourPrefs saveMemUsedFreeLabel:(([memFreeUsedLabeling state] == NSOnState) ? YES : NO)];
+        [ourPrefs saveMemUsedFreeLabel:[memFreeUsedLabeling state]];
     } else if (sender == memPageIndicator) {
-        [ourPrefs saveMemPageIndicator:(([memPageIndicator state] == NSOnState) ? YES : NO)];
+        [ourPrefs saveMemPageIndicator:[memPageIndicator state]];
     } else if (sender == memPressureMode) {
-        [ourPrefs saveMemPressure:(([memPressureMode state] == NSOnState) ? YES : NO)];
+        [ourPrefs saveMemPressure:[memPressureMode state]];
     } else if (sender == memGraphWidth) {
         [ourPrefs saveMemGraphLength:[memGraphWidth intValue]];
     } else if (sender == memActiveColor) {
@@ -564,9 +437,9 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     [memDisplayMode selectItemAtIndex:-1]; // Work around multiselects. AppKit problem?
     [memDisplayMode selectItemAtIndex:[ourPrefs memDisplayMode] - 1];
     [memInterval setDoubleValue:[ourPrefs memInterval]];
-    [memFreeUsedLabeling setState:([ourPrefs memUsedFreeLabel] ? NSOnState : NSOffState)];
-    [memPageIndicator setState:([ourPrefs memPageIndicator] ? NSOnState : NSOffState)];
-    [memPressureMode setState:([ourPrefs memPressure] ? NSOnState : NSOffState)];
+    [memFreeUsedLabeling setState:[ourPrefs memUsedFreeLabel]];
+    [memPageIndicator setState:[ourPrefs memPageIndicator]];
+    [memPressureMode setState:[ourPrefs memPressure]];
     [memGraphWidth setIntValue:[ourPrefs memGraphLength]];
     [memActiveColor setColor:[ourPrefs memActiveColor]];
     [memInactiveColor setColor:[ourPrefs memInactiveColor]];
@@ -595,7 +468,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
         [memGraphWidth setEnabled:NO];
         [memGraphWidthLabel setTextColor:[NSColor lightGrayColor]];
     }
-    if ([memPageIndicator state] == NSOnState) {
+    if ([memPageIndicator state]) {
         [memPageinColorLabel setTextColor:[NSColor controlTextColor]];
         [memPageoutColorLabel setTextColor:[NSColor controlTextColor]];
         [memPageinColor setEnabled:YES];
@@ -613,26 +486,13 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
         [memPressureMode setEnabled:NO];
     }
 
-    // Write prefs and notify
-    [ourPrefs syncWithDisk];
-    if ([self isExtraWithBundleIDLoaded:kMemMenuBundleID]) {
-        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:kMemMenuBundleID
-                                                                       object:kPrefChangeNotification
-                                                                     userInfo:nil deliverImmediately:YES];
-    }
-
+    [self saveAndNotify:kMemMenuBundleID];
 } // memPrefChange
 
 - (IBAction)netPrefChange:(id)sender {
 
     // Extra load
-    if (([netMeterToggle state] == NSOnState) && ![self isExtraWithBundleIDLoaded:kNetMenuBundleID]) {
-        [self loadExtraAtURL:kNetMenuURL withID:kNetMenuBundleID];
-    }
-    else if (([netMeterToggle state] == NSOffState) && [self isExtraWithBundleIDLoaded:kNetMenuBundleID]) {
-        [self removeExtraWithBundleID:kNetMenuBundleID];
-    }
-    [netMeterToggle setState:([self isExtraWithBundleIDLoaded:kNetMenuBundleID] ? NSOnState : NSOffState)];
+    [self toggleMenu:netMeterToggle bundleID:kNetMenuBundleID];
 
     // Save changes
     if (sender == netDisplayMode) {
@@ -646,9 +506,9 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     } else if (sender == netInterval) {
         [ourPrefs saveNetInterval:[netInterval doubleValue]];
     } else if (sender == netThroughputLabeling) {
-        [ourPrefs saveNetThroughputLabel:(([netThroughputLabeling state] == NSOnState) ? YES : NO)];
+        [ourPrefs saveNetThroughputLabel:[netThroughputLabeling state]];
     } else if (sender == netThroughput1KBound) {
-        [ourPrefs saveNetThroughput1KBound:(([netThroughput1KBound state] == NSOnState) ? YES : NO)];
+        [ourPrefs saveNetThroughput1KBound:[netThroughput1KBound state]];
     } else if (sender == netGraphStyle) {
         [ourPrefs saveNetGraphStyle:(int)[netGraphStyle indexOfSelectedItem]];
     } else if (sender == netGraphWidth) {
@@ -680,8 +540,8 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     [netScaleCalc selectItemAtIndex:-1]; // Work around multiselects. AppKit problem?
     [netScaleCalc selectItemAtIndex:[ourPrefs netScaleCalc]];
     [netInterval setDoubleValue:[ourPrefs netInterval]];
-    [netThroughputLabeling setState:([ourPrefs netThroughputLabel] ? NSOnState : NSOffState)];
-    [netThroughput1KBound setState:([ourPrefs netThroughput1KBound] ? NSOnState : NSOffState)];
+    [netThroughputLabeling setState:[ourPrefs netThroughputLabel]];
+    [netThroughput1KBound setState:[ourPrefs netThroughput1KBound]];
     [netGraphStyle selectItemAtIndex:-1]; // Work around multiselects. AppKit problem?
     [netGraphStyle selectItemAtIndex:[ourPrefs netGraphStyle]];
     [netGraphWidth setIntValue:[ourPrefs netGraphLength]];
@@ -744,14 +604,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
         [netScaleCalcLabel setTextColor:[NSColor lightGrayColor]];
     }
 
-    // Write prefs and notify
-    [ourPrefs syncWithDisk];
-    if ([self isExtraWithBundleIDLoaded:kNetMenuBundleID]) {
-        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:kNetMenuBundleID
-                                                                       object:kPrefChangeNotification
-                                                                     userInfo:nil deliverImmediately:YES];
-    }
-
+    [self saveAndNotify:kNetMenuBundleID];
 } // netPrefChange
 
 ///////////////////////////////////////////////////////////////
@@ -759,8 +612,15 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 //    Menu extra manipulations
 //
 ///////////////////////////////////////////////////////////////
+- (BOOL)isExtraWithBundleIDLoaded:(NSString *)bundleID {
+    return [ourPrefs loadBoolPref:bundleID defaultValue:YES];
+} // isExtraWithBundleIDLoaded
 
-- (void)loadExtraAtURL:(NSURL *)extraURL withID:(NSString *)bundleID {
+
+- (void)loadExtraWithId:(NSString *)bundleID {
+    if ([self isExtraWithBundleIDLoaded:bundleID]) {
+        return;
+    }
     [ourPrefs saveBoolPref:bundleID value:YES];
     [ourPrefs syncWithDisk];
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:bundleID
@@ -769,18 +629,10 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     return;
 } // loadExtraAtURL:withID:
 
-- (BOOL)isExtraWithBundleIDLoaded:(NSString *)bundleID {
-    return [ourPrefs loadBoolPref:bundleID defaultValue:YES];
-} // isExtraWithBundleIDLoaded
-
-
-- (NSControlStateValue)extraWithBundleIDState:(NSString *)bundleID {
-    return [self isExtraWithBundleIDLoaded:bundleID]
-        ? NSControlStateValueOn
-        : NSControlStateValueOff;
-} // isExtraWithBundleIDLoaded
-
 - (void)removeExtraWithBundleID:(NSString *)bundleID {
+    if (![self isExtraWithBundleIDLoaded:bundleID]) {
+        return;
+    }
     [ourPrefs saveBoolPref:bundleID value:NO];
     [ourPrefs syncWithDisk];
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:bundleID

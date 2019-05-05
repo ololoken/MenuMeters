@@ -71,7 +71,7 @@ static AppDelegate *appDelegate;
 - (void)menuWillOpen:(NSMenu*)menu {
     if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
     {
-        [appDelegate showPreferences];
+        [appDelegate showPreferences:self];
     }
     _isMenuVisible = YES;
 }

@@ -25,7 +25,6 @@
 #import "AppleUndocumented.h"
 
 @interface MenuMeterCPUView : NSMenuExtraView {
-
 	// Associated menu extra
 	NSMenuExtra 	*cpuMenuExtra;
 

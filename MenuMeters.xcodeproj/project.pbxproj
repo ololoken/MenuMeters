@@ -14,7 +14,6 @@
 		308FC0D5227C675600B459B0 /* LinearScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D1227C675600B459B0 /* LinearScale.tiff */; };
 		308FC0D6227C675600B459B0 /* LogScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D2227C675600B459B0 /* LogScale.tiff */; };
 		308FC0DA227CB33700B459B0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D9227CB30E00B459B0 /* MainMenu.xib */; };
-		308FC0DB227DB2D800B459B0 /* EMCLoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 908780A91FB087D70053DDC5 /* EMCLoginItem.m */; };
 		30C0F2A7227A19BF003E6699 /* libsmc_reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C0F2A12279F52D003E6699 /* libsmc_reader.a */; };
 		33281A4A1B6BFB05001EA811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3383C1781B69B72600915D5D /* Assets.xcassets */; };
 		332B0F8F1E0381780020CCBB /* MenuMeterDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D432074903D3DCBA00A87BC9 /* MenuMeterDefaults.m */; };
@@ -117,8 +116,6 @@
 		3383C1E01B69DD2D00915D5D /* nl.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nl.lproj; sourceTree = "<group>"; };
 		3383C1E11B69DD2D00915D5D /* zh_CN.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zh_CN.lproj; sourceTree = "<group>"; };
 		33C91649215BD88B00DEA006 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
-		908780A71FB087B90053DDC5 /* EMCLoginItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMCLoginItem.h; sourceTree = "<group>"; };
-		908780A91FB087D70053DDC5 /* EMCLoginItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMCLoginItem.m; sourceTree = "<group>"; };
 		D40271BE083D9C0500D09108 /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = nl; path = MenuExtras/MenuMeterCPU/nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D403AD3B0E04E99C00348443 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D403ADE20E04F17900348443 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -333,6 +330,8 @@
 		D40DB4A903D25F4C00A87BC9 /* MenuExtras */ = {
 			isa = PBXGroup;
 			children = (
+				3345DD2D1B6BEFDE003843FC /* MenuMetersMenuExtraBase.h */,
+				3345DD2E1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m */,
 				D477AAD603D4B9DE00A87BC9 /* MenuMeterCPU */,
 				D42EC94703D498CC00A87BC9 /* MenuMeterDisk */,
 				D45F12C503D4886000A87BC9 /* MenuMeterMem */,
@@ -352,12 +351,8 @@
 		D40DB4B303D25F9E00A87BC9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				908780A71FB087B90053DDC5 /* EMCLoginItem.h */,
-				908780A91FB087D70053DDC5 /* EMCLoginItem.m */,
 				30C0F29C2279F52C003E6699 /* smc_reader.xcodeproj */,
 				D48A784B10181DE6008E3207 /* AppleUndocumented.h */,
-				3345DD2D1B6BEFDE003843FC /* MenuMetersMenuExtraBase.h */,
-				3345DD2E1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m */,
 				D4510D9104F2F0FD00A87BC9 /* MenuMeters.h */,
 				D40DB4C403D260E800A87BC9 /* MenuMeterCPU.h */,
 				D40DB4C503D260E800A87BC9 /* MenuMeterDisk.h */,
@@ -689,7 +684,6 @@
 				3383C1771B69B72600915D5D /* main.m in Sources */,
 				3383C1881B69BF7700915D5D /* MenuMeterCPUExtra.m in Sources */,
 				3383C18C1B69C75F00915D5D /* MenuMeterMemExtra.m in Sources */,
-				308FC0DB227DB2D800B459B0 /* EMCLoginItem.m in Sources */,
 				332B0F8F1E0381780020CCBB /* MenuMeterDefaults.m in Sources */,
 				3383C1841B69B88C00915D5D /* MenuMeterCPUStats.m in Sources */,
 				3345DD2F1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m in Sources */,

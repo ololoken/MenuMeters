@@ -9,17 +9,9 @@
 #define PreferencesController_h
 
 #import <SystemConfiguration/SystemConfiguration.h>
-#import <sys/types.h>
-#import <sys/sysctl.h>
-#import <unistd.h>
-#import "AppleUndocumented.h"
-#import "MenuMeters.h"
 #import "MenuMeterDefaults.h"
-#import "MenuMeterWorkarounds.h"
-#import "MenuMeterCPU.h"
-#import "MenuMeterDisk.h"
-#import "MenuMeterMem.h"
-#import "MenuMeterNet.h"
+
+
 
 @interface PreferencesController : NSWindowController {
     // Our preferences
@@ -29,7 +21,10 @@
     CFRunLoopSourceRef               scRunSource;
     // Main controls
     IBOutlet NSTabView               *prefTabs;
-    IBOutlet NSTextField             *versionDisplay;
+    IBOutlet NSTabViewItem           *tabCpu;
+    IBOutlet NSTabViewItem           *tabMem;
+    IBOutlet NSTabViewItem           *tabDisk;
+    IBOutlet NSTabViewItem           *tabNet;
     // CPU pane controlsaverage
     IBOutlet NSButton                *cpuMeterToggle;
     IBOutlet NSButton                *cpuTemperatureToggle;

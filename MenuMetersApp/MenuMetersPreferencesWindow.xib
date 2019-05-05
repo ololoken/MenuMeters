@@ -76,6 +76,10 @@
                 <outlet property="netThroughputLabeling" destination="mCl-Fx-nYC" id="74b-lt-aoS"/>
                 <outlet property="netTxColor" destination="j4R-pp-NuL" id="bdQ-ys-aHt"/>
                 <outlet property="prefTabs" destination="YLO-66-PNz" id="muj-Th-XNy"/>
+                <outlet property="tabCpu" destination="TAX-5x-tW8" id="mBC-gO-QXb"/>
+                <outlet property="tabDisk" destination="945-jx-2rh" id="T7c-Fx-zsA"/>
+                <outlet property="tabMem" destination="Dws-mZ-5dN" id="kHq-60-oYw"/>
+                <outlet property="tabNet" destination="mY6-lo-c1j" id="9g1-fm-z9g"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="XJ1-Ub-aQN"/>
             </connections>
         </customObject>
@@ -341,7 +345,7 @@
                                                 <font key="font" size="12" name="Helvetica"/>
                                             </sliderCell>
                                             <connections>
-                                                <action selector="cpuPrefChange:" target="-2" id="xWV-fG-UiG"/>
+                                                <action selector="liveUpdateInterval:" target="-2" id="Sj6-E1-7IW"/>
                                             </connections>
                                         </slider>
                                         <popUpButton verticalHuggingPriority="750" id="OfJ-zD-1bp">
@@ -522,7 +526,7 @@
                                                 <font key="font" size="12" name="Helvetica"/>
                                             </sliderCell>
                                             <connections>
-                                                <action selector="diskPrefChange:" target="-2" id="bZq-v3-Fz2"/>
+                                                <action selector="liveUpdateInterval:" target="-2" id="WdU-0s-gn0"/>
                                             </connections>
                                         </slider>
                                         <textField verticalHuggingPriority="750" id="vYQ-Vj-pxA">
@@ -595,7 +599,7 @@
                                                 <font key="font" size="12" name="Helvetica"/>
                                             </sliderCell>
                                             <connections>
-                                                <action selector="memPrefChange:" target="-2" id="fiV-dC-GlO"/>
+                                                <action selector="liveUpdateInterval:" target="-2" id="tJ3-Rc-ecs"/>
                                             </connections>
                                         </slider>
                                         <textField verticalHuggingPriority="750" id="ClB-BL-96B">
@@ -1198,7 +1202,7 @@
                                                 <font key="font" size="12" name="Helvetica"/>
                                             </sliderCell>
                                             <connections>
-                                                <action selector="netPrefChange:" target="-2" id="Cfw-Wa-Bx3"/>
+                                                <action selector="liveUpdateInterval:" target="-2" id="ryJ-kv-fFY"/>
                                             </connections>
                                         </slider>
                                     </subviews>

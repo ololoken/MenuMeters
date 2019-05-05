@@ -127,11 +127,6 @@
 	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self
 															   name:nil
 															 object:nil];
-
-	// Let the pref panel know we have been removed
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kDiskMenuBundleID
-																   object:kDiskMenuUnloadNotification];
-
 	// Let super do the rest
     [super willUnload];
 
