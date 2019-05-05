@@ -77,16 +77,6 @@ __private_extern__ void LiveUpdateMenuItemTitleAndVisibility(NSMenu *menu, CFInd
 	// when the item is not found.
 	if (index < 0) return;
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_4
-	// The Carbon side is set first since setting it results in a empty
-	// title on the Cocoa side.
-	MenuRef carbonMenu = _NSGetCarbonMenu(menu);
-	if (carbonMenu) {
-		SetMenuItemTextWithCFString(carbonMenu,
-									index + 1,  // Carbon menus 1-based index
-									(CFStringRef)title);
-	}
-#endif
     if (title)
         [[menu itemAtIndex:index] setTitle:title];
     [[menu itemAtIndex:index] setHidden:hidden];
@@ -94,13 +84,6 @@ __private_extern__ void LiveUpdateMenuItemTitleAndVisibility(NSMenu *menu, CFInd
 } // LiveUpdateMenuItemTitle
 
 __private_extern__ void LiveUpdateMenu(NSMenu *menu) {
-
-#if MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_4
-	MenuRef carbonMenu = _NSGetCarbonMenu(menu);
-	if (carbonMenu) {
-		UpdateInvalidMenuItems(carbonMenu);
-	}
-#endif
 
 } // LiveUpdateMenu
 
@@ -117,22 +100,10 @@ __private_extern__ BOOL IsMenuMeterMenuBarDarkThemed(void) {
 } // IsMenuMeterMenuBarDarkThemed
 
 __private_extern__ NSColor * MenuItemTextColor(void) {
-#ifndef __x86_64__
-	// Handle ShapeShifter themes using Carbon API. Probably not relevant anymore, but seems to
-	// work everywhere we need it.
-	RGBColor rgbThemeColor;
-	if (GetThemeTextColor(kThemeTextColorRootMenuActive, 24, true, &rgbThemeColor) == noErr) {
-		return [NSColor colorWithCalibratedRed:((float)rgbThemeColor.red / (float)0xFFFF)
-										 green:((float)rgbThemeColor.green / (float)0xFFFF)
-										  blue:((float)rgbThemeColor.blue / (float)0xFFFF)
-										 alpha:(float)1.0];
-	}
-#else
 	// Unfortunately, there's also no NSColor API to get unselected menu item text colors.
 	if (IsMenuMeterMenuBarDarkThemed()) {
 		return [NSColor whiteColor];
-	}
-#endif	
+	}	
 	// Fallback
 	return [NSColor blackColor];
 } // MenuItemTextColor

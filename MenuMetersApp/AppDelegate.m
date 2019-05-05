@@ -32,18 +32,32 @@
 //@synthesize preferences;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    bool needToShowPrefs = NO;
+    NSArray* apps = [NSRunningApplication runningApplicationsWithBundleIdentifier:NSBundle.mainBundle.bundleIdentifier];
+    if ([apps count] > 1) {
+        for (NSRunningApplication *app in apps) {
+            if (app.processIdentifier != NSProcessInfo.processInfo.processIdentifier) {
+                [app terminate];
+            }
+        }
+        needToShowPrefs = YES;
+    }
+
     cpuExtra = [[MenuMeterCPUExtra alloc] initWithBundle:[NSBundle mainBundle]];
     diskExtra = [[MenuMeterDiskExtra alloc] initWithBundle:[NSBundle mainBundle]];
     netExtra = [[MenuMeterNetExtra alloc] initWithBundle:[NSBundle mainBundle]];
     memExtra = [[MenuMeterMemExtra alloc] initWithBundle:[NSBundle mainBundle]];
 
     preferencesController = [[PreferencesController alloc] init];
+
+    if (needToShowPrefs || ![preferencesController anyExtraMenuLoaded]) {
+        [self showPreferences:nil];
+    }
 }
 
 - (void)showPreferences:(id)sender {
     [preferencesController showWindow:sender];
 }
-
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application

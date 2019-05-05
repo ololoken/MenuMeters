@@ -110,6 +110,8 @@
 - (IBAction)memPrefChange:(id)sender;
 - (IBAction)netPrefChange:(id)sender;
 
+- (bool)anyExtraMenuLoaded;
+
 @end
 
 #endif /* PreferencesController_h */

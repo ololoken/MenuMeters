@@ -77,7 +77,16 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 
 - (id)init {
     self = [super initWithWindowNibName:@"MenuMetersPreferencesWindow"];
+    // Reread prefs on each load
+    ourPrefs = [MenuMeterDefaults sharedMenuMeterDefaults];
     return self;
+}
+
+-(bool)anyExtraMenuLoaded {
+    return [self isExtraWithBundleIDLoaded:kCPUMenuBundleID]
+        || [self isExtraWithBundleIDLoaded:kMemMenuBundleID]
+        || [self isExtraWithBundleIDLoaded:kDiskMenuBundleID]
+        || [self isExtraWithBundleIDLoaded:kNetMenuBundleID];
 }
 
 
@@ -158,9 +167,6 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 
 - (void)willShow {
 
-    // Reread prefs on each load
-    ourPrefs = [MenuMeterDefaults sharedMenuMeterDefaults];
-
     // Hook up to SystemConfig Framework
     [self connectSystemConfig];
 
@@ -173,9 +179,6 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 
     // Unhook from SystemConfig Framework
     [self disconnectSystemConfig];
-
-    // Release prefs so it can reconnect next load
-    ourPrefs = nil;
 
     [super close];
 
