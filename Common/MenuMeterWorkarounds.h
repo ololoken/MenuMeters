@@ -27,6 +27,8 @@
 #import <Carbon/Carbon.h>
 #import "AppleUndocumented.h"
 
+#define CLAMP(v, min, max) MIN(max, MAX(v, min))
+
 // OS version info
 __private_extern__ BOOL OSIsJaguarOrLater(void);
 __private_extern__ BOOL OSIsPantherOrLater(void);

@@ -159,7 +159,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 - (void)willShow {
 
     // Reread prefs on each load
-    ourPrefs = [[MenuMeterDefaults alloc] init];
+    ourPrefs = [MenuMeterDefaults sharedMenuMeterDefaults];
 
     // Hook up to SystemConfig Framework
     [self connectSystemConfig];

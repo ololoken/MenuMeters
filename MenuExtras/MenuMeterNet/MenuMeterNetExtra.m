@@ -864,10 +864,8 @@
 				break;
 		}
 		// Bound
-		if (txValue > 1) { txValue = 1; }
-		if (rxValue > 1) { rxValue = 1; }
-		if (txValue < 0) { txValue = 0;	}
-		if (rxValue < 0) { rxValue = 0;	}
+        txValue = CLAMP(txValue, 0, 1);
+        rxValue = CLAMP(rxValue, 0, 1);
 
 		// Update paths
 		if (graphStyle == kNetGraphStyleInverseOpposed) {
@@ -1013,10 +1011,8 @@
 		}
 	}
 	// Bound
-	if (txValue > 1) { txValue = 1; }
-	if (rxValue > 1) { rxValue = 1; }
-	if (txValue < 0) { txValue = 0;	}
-	if (rxValue < 0) { rxValue = 0;	}
+    txValue = CLAMP(txValue, 0, 1);
+    rxValue = CLAMP(rxValue, 0, 1);
 
 	// Lock on image and draw
 	[image lockFocus];
@@ -1065,8 +1061,8 @@
 			rxValue = [[primaryStats objectForKey:@"deltain"] doubleValue];
 		}
 	}
-	if (txValue < 0) { txValue = 0;	}
-	if (rxValue < 0) { rxValue = 0;	}
+    txValue = MAX(txValue, 0);
+    rxValue = MAX(rxValue, 0);
 
 	// Construct strings
 	double sampleInterval = [ourPrefs netInterval];

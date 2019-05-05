@@ -21,14 +21,6 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#ifdef __OBJC__
-	#import <Cocoa/Cocoa.h>
-	#import <Foundation/Foundation.h>
-	#import <PreferencePanes/PreferencePanes.h>
-#endif
 
+#import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <ApplicationServices/ApplicationServices.h>
-#import <IOKit/IOKitLib.h>
-#import <Security/Security.h>

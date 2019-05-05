@@ -146,13 +146,12 @@
 						totalOut = lastTotalOut + (ifOut - lastifOut);
 					}
 					// New deltas (64-bit overflow guard)
-					uint64_t deltaIn = (totalIn > lastTotalIn) ? (totalIn - lastTotalIn) : 0;
-					uint64_t deltaOut = (totalOut > lastTotalOut) ? (totalOut - lastTotalOut) : 0;
+					uint64_t deltaIn = MAX(totalIn - lastTotalIn, 0);
+					uint64_t deltaOut = MAX(totalOut - lastTotalOut, 0);
 					// Peak
 					double peak = [[oldStats objectForKey:@"peak"] doubleValue];
 					if (sampleInterval > 0) {
-						if (peak < (deltaIn / sampleInterval)) peak = deltaIn / sampleInterval;
-						if (peak < (deltaOut / sampleInterval)) peak = deltaOut / sampleInterval;
+                        peak = MAX(peak, MAX(deltaOut / sampleInterval, deltaIn / sampleInterval));
 					}
 					[newStats setObject:[NSDictionary dictionaryWithObjectsAndKeys:
 										[pppStats objectForKey:@"inBytes"],
@@ -212,13 +211,12 @@
 					totalOut = lastTotalOut + (ifmsg->ifm_data.ifi_obytes - lastifOut);
 				}
 				// New deltas (64-bit overflow guard, full paranoia)
-				uint64_t deltaIn = (totalIn > lastTotalIn) ? (totalIn - lastTotalIn) : 0;
-				uint64_t deltaOut = (totalOut > lastTotalOut) ? (totalOut - lastTotalOut) : 0;
+				uint64_t deltaIn = MAX(totalIn - lastTotalIn, 0);
+				uint64_t deltaOut = MAX(totalOut - lastTotalOut, 0);
 				// Peak
 				double peak = [[oldStats objectForKey:@"peak"] doubleValue];
 				if (sampleInterval > 0) {
-					if (peak < (deltaIn / sampleInterval)) peak = deltaIn / sampleInterval;
-					if (peak < (deltaOut / sampleInterval)) peak = deltaOut / sampleInterval;
+                    peak = MAX(peak, MAX(deltaOut / sampleInterval, deltaIn / sampleInterval));
 				}
 				[newStats setObject:[NSDictionary dictionaryWithObjectsAndKeys:
 										[NSNumber numberWithUnsignedInt:ifmsg->ifm_data.ifi_ibytes],

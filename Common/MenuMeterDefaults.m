@@ -41,14 +41,11 @@
 - (void)migratePrefsForward;
 
 // Datatype read/write
-- (double)loadDoublePref:(NSString *)prefName lowBound:(double)lowBound
-				highBound:(double)highBound defaultValue:(double)defaultValue;
+- (double)loadDoublePref:(NSString *)prefName lowBound:(double)lowBound highBound:(double)highBound defaultValue:(double)defaultValue;
 - (void)saveDoublePref:(NSString *)prefName value:(double)value;
-- (int)loadIntPref:(NSString *)prefName lowBound:(int)lowBound
-		  highBound:(int)highBound defaultValue:(int)defaultValue;
+- (int)loadIntPref:(NSString *)prefName lowBound:(int)lowBound highBound:(int)highBound defaultValue:(int)defaultValue;
 - (void)saveIntPref:(NSString *)prefName value:(int)value;
-- (int)loadBitFlagPref:(NSString *)prefName validFlags:(int)flags
-			  zeroValid:(BOOL)zeroValid defaultValue:(int)defaultValue;
+- (int)loadBitFlagPref:(NSString *)prefName validFlags:(int)flags zeroValid:(BOOL)zeroValid defaultValue:(int)defaultValue;
 - (void)saveBitFlagPref:(NSString *)prefName value:(int)value;
 - (NSColor *)loadColorPref:(NSString *)prefName defaultValue:(NSColor *)defaultValue;
 - (void)saveColorPref:(NSString *)prefname value:(NSColor *)value;
@@ -569,254 +566,6 @@
 
 - (void)migratePrefsForward {
 
-	// Flag set if prefs are changed.
-	BOOL didChange = NO;
-
-	// Load current preference version
-	NSNumber *prefVersionNum = (NSNumber *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef)kPrefVersionKey,
-																  (CFStringRef)kMenuMeterDefaultsDomain,
-																  kCFPreferencesCurrentUser,
-																  kCFPreferencesAnyHost));
-	int prefVersion = -1;  // Use an illegal value
-	if (prefVersionNum) {
-		prefVersion = [prefVersionNum intValue];
-	}
-
-	// Migrate prefs from versions before we supported pref fields (0.5 -> 0.6)
-	if (prefVersion == 0) {
-		NSLog(@"MenuMeterDefaults performing preference migration from pref version null to pref version 1");
-		didChange = YES;
-
-		// Net preference changed meaning, 0 was valid (arrows only) now
-		// arrows are separate pref. We also reordered the flags to fix the menu
-		// layout
-		NSNumber *netModeNum = (NSNumber *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef)kNetDisplayModePref,
-																  (CFStringRef)kMenuMeterDefaultsDomain,
-																  kCFPreferencesCurrentUser,
-																  kCFPreferencesAnyHost));
-		int newValue = 0;
-		if (netModeNum) {
-			switch ([netModeNum intValue]) {
-				case 0:
-					newValue = 1;
-					break;
-				case 1:
-					newValue = 3;
-					break;
-				case 2:
-					newValue = 3;
-					break;
-				case 3:
-					newValue = 7;
-					break;
-				default:
-					newValue = 1;
-			}
-			[self saveIntPref:kNetDisplayModePref value:newValue];
-		} // end of kNetDisplayModePref migration
-	}
-
-	// Migrate prefs from version 0.6 to 0.7
-	if (prefVersion == 1) {
-		NSLog(@"MenuMeterDefaults performing preference migration from pref version 1 to pref version 2");
-		didChange = YES;
-		// Percent split pref became percent display mode
-		NSNumber *splitNum = (NSNumber *)CFBridgingRelease(CFPreferencesCopyValue(CFSTR("kCPUPercentDisplaySplit"),
-																  (CFStringRef)kMenuMeterDefaultsDomain,
-																  kCFPreferencesCurrentUser,
-																  kCFPreferencesAnyHost));
-		if (splitNum && [splitNum intValue]) {
-			[self saveIntPref:kCPUPercentDisplayPref value:kCPUPercentDisplaySplit];
-		} else {
-			[self saveIntPref:kCPUPercentDisplayPref value:kCPUPercentDisplaySmall];
-		}
-		// Kill the old
-		CFPreferencesSetValue(CFSTR("kCPUPercentDisplaySplit"), NULL,
-							  (CFStringRef)kMenuMeterDefaultsDomain,
-							  kCFPreferencesCurrentUser,
-							  kCFPreferencesAnyHost);
-	}
-
-	// Migrate prefs from version 0.7 to 1.0
-	if (prefVersion == 2) {
-		NSLog(@"MenuMeterDefaults performing preference migration from pref version 2 to pref version 3");
-		didChange = YES;
-
-		// Lighten color used for inactive in the mem meter pie display if the user has
-		// not already changed it. Have to check this using component ranges due to the perils
-		// of float equality.
-		NSColor *tempColor = [self memInactiveColor];
-		if (([tempColor redComponent] > 0.59) && ([tempColor redComponent] < 0.61) &&
-			([tempColor greenComponent] > 0.59) && ([tempColor greenComponent] < 0.61) &&
-			([tempColor blueComponent] > 0.59) && ([tempColor blueComponent] < 0.61)) {
-			[self saveMemInactiveColor:kMemInactiveColorDefault];
-		}
-
-		// Fix the meaning of the Mem menu items
-		NSNumber *memModeNum = (NSNumber *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef)kMemDisplayModePref,
-																  (CFStringRef)kMenuMeterDefaultsDomain,
-																  kCFPreferencesCurrentUser,
-																  kCFPreferencesAnyHost));
-		if (memModeNum) {
-			if ([memModeNum intValue] == 2) {
-				[self saveIntPref:kMemDisplayModePref value:3];
-			}
-		}
-	}
-
-	// Migrate prefs from version 1.0 to 1.1
-	if (prefVersion == 3) {
-		NSLog(@"MenuMeterDefaults performing preference migration from pref version 3 to pref version 4");
-		didChange = YES;
-		// Fix the meaning of the Mem menu items
-		NSNumber *memModeNum = (NSNumber *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef)kMemDisplayModePref,
-																  (CFStringRef)kMenuMeterDefaultsDomain,
-																  kCFPreferencesCurrentUser,
-																  kCFPreferencesAnyHost));
-		if (memModeNum) {
-			if ([memModeNum intValue] == 3) {
-				[self saveIntPref:kMemDisplayModePref value:4];
-			}
-		}
-	}
-
-	// Migrate prefs from version 1.1/1.1.1 to 1.2
-	if (prefVersion == 4) {
-		NSLog(@"MenuMeterDefaults performing preference migration from pref version 4 to pref version 5");
-		didChange = YES;
-		// Clean up bad color prefs
-		CFDataRef colorData = CFPreferencesCopyValue(CFSTR("kNetReceiveColorDefault"),
-													  (CFStringRef)kMenuMeterDefaultsDomain,
-													  kCFPreferencesCurrentUser,
-													  kCFPreferencesAnyHost);
-		if (colorData) {
-			CFPreferencesSetValue((CFStringRef)kNetReceiveColorPref,
-								  colorData,
-								  (CFStringRef)kMenuMeterDefaultsDomain,
-								  kCFPreferencesCurrentUser,
-								  kCFPreferencesAnyHost);
-			CFPreferencesSetValue(CFSTR("kNetReceiveColorDefault"), NULL,
-								  (CFStringRef)kMenuMeterDefaultsDomain,
-								  kCFPreferencesCurrentUser,
-								  kCFPreferencesAnyHost);
-			CFRelease(colorData);
-		}
-		colorData = CFPreferencesCopyValue(CFSTR("kNetTransmitColorDefault"),
-													  (CFStringRef)kMenuMeterDefaultsDomain,
-													  kCFPreferencesCurrentUser,
-													  kCFPreferencesAnyHost);
-		if (colorData) {
-			CFPreferencesSetValue((CFStringRef)kNetTransmitColorPref,
-								  colorData,
-								  (CFStringRef)kMenuMeterDefaultsDomain,
-								  kCFPreferencesCurrentUser,
-								  kCFPreferencesAnyHost);
-			CFPreferencesSetValue(CFSTR("kNetTransmitColorDefault"), NULL,
-								  (CFStringRef)kMenuMeterDefaultsDomain,
-								  kCFPreferencesCurrentUser,
-								  kCFPreferencesAnyHost);
-			CFRelease(colorData);
-		}
-	}
-
-	// Migrate prefs from version from 1.3 to 1.4b1
-	if (prefVersion == 5) {
-		NSLog(@"MenuMeterDefaults performing preference migration from pref version 5 to pref version 6");
-		didChange = YES;
-		// Copy mem color to new names
-		CFDataRef colorData = CFPreferencesCopyValue(CFSTR("MemPageinColor"),
-													 (CFStringRef)kMenuMeterDefaultsDomain,
-													 kCFPreferencesCurrentUser,
-													 kCFPreferencesAnyHost);
-		if (colorData) {
-			CFPreferencesSetValue((CFStringRef)kMemPageInColorPref,
-								  colorData,
-								  (CFStringRef)kMenuMeterDefaultsDomain,
-								  kCFPreferencesCurrentUser,
-								  kCFPreferencesAnyHost);
-			CFPreferencesSetValue(CFSTR("MemPageinColor"), NULL,
-								  (CFStringRef)kMenuMeterDefaultsDomain,
-								  kCFPreferencesCurrentUser,
-								  kCFPreferencesAnyHost);
-			CFRelease(colorData);
-		}
-		colorData = CFPreferencesCopyValue(CFSTR("MemPageoutColor"),
-										   (CFStringRef)kMenuMeterDefaultsDomain,
-										   kCFPreferencesCurrentUser,
-										   kCFPreferencesAnyHost);
-		if (colorData) {
-			CFPreferencesSetValue((CFStringRef)kMemPageOutColorPref,
-								  colorData,
-								  (CFStringRef)kMenuMeterDefaultsDomain,
-								  kCFPreferencesCurrentUser,
-								  kCFPreferencesAnyHost);
-			CFPreferencesSetValue(CFSTR("MemPageoutColor"), NULL,
-								  (CFStringRef)kMenuMeterDefaultsDomain,
-								  kCFPreferencesCurrentUser,
-								  kCFPreferencesAnyHost);
-			CFRelease(colorData);
-		}
-		// Delete obsolete prefs
-		CFPreferencesSetValue(CFSTR("CPUNiceColor"), NULL,
-							  (CFStringRef)kMenuMeterDefaultsDomain,
-							  kCFPreferencesCurrentUser,
-							  kCFPreferencesAnyHost);
-		CFPreferencesSetValue(CFSTR("CPUAntiAlias"), NULL,
-							  (CFStringRef)kMenuMeterDefaultsDomain,
-							  kCFPreferencesCurrentUser,
-							  kCFPreferencesAnyHost);
-		CFPreferencesSetValue(CFSTR("MemAntiAlias"), NULL,
-							  (CFStringRef)kMenuMeterDefaultsDomain,
-							  kCFPreferencesCurrentUser,
-							  kCFPreferencesAnyHost);
-		CFPreferencesSetValue(CFSTR("NetAntiAlias"), NULL,
-							  (CFStringRef)kMenuMeterDefaultsDomain,
-							  kCFPreferencesCurrentUser,
-							  kCFPreferencesAnyHost);
-		CFPreferencesSetValue(CFSTR("NetGraphBaseline"), NULL,
-							  (CFStringRef)kMenuMeterDefaultsDomain,
-							  kCFPreferencesCurrentUser,
-							  kCFPreferencesAnyHost);
-	}
-
-	// Migrate prefs from version from 1.4b1
-	if (prefVersion == 6) {
-		NSLog(@"MenuMeterDefaults performing preference migration from pref version 6 to pref version 7");
-		didChange = YES;
-		// 1.4b1 had a bug where strings were stored as archived data. Luckily
-		// this only affected one pref key.
-		CFDataRef preferredArchivedString = CFPreferencesCopyValue((CFStringRef)kNetPreferInterfacePref,
-																   (CFStringRef)kMenuMeterDefaultsDomain,
-																   kCFPreferencesCurrentUser,
-																   kCFPreferencesAnyHost);
-		if (preferredArchivedString) {
-			if (CFGetTypeID(preferredArchivedString) == CFDataGetTypeID()) {
-				NSString *preferredString = [NSUnarchiver unarchiveObjectWithData:(__bridge NSData *)preferredArchivedString];
-				if (preferredString && [preferredString isKindOfClass:[NSString class]]) {
-					CFPreferencesSetValue((CFStringRef)kNetPreferInterfacePref,
-										  (CFStringRef)preferredString,
-										  (CFStringRef)kMenuMeterDefaultsDomain,
-										  kCFPreferencesCurrentUser,
-										  kCFPreferencesAnyHost);
-				}
-			}
-			CFRelease(preferredArchivedString);
-		}
-	}
-
-	// Move from 7 to 8, no changes here, just skipping because of other conversion
-	// bugs from 6 to 7.
-	if (prefVersion == 7) {
-		NSLog(@"MenuMeterDefaults performing preference migration from pref version 7 to pref version 8");
-		didChange = YES;
-	}
-
-	// Save migration if needed
-	if (didChange) {
-		[self saveIntPref:kPrefVersionKey value:kCurrentPrefVersion];
-		[self syncWithDisk];
-	}
-
 } // _migratePrefsForward
 
 ///////////////////////////////////////////////////////////////
@@ -825,8 +574,7 @@
 //
 ///////////////////////////////////////////////////////////////
 
-- (double)loadDoublePref:(NSString *)prefName lowBound:(double)lowBound
-				highBound:(double)highBound defaultValue:(double)defaultValue {
+- (double)loadDoublePref:(NSString *)prefName lowBound:(double)lowBound highBound:(double)highBound defaultValue:(double)defaultValue {
 
 	double returnVal = defaultValue;
 	NSNumber *prefValue = (NSNumber *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef)prefName,
@@ -856,8 +604,7 @@
 						  kCFPreferencesAnyHost);
 } // _saveDoublePref
 
-- (int)loadIntPref:(NSString *)prefName lowBound:(int)lowBound
-		  highBound:(int)highBound defaultValue:(int)defaultValue {
+- (int)loadIntPref:(NSString *)prefName lowBound:(int)lowBound highBound:(int)highBound defaultValue:(int)defaultValue {
 
 	Boolean keyExistsAndHasValidFormat = NO;
 	CFIndex returnValue = CFPreferencesGetAppIntegerValue((CFStringRef)prefName,
@@ -882,8 +629,7 @@
 						  kCFPreferencesAnyHost);
 } // _saveIntPref
 
-- (int)loadBitFlagPref:(NSString *)prefName validFlags:(int)flags
-			  zeroValid:(BOOL)zeroValid defaultValue:(int)defaultValue {
+- (int)loadBitFlagPref:(NSString *)prefName validFlags:(int)flags zeroValid:(BOOL)zeroValid defaultValue:(int)defaultValue {
 
 	Boolean keyExistsAndHasValidFormat = NO;
 	CFIndex returnValue = CFPreferencesGetAppIntegerValue((CFStringRef)prefName,

@@ -23,7 +23,6 @@
 
 #import "MenuMeterCPUExtra.h"
 
-#define CLAMP(v, min, max) MIN(max, MAX(v, min))
 
 ///////////////////////////////////////////////////////////////
 //

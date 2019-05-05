@@ -104,83 +104,6 @@ static host_statistics64_Ptr host_statistics64_Impl = NULL;
 //	 Mem usage info
 //
 ///////////////////////////////////////////////////////////////
-
-- (NSDictionary *)memStats32 {
-	// Get the data using the 32-bit API.
-	vm_statistics_data_t vmStats32;
-	bzero(&vmStats32, sizeof(vm_statistics_data_t));
-	mach_msg_type_number_t vmCount = HOST_VM_INFO_COUNT;
-	if (host_statistics(selfHost, HOST_VM_INFO, (host_info_t)&vmStats32, &vmCount) != KERN_SUCCESS) {
-		return nil;
-	}
-
-	// Do deltas dealing with wraparound. On older OS versions the structure
-	// was typdefed as signed, but apparently treated as unsigned by the kernel.
-	// In newer OS versions its unsigned 32 or 64 bit (natural_t). Try to
-	// deal with all cases.
-	uint64_t deltaPageIn = 0, deltaPageOut = 0;
-	if ((natural_t)vmStats32.pageins >= lastPageIn) {
-		deltaPageIn = (natural_t)vmStats32.pageins - lastPageIn;
-	} else {
-#ifdef __LP64__
-		// 64-bit rollover? Nothing sane we can do
-		deltaPageIn = (natural_t)vmStats32.pageins;
-#else
-		deltaPageIn = (natural_t)vmStats32.pageins + (UINT_MAX - lastPageIn + 1);
-#endif
-	}
-	if ((natural_t)vmStats32.pageouts >= lastPageOut) {
-		deltaPageOut = (natural_t)vmStats32.pageouts - lastPageOut;
-	} else {
-#ifdef __LP64__
-		// 64-bit rollover? Nothing sane we can do
-		deltaPageOut = (natural_t)vmStats32.pageouts;
-#else
-		deltaPageOut = (natural_t)vmStats32.pageouts + (UINT_MAX - lastPageOut + 1);
-#endif
-	}
-	// Update history
-	lastPageIn = vmStats32.pageins;
-	lastPageOut = vmStats32.pageouts;
-
-	// Memory page statistics.  Double casts prevent sign extension from applying to upsized
-	// 32-bit signed.
-	uint64_t active = (uint64_t)((natural_t)vmStats32.active_count) * (uint64_t)((natural_t)vm_page_size);
-	uint64_t inactive = (uint64_t)((natural_t)vmStats32.inactive_count) * (uint64_t)((natural_t)vm_page_size);
-	uint64_t wired = (uint64_t)((natural_t)vmStats32.wire_count) * (uint64_t)((natural_t)vm_page_size);
-	uint64_t free = (uint64_t)((natural_t)vmStats32.free_count) * (uint64_t)((natural_t)vm_page_size);
-
-	// Update total
-	totalRAM = active + inactive + wired + free;
-
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithDouble:(double)totalRAM / 1048576], @"totalmb",
-				// There has been much confusion amongst users over what "Used" and "Free" meant.
-				// In older versions "Used" included inactive pages, which tends to grow
-				// over time from lazy reclamation. This led to reports of "leaks".
-				// Current implementation seems to better match actual expectations. even though
-				// its not exactly correct (inactive pages may be modified).
-				[NSNumber numberWithDouble:(double)(free + inactive) / 1048576], @"freemb",
-				[NSNumber numberWithDouble:(double)(active + wired) / 1048576], @"usedmb",
-				[NSNumber numberWithDouble:(double)active / 1048576], @"activemb",
-				[NSNumber numberWithDouble:(double)inactive / 1048576], @"inactivemb",
-				[NSNumber numberWithDouble:(double)wired / 1048576], @"wiremb",
-				[NSNumber numberWithDouble:(double)free / 1048576], @"freepagemb",
-				// No compressed pages
-				[NSNumber numberWithDouble:0.0], @"compressedmb",
-				[NSNumber numberWithDouble:0.0], @"uncompressedmb",
-				// Again, double casts to block sign extension
-				[NSNumber numberWithUnsignedLongLong:(uint64_t)((natural_t)vmStats32.hits)], @"hits",
-				[NSNumber numberWithUnsignedLongLong:(uint64_t)((natural_t)vmStats32.lookups)], @"lookups",
-				[NSNumber numberWithUnsignedLongLong:(uint64_t)((natural_t)vmStats32.pageins)], @"pageins",
-				[NSNumber numberWithUnsignedLongLong:(uint64_t)((natural_t)vmStats32.pageouts)], @"pageouts",
-				[NSNumber numberWithUnsignedLongLong:(uint64_t)((natural_t)vmStats32.faults)], @"faults",
-				[NSNumber numberWithUnsignedLongLong:(uint64_t)((natural_t)vmStats32.cow_faults)], @"cowfaults",
-				[NSNumber numberWithUnsignedLongLong:(uint64_t)deltaPageIn], @"deltapageins",
-				[NSNumber numberWithUnsignedLongLong:(uint64_t)deltaPageOut], @"deltapageouts",
-				nil];
-} // memStats32
-
 - (NSDictionary *)memStats64 {
 	// Get the data using the 64-bit API.
 	vm_statistics64_data_t vmStats64;
@@ -257,11 +180,7 @@ static host_statistics64_Ptr host_statistics64_Impl = NULL;
 } // memStats64
 
 - (NSDictionary *)memStats {
-	if (isMavericksOrLater) {
-		return [self memStats64];
-	} else {
-		return [self memStats32];
-	}
+    return [self memStats64];
 } // memStats
 
 - (NSDictionary *)swapStats {

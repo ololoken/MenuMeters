@@ -44,7 +44,6 @@
 //
 ///////////////////////////////////////////////////////////////
 
-#define kProcessorNameFormat				@"%u %@ @ %@"
 #define kTaskThreadFormat					@"%d tasks, %d threads"
 #define kLoadAverageFormat					@"%@, %@, %@"
 #define kNoInfoErrorMessage					@"No info available"
@@ -136,8 +135,6 @@ uint32_t cpuCount;
 
 	// Localizable strings load
 	localizedStrings = [NSDictionary dictionaryWithObjectsAndKeys:
-							[[NSBundle bundleForClass:[self class]] localizedStringForKey:kProcessorNameFormat value:nil table:nil],
-							kProcessorNameFormat,
 							[[NSBundle bundleForClass:[self class]] localizedStringForKey:kTaskThreadFormat value:nil table:nil],
 							kTaskThreadFormat,
 							[[NSBundle bundleForClass:[self class]] localizedStringForKey:kLoadAverageFormat value:nil table:nil],
@@ -186,8 +183,7 @@ uint32_t cpuCount;
 
 - (NSString *)processorDescription {
 
-	return [NSString stringWithFormat:[localizedStrings objectForKey:kProcessorNameFormat],
-                [self numberOfCPUsByCombiningLowerHalf:NO], [self cpuName], [self cpuSpeed]];
+    return [self cpuName];
 
 } // processorDescription
 
@@ -362,40 +358,17 @@ uint32_t cpuCount;
 ///////////////////////////////////////////////////////////////
 
 - (NSString *)cpuPrettyName {
-
-#if  __i386__ || __x86_64__
-	// Intel Core Duo/Solo and later reported as 80486, just call
-	// everything "Intel"
-	return @"Intel";
-#else
 	// Start with nothing
-	NSString					*prettyName = @"Unknown CPU";
-
-	// Try older API for the pretty name (Aquamon demonstrated this)
-	NXArchInfo const *archInfo = NXGetLocalArchInfo();
-	if (archInfo) {
-		prettyName = [NSString stringWithCString:archInfo->description];
-	}
-
-	// Now try to do better for 7455 Apollo, 7447 AlBooks, and Sahara G3s.
-	// Note that this still doesn't work for some 7455s in 10.2.
-	// Since those same machines return the correct type in Classic
-	// I'm assuming its an Apple bug.
-	SInt32 gestaltVal = 0;
-	OSStatus err = Gestalt(gestaltNativeCPUtype, &gestaltVal);
-	if (err == noErr) {
-		if (gestaltVal == gestaltCPUApollo) {
-			prettyName = @"PowerPC 7455";
-		} else if (gestaltVal == gestaltCPUG47447) {
-			// Gestalt says 7447, but CHUD says 7457. Let's believe CHUD.
-			// Patch from Alex Eddy
-			prettyName = @"PowerPC 7457";
-		} else if (gestaltVal == gestaltCPU750FX) {
-			prettyName = @"PowerPC 750fx";
-		}
-	}
-	return prettyName;
-#endif
+    const char *ctlKey = "machdep.cpu.brand_string";
+	NSString *prettyName = @"Unknown CPU";
+    size_t len = 0;
+    sysctlbyname(ctlKey, NULL, &len, NULL, 0);
+    if (len > 0) {
+        char *cpuName = alloca(len);
+        sysctlbyname(ctlKey, cpuName, &len, nil, 0);
+        prettyName = [NSString stringWithCString:cpuName encoding:[NSString defaultCStringEncoding]];
+    }
+    return prettyName;
 
 } // _cpuPrettyName
 
