@@ -1,3 +1,10 @@
+# MenuMeters light
+My fork of fork https://github.com/yujitach/MenuMeters
+Key differences:
+- prefPane replaced by plain configuration window accessible by option+click
+- dropped legacy staff 
+- added cpu temperature
+
 # MenuMeters
 My fork of MenuMeters for El Capitan, Sierra, High Sierra and Mojave.
 
