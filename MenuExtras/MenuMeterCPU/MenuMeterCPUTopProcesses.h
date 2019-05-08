@@ -31,7 +31,6 @@ extern NSString* const kProcessListItemUserNameKey;
 extern NSString* const kProcessListItemCPUKey;
 
 @interface MenuMeterCPUTopProcesses : NSObject
-
 // Basic process info for the top maxItem most CPU hugging processes
 - (NSArray *)runningProcessesByCPUUsage:(NSUInteger)maxItem;
 

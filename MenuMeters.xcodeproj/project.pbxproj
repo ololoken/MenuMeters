@@ -228,7 +228,7 @@
 		D4FC162703D26AAA00A87BC9 /* MenuMeterNetConfig.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MenuMeterNetConfig.m; sourceTree = "<group>"; };
 		D4FC163403D26B0000A87BC9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D602BB8F207F9561004984C1 /* MenuMeterCPUTopProcesses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuMeterCPUTopProcesses.h; path = MenuExtras/MenuMeterCPU/MenuMeterCPUTopProcesses.h; sourceTree = "<group>"; };
-		D602BB90207F9561004984C1 /* MenuMeterCPUTopProcesses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuMeterCPUTopProcesses.m; path = MenuExtras/MenuMeterCPU/MenuMeterCPUTopProcesses.m; sourceTree = "<group>"; };
+		D602BB90207F9561004984C1 /* MenuMeterCPUTopProcesses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuMeterCPUTopProcesses.m; path = MenuExtras/MenuMeterCPU/MenuMeterCPUTopProcesses.m; sourceTree = "<group>"; wrapsLines = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

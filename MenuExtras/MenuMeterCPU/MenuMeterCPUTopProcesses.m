@@ -24,12 +24,13 @@
 #import "MenuMeterCPUTopProcesses.h"
 #import "MenuMeterCPU.h"
 
-
 ///////////////////////////////////////////////////////////////
 //
 //    Process info item key strings
 //
 ///////////////////////////////////////////////////////////////
+
+#define PARTS_ARR_SIZE 5
 
 NSString* const kProcessListItemPIDKey           = @"processID";
 NSString* const kProcessListItemProcessNameKey   = @"processName";
@@ -53,121 +54,74 @@ NSString* const kProcessListItemCPUKey           = @"cpuPercent";
 
 @implementation MenuMeterCPUTopProcesses
 {
-    NSArray*processes;
-    NSTask*task;
-    NSPipe*pipe;
-    NSString*buffer;
-    int parseState; //0 is before the first PID, COMMAND ... ; 1 is just after it saw PID, ...
-    NSMutableArray*tempArray;
+    NSMutableArray*psOutArray;
+    NSTimer*psTimer;
 }
     
 -(instancetype)init
 {
     self=[super init];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(taskOutput:)
-                                                 name:NSFileHandleReadCompletionNotification
-                                               object:nil];
+    psOutArray = [NSMutableArray array];
     return self;
 }
--(void)taskOutput:(NSNotification*)n
-{
-    NSFileHandle*fh=[n object];
-    if(![[pipe fileHandleForReading] isEqualTo: fh]){
-        return;
+- (void)startUpdateProcessList {
+    if (psTimer != nil && psTimer.isValid) {
+        [psTimer invalidate];
     }
-    NSData*d=[n userInfo][@"NSFileHandleNotificationDataItem"];
-    if([d length]){
-        NSString*s=[[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-        buffer=[buffer  stringByAppendingString:s];
-        while([buffer containsString:@"\n"]){
-            NSUInteger i=[buffer rangeOfString:@"\n"].location;
-            NSString*x=[buffer substringToIndex:i];
-            [self dealWithLine:x];
-            buffer=[buffer substringFromIndex:i+1];
-        }
-        [fh readInBackgroundAndNotifyForModes:@[NSRunLoopCommonModes]];
-    }
+    psTimer = [NSTimer timerWithTimeInterval:1.0 repeats:YES block:^(NSTimer*timer) {
+        NSUInteger ranges[PARTS_ARR_SIZE];
+        NSString*output = [self runCommand:[NSString stringWithFormat:@"/bin/ps -Ao pid=PID,pcpu=CPU,ruid=UID,ruser=USR,comm=CMD -rc | /usr/bin/head -%@", @(kCPUrocessCountMax+1)]];
+        NSArray*lines = [output componentsSeparatedByString:@"\n"];
+        for (NSString*line in lines) {
+            NSUInteger index = [lines indexOfObject:line];
+            if (index == 0) {
+                NSArray*parts = [line componentsSeparatedByString:@" "];
+                NSUInteger count = 0;
+                for (NSString*part in parts) {
+                    if (![@"" isEqual:part]) {
+                        ranges[count++] = NSMaxRange([line rangeOfString:part])+1;
+                    }
+                }
+            }
+            else if (line.length > 0) {
+                NSDictionary*entry = @{ kProcessListItemPIDKey:[self prettyValueFrom:line at:NSMakeRange(0, ranges[0])],
+                                        kProcessListItemCPUKey:[self prettyValueFrom:line at:NSMakeRange(ranges[0], ranges[1]-ranges[0])],
+                                        kProcessListItemUserIDKey:[self prettyValueFrom:line at:NSMakeRange(ranges[1], ranges[2]-ranges[1])],
+                                        kProcessListItemUserNameKey:[self prettyValueFrom:line at:NSMakeRange(ranges[2], ranges[3]-ranges[2]+1)],
+                                        kProcessListItemProcessNameKey:[self prettyValueFrom:line at:NSMakeRange(ranges[3]+1, line.length-ranges[3]-1)] };
+                self->psOutArray.count >= index
+                    ? [self->psOutArray replaceObjectAtIndex:index-1 withObject:entry]
+                    : [self->psOutArray insertObject:entry atIndex:index-1];
+            }
+        };
+    }];
+    [psTimer fire];
+    [[NSRunLoop currentRunLoop] addTimer:psTimer forMode:NSRunLoopCommonModes];
+} // startUpdateProcessList
+
+- (NSString*)prettyValueFrom:(NSString *)line at:(NSRange) range {
+    return [[line substringWithRange:range] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
     
-- (void)startUpdateProcessList {
-    parseState=0;
-    buffer=[NSString string];
-    task = [NSTask new];
-    task.launchPath = @"/usr/bin/top";
-    task.arguments =[[NSString stringWithFormat:@"-s 1 -l 0 -stats pid,cpu,uid,user,command -o cpu -n %@",  @(kCPUrocessCountMax)] componentsSeparatedByString:@" "];
-    
-    pipe = [NSPipe pipe];
-    task.standardOutput = pipe;
-    [[pipe fileHandleForReading] readInBackgroundAndNotifyForModes:@[NSRunLoopCommonModes]];
-    [task launch];
-} // startUpdateProcessList
-    
 - (void)stopUpdateProcessList {
-    [task terminate];
-    task=nil;
-    buffer=nil;
+    [psTimer invalidate];
 } // stopUpdateProcessList
     
 - (NSArray *)runningProcessesByCPUUsage:(NSUInteger)maxItem
 {
-    return [processes subarrayWithRange:NSMakeRange(0,MIN(maxItem,processes.count))];
-}
--(void)dealWithLine:(NSString*)s
-{
-    if(parseState==0){
-        if([s hasPrefix:@"PID"]){
-            parseState=1;
-            tempArray=[NSMutableArray array];
-        }
-        return;
-    }
-    if([s hasPrefix:@"Processes:"]){
-        parseState=0;
-        // one sample completed
-        processes=tempArray;
-        return;
-    }
-    
-    NSArray*a=[s componentsSeparatedByString:@" "];
-    NSMutableArray*x=[NSMutableArray array];
-    for(NSString*i in a){
-        if(![i isEqualToString:@""]){
-            [x addObject:i];
-        }
-    }
-    NSArray*commandName=[x subarrayWithRange:NSMakeRange(4,x.count-4)];
-    NSDictionary* entry = @{ kProcessListItemPIDKey:x[0],
-                             kProcessListItemCPUKey:x[1],
-                             kProcessListItemUserIDKey:x[2],
-                             kProcessListItemUserNameKey:x[3],
-                             kProcessListItemProcessNameKey:[self normalizedCommand:[commandName componentsJoinedByString:@" "]]
-                             };
-    [tempArray addObject:entry];
+    return [psOutArray subarrayWithRange:NSMakeRange(0, MIN(maxItem, psOutArray.count))];
 }
 
-
-
-
-- (NSString *)normalizedCommand:(NSString *)name
+- (NSString *)runCommand:(NSString *)commandToRun
 {
-    NSString* result = name;
-    
-    // remove leading/trailing whitespaces
-    result = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    // remove login shell prefixes
-    for (int i = 0; i < 2; ++i) {
-        if (name.length > 0) {
-            result = [result stringByReplacingOccurrencesOfString:@"-" withString:@"" options:0 range:NSMakeRange(0, 1)];
-        }
-    }
-    
-    // continue other clean up here
-    
-    return result;
-    
-} // normalizedCommand:
+    NSPipe *pipe = [NSPipe pipe];
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/bin/sh"];
+    [task setArguments:[NSArray arrayWithObjects:@"-c", [NSString stringWithFormat:@"%@", commandToRun], nil]];
+    [task setStandardOutput:pipe];
+    [task launch];
 
-    
+    return [[NSString alloc] initWithData:[[pipe fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+}
+
 @end
