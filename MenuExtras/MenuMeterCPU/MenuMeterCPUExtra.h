@@ -26,13 +26,12 @@
 #import "AppleUndocumented.h"
 #import "MenuMeters.h"
 #import "MenuMeterDefaults.h"
-#import "MenuMeterCPU.h"
+#import "MenuMeterCPUConstants.h"
 #import "MenuMeterCPUView.h"
 #import "MenuMeterCPUStats.h"
 #import "MenuMeterCPUTopProcesses.h"
 #import "MenuMeterUptime.h"
 #import "MenuMeterWorkarounds.h"
-
 
 @interface MenuMeterCPUExtra : NSMenuExtra {
 
@@ -61,5 +60,15 @@
                                     *temperatureColor;
 
 } // MenuMeterCPUExtra
+
++(void)addConfigPane:(NSTabView*)tabView;
+
+- (id)initWithBundle:(NSBundle*)bundle defaults:(NSMutableDictionary*)prefs;
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context;
+
 
 @end

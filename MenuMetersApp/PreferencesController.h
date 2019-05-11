@@ -21,34 +21,10 @@
     CFRunLoopSourceRef               scRunSource;
     // Main controls
     IBOutlet NSTabView               *prefTabs;
-    IBOutlet NSTabViewItem           *tabCpu;
+
     IBOutlet NSTabViewItem           *tabMem;
     IBOutlet NSTabViewItem           *tabDisk;
     IBOutlet NSTabViewItem           *tabNet;
-    // CPU pane controlsaverage
-    IBOutlet NSButton                *cpuMeterToggle;
-    IBOutlet NSButton                *cpuTemperatureToggle;
-    IBOutlet NSPopUpButton           *cpuDisplayMode;
-    IBOutlet NSTextField             *cpuIntervalDisplay;
-    IBOutlet NSSlider                *cpuInterval;
-    IBOutlet NSPopUpButton           *cpuPercentMode;
-    IBOutlet NSTextField             *cpuPercentModeLabel;
-    IBOutlet NSSlider                *cpuMaxProcessCount;
-    IBOutlet NSTextField             *cpuMaxProcessCountCountLabel;
-    IBOutlet NSSlider                *cpuGraphWidth;
-    IBOutlet NSTextField             *cpuGraphWidthLabel;
-    IBOutlet NSSlider                *cpuHorizontalRows;
-    IBOutlet NSTextField             *cpuHorizontalRowsLabel;
-    IBOutlet NSSlider                *cpuMenuWidth;
-    IBOutlet NSTextField             *cpuMenuWidthLabel;
-    IBOutlet NSButton                *cpuAvgProcs;
-    IBOutlet NSButton                *cpuAvgLowerHalfProcs;
-    IBOutlet NSButton                *cpuSortByUsage;
-    IBOutlet NSColorWell             *cpuUserColor;
-    IBOutlet NSColorWell             *cpuTemperatureColor;
-    IBOutlet NSTextField             *cpuUserColorLabel;
-    IBOutlet NSColorWell             *cpuSystemColor;
-    IBOutlet NSTextField             *cpuSystemColorLabel;
     // Disk pane controls
     IBOutlet NSButton                *diskMeterToggle;
     IBOutlet NSPopUpButton           *diskImageSet;
@@ -105,7 +81,6 @@
 
 // IB Targets
 - (IBAction)liveUpdateInterval:(id)sender;
-- (IBAction)cpuPrefChange:(id)sender;
 - (IBAction)diskPrefChange:(id)sender;
 - (IBAction)memPrefChange:(id)sender;
 - (IBAction)netPrefChange:(id)sender;

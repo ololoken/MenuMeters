@@ -77,6 +77,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 
 - (id)init {
     self = [super initWithWindowNibName:@"MenuMetersPreferencesWindow"];
+
     // Reread prefs on each load
     ourPrefs = [MenuMeterDefaults sharedMenuMeterDefaults];
     return self;
@@ -96,10 +97,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     [[self window] center];
     [[self window] makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
-    if ([sender isKindOfClass:[MenuMeterCPUExtra class]]) {
-        [prefTabs selectTabViewItem:tabCpu];
-    }
-    else if ([sender isKindOfClass:[MenuMeterDiskExtra class]]) {
+    if ([sender isKindOfClass:[MenuMeterDiskExtra class]]) {
         [prefTabs selectTabViewItem:tabDisk];
     }
     else if ([sender isKindOfClass:[MenuMeterMemExtra class]]) {
@@ -119,12 +117,10 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 - (void)windowDidLoad {
     // Set the switches on each menu toggle
 
-    [cpuMeterToggle setState:([self isExtraWithBundleIDLoaded:kCPUMenuBundleID])];
     [diskMeterToggle setState:([self isExtraWithBundleIDLoaded:kDiskMenuBundleID])];
     [memMeterToggle setState:([self isExtraWithBundleIDLoaded:kMemMenuBundleID])];
     [netMeterToggle setState:([self isExtraWithBundleIDLoaded:kNetMenuBundleID])];
 
-    [self cpuPrefChange:nil];
     [self diskPrefChange:nil];
     [self memPrefChange:nil];
     [self netPrefChange:nil];
@@ -141,15 +137,11 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
          [[NSBundle bundleForClass:[self class]] localizedStringForKey:imageSetName value:nil table:nil]];
     }
 
-    // On first load turn off cpu averaging control if this is not a multiproc machine
-    [cpuAvgProcs setEnabled:[self isMultiProcessor]];
-
     // Set up a NSFormatter for use printing timers
     NSNumberFormatter *intervalFormatter = [[NSNumberFormatter alloc] init];
     [intervalFormatter setLocalizesFormat:YES];
     [intervalFormatter setFormat:@"###0.0"];
 
-    [cpuIntervalDisplay setFormatter:intervalFormatter];
     [diskIntervalDisplay setFormatter:intervalFormatter];
     [netIntervalDisplay setFormatter:intervalFormatter];
 
@@ -162,6 +154,9 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] title]]];
     [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LogScale" ofType:@"tiff"]]];
     [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLog] title]]];
+
+
+    [MenuMeterCPUExtra addConfigPane:prefTabs];
 
 } // mainViewDidLoad
 
@@ -190,25 +185,20 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 //
 ///////////////////////////////////////////////////////////////
 - (IBAction)liveUpdateInterval:(id)sender {
-    if (sender == cpuInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(cpuPrefChange:) object:cpuInterval];
-        [self performSelector:@selector(cpuPrefChange:) withObject:cpuInterval afterDelay:0.0];
-        [cpuIntervalDisplay takeDoubleValueFrom:cpuInterval];
-    }
-    else if (sender == diskInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(diskPrefChange:) object:diskInterval];
-        [self performSelector:@selector(diskPrefChange:) withObject:diskInterval afterDelay:0.0];
-        [diskIntervalDisplay takeDoubleValueFrom:diskInterval];
+    if (sender == diskInterval) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(diskPrefChange:) object:sender];
+        [self performSelector:@selector(diskPrefChange:) withObject:sender afterDelay:0.0];
+        [diskIntervalDisplay takeDoubleValueFrom:sender];
     }
     else if (sender == memInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(memPrefChange:) object:memInterval];
-        [self performSelector:@selector(memPrefChange:) withObject:memInterval afterDelay:0.0];
-        [memIntervalDisplay takeDoubleValueFrom:memInterval];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(memPrefChange:) object:sender];
+        [self performSelector:@selector(memPrefChange:) withObject:sender afterDelay:0.0];
+        [memIntervalDisplay takeDoubleValueFrom:sender];
     }
     else if (sender == netInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(netPrefChange:) object:netInterval];
-        [self performSelector:@selector(netPrefChange:) withObject:netInterval afterDelay:0.0];
-        [netIntervalDisplay takeDoubleValueFrom:netInterval];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(netPrefChange:) object:sender];
+        [self performSelector:@selector(netPrefChange:) withObject:sender afterDelay:0.0];
+        [netIntervalDisplay takeDoubleValueFrom:sender];
     }
 } // liveUpdateInterval:
 
@@ -229,144 +219,6 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
          userInfo:nil deliverImmediately:YES];
     }
 }
-
-- (IBAction)cpuPrefChange:(id)sender {
-
-    // Extra load handler
-    [self toggleMenu:cpuMeterToggle bundleID:kCPUMenuBundleID];
-
-    // Save changes
-    if (sender == cpuDisplayMode) {
-        [ourPrefs saveCpuDisplayMode:(int)[cpuDisplayMode indexOfSelectedItem] + 1];
-    } else if (sender == cpuTemperatureToggle) {
-        [ourPrefs saveCpuTempreture:[cpuTemperatureToggle state]];
-    } else if (sender == cpuInterval) {
-        [ourPrefs saveCpuInterval:[cpuInterval doubleValue]];
-    } else if (sender == cpuPercentMode) {
-        [ourPrefs saveCpuPercentDisplay:(int)[cpuPercentMode indexOfSelectedItem]];
-    } else if (sender == cpuMaxProcessCount) {
-        [ourPrefs saveCpuMaxProcessCount:(int)[cpuMaxProcessCount intValue]];
-    } else if (sender == cpuGraphWidth) {
-        [ourPrefs saveCpuGraphLength:[cpuGraphWidth intValue]];
-    } else if (sender == cpuHorizontalRows) {
-        [ourPrefs saveCpuHorizontalRows:[cpuHorizontalRows intValue]];
-    } else if (sender == cpuMenuWidth) {
-        [ourPrefs saveCpuMenuWidth:[cpuMenuWidth intValue]];
-    } else if (sender == cpuAvgProcs) {
-        bool avg = [cpuAvgProcs state];
-        [ourPrefs saveCpuAvgAllProcs:avg];
-        if (avg) {
-            [ourPrefs saveCpuAvgLowerHalfProcs:NO];
-            [ourPrefs saveCpuSortByUsage:NO];
-        }
-    } else if (sender == cpuAvgLowerHalfProcs) {
-        bool avg = [cpuAvgLowerHalfProcs state];
-        [ourPrefs saveCpuAvgLowerHalfProcs:avg];
-        if (avg) {
-            [ourPrefs saveCpuAvgAllProcs:NO];
-        }
-    } else if (sender == cpuSortByUsage) {
-        bool sort = [cpuSortByUsage state];
-        [ourPrefs saveCpuSortByUsage:sort];
-        if (sort) {
-            [ourPrefs saveCpuAvgAllProcs:NO];
-        }
-        else {
-            [ourPrefs saveCpuAvgLowerHalfProcs:NO];
-        }
-    } else if (sender == cpuUserColor) {
-        [ourPrefs saveCpuUserColor:[cpuUserColor color]];
-    } else if (sender == cpuSystemColor) {
-        [ourPrefs saveCpuSystemColor:[cpuSystemColor color]];
-    } else if (!sender) {
-        // On first load handle multiprocs options
-        if (![self isMultiProcessor]) {
-            [ourPrefs saveCpuAvgAllProcs:NO];
-        }
-    }
-
-    // Update controls
-    [cpuDisplayMode selectItemAtIndex:-1]; // Work around multiselects. AppKit problem?
-    [cpuDisplayMode selectItemAtIndex:[ourPrefs cpuDisplayMode] - 1];
-    [cpuInterval setDoubleValue:[ourPrefs cpuInterval]];
-    [cpuPercentMode selectItemAtIndex:-1]; // Work around multiselects. AppKit problem?
-    [cpuPercentMode selectItemAtIndex:[ourPrefs cpuPercentDisplay]];
-    [cpuMaxProcessCount setIntValue:[ourPrefs cpuMaxProcessCount]];
-    [cpuMaxProcessCountCountLabel setStringValue:[NSString stringWithFormat:NSLocalizedString(@"(%d)", @"DO NOT LOCALIZE!!!"),
-                                                  (short)[ourPrefs cpuMaxProcessCount]]];
-    [cpuGraphWidth setIntValue:[ourPrefs cpuGraphLength]];
-    [cpuHorizontalRows setIntValue:[ourPrefs cpuHorizontalRows]];
-    [cpuMenuWidth setIntValue:[ourPrefs cpuMenuWidth]];
-    [cpuAvgProcs setState:[ourPrefs cpuAvgAllProcs]];
-    [cpuTemperatureToggle setState:[ourPrefs cpuShowTempreture]];
-    [cpuAvgLowerHalfProcs setState:[ourPrefs cpuAvgLowerHalfProcs]];
-    [cpuSortByUsage setState:[ourPrefs cpuSortByUsage]];
-    [cpuUserColor setColor:[ourPrefs cpuUserColor]];
-    [cpuSystemColor setColor:[ourPrefs cpuSystemColor]];
-    [cpuTemperatureColor setColor:[ourPrefs cpuTemperatureColor]];
-    [cpuIntervalDisplay takeDoubleValueFrom:cpuInterval];
-
-    // Disable controls as needed
-    if ([cpuSortByUsage state]) {
-        [cpuAvgProcs setEnabled:NO];
-        [cpuPercentModeLabel setTextColor:[NSColor lightGrayColor]];
-        [cpuAvgLowerHalfProcs setEnabled:YES];
-    }
-    else {
-        [cpuAvgProcs setEnabled:YES];
-        [cpuPercentModeLabel setTextColor:[NSColor controlTextColor]];
-        [cpuAvgLowerHalfProcs setEnabled:NO];
-    }
-    if ([cpuAvgProcs state]) {
-        [cpuSortByUsage setEnabled:NO];
-    }
-    else {
-        [cpuSortByUsage setEnabled:YES];
-    }
-    if (([cpuDisplayMode indexOfSelectedItem] + 1) & kCPUDisplayPercent) {
-        [cpuPercentMode setEnabled:YES];
-        [cpuPercentModeLabel setTextColor:[NSColor controlTextColor]];
-    } else {
-        [cpuPercentMode setEnabled:NO];
-        [cpuPercentModeLabel setTextColor:[NSColor lightGrayColor]];
-    }
-    if (([cpuDisplayMode indexOfSelectedItem] + 1) & kCPUDisplayGraph) {
-        [cpuGraphWidth setEnabled:YES];
-        [cpuGraphWidthLabel setTextColor:[NSColor controlTextColor]];
-    } else {
-        [cpuGraphWidth setEnabled:NO];
-        [cpuGraphWidthLabel setTextColor:[NSColor lightGrayColor]];
-    }
-    if (([cpuDisplayMode indexOfSelectedItem] + 1) & kCPUDisplayHorizontalThermometer) {
-        [cpuHorizontalRows setEnabled:YES];
-        [cpuHorizontalRowsLabel setTextColor:[NSColor controlTextColor]];
-        [cpuMenuWidth setEnabled:YES];
-        [cpuMenuWidthLabel setTextColor:[NSColor controlTextColor]];
-        [cpuAvgProcs setEnabled:NO];
-    }
-    else {
-        [cpuHorizontalRows setEnabled:NO];
-        [cpuHorizontalRowsLabel setTextColor:[NSColor lightGrayColor]];
-        [cpuMenuWidth setEnabled:NO];
-        [cpuMenuWidthLabel setTextColor:[NSColor lightGrayColor]];
-    }
-    if ((([cpuDisplayMode indexOfSelectedItem] + 1) & (kCPUDisplayGraph | kCPUDisplayThermometer | kCPUDisplayHorizontalThermometer)) ||
-        ((([cpuDisplayMode indexOfSelectedItem] + 1) & kCPUDisplayPercent) &&
-         ([cpuPercentMode indexOfSelectedItem] == kCPUPercentDisplaySplit))) {
-            [cpuUserColor setEnabled:YES];
-            [cpuSystemColor setEnabled:YES];
-            [cpuUserColorLabel setTextColor:[NSColor controlTextColor]];
-            [cpuSystemColorLabel setTextColor:[NSColor controlTextColor]];
-        } else {
-            [cpuUserColor setEnabled:NO];
-            [cpuSystemColor setEnabled:NO];
-            [cpuUserColorLabel setTextColor:[NSColor lightGrayColor]];
-            [cpuSystemColorLabel setTextColor:[NSColor lightGrayColor]];
-        }
-
-    [self saveAndNotify:kCPUMenuBundleID];
-
-} // cpuPrefChange
 
 - (IBAction)diskPrefChange:(id)sender {
 

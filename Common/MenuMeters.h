@@ -27,8 +27,6 @@
 //
 ///////////////////////////////////////////////////////////////
 
-// Bundle ID for the CPU menu extra
-#define kCPUMenuBundleID				@"com.ragingmenace.MenuMeterCPU"
 
 // Bundle ID for the Disk menu extra
 #define kDiskMenuBundleID				@"com.ragingmenace.MenuMeterDisk"

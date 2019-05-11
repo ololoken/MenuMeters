@@ -26,6 +26,7 @@
 //	Constants
 //
 ///////////////////////////////////////////////////////////////
+#define kCPUMenuBundleID                @"com.ragingmenace.MenuMeterCPU"
 
 // Widths of the various displays
 #define kCPUPercentDisplayBorderWidth		2
@@ -38,29 +39,13 @@
 #define kCPUTaskInfoMenuIndex				5
 #define kCPULoadInfoMenuIndex				7
 #define kCPUProcessLabelMenuIndex           8
-#define kCPUProcessMenuIndex                (kCPUProcessLabelMenuIndex + 1)
+#define kCPUProcessMenuIndex                kCPUProcessLabelMenuIndex+1
 
 ///////////////////////////////////////////////////////////////
 //
 //	Preference information
 //
 ///////////////////////////////////////////////////////////////
-
-// Pref dictionary keys
-#define kCPUIntervalPref					@"CPUInterval"
-#define kCPUDisplayModePref					@"CPUDisplayMode"
-#define kCPUPercentDisplayPref				@"CPUPercentDisplayMode"
-#define kCPUMaxProcessCountPref             @"CPUMaxProcessCount"
-#define kCPUGraphLengthPref					@"CPUGraphLength"
-#define kCPUHorizontalRowsPref              @"CPUHorizontalRows"
-#define kCPUMenuWidthPref                   @"CPUMenuWidth"
-#define kCPUAvgAllProcsPref					@"CPUAverageMultiProcs"
-#define kCPUAvgLowerHalfProcsPref			@"CPUAverageLowerHalfProcs"
-#define kCPUSortByUsagePref				    @"CPUSortByUsage"
-#define kCPUSystemColorPref					@"CPUSystemColor"
-#define kCPUUserColorPref					@"CPUUserColor"
-#define kCPUShowTemperature                 @"CPUTemperature"
-#define kCPUTemperatureColor                @"CPUTemperatureColor"
 
 // Display modes
 enum {
@@ -78,43 +63,6 @@ enum {
 	kCPUPercentDisplaySplit
 };
 #define kCPUPercentDisplayDefault			kCPUPercentDisplaySmall
-
-// Process info
-#define kCPUProcessCountMin                 0
-#define kCPUrocessCountMax                  25
-#define kCPUProcessCountDefault             5
-
-// Timer
-#define kCPUUpdateIntervalMin				0.5f
-#define kCPUUpdateIntervalMax				10.0f
-#define kCPUUpdateIntervalDefault			1.0f
-
-// Graph display
-#define kCPUGraphWidthMin					11
-#define kCPUGraphWidthMax					88
-#define kCPUGraphWidthDefault				33
-
-// Thermometer display
-#define kCPUHorizontalRowsMin               1
-#define kCPUHorizontalRowsMax               8
-#define kCPUHorizontalRowsDefault           2
-
-// Menu width
-#define kCPUMenuWidthMin                    60
-#define kCPUMenuWidthMax                    400
-#define kCPUMenuWidthDefault                120
-
-// Multiproc averaging
-#define kCPUAvgAllProcsDefault				NO
-
-// Least-utilized half of procs averaging
-#define kCPUAvgLowerHalfProcsDefault		NO
-
-// Sorting by usage
-#define kCPUSortByUsageDefault				NO
-
-// Show CPU temperature
-#define kCPUShowTemperatureDefault          NO
 
 // Colors
 											// Maraschino

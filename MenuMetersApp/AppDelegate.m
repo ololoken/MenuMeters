@@ -43,10 +43,16 @@
         needToShowPrefs = YES;
     }
 
-    cpuExtra = [[MenuMeterCPUExtra alloc] initWithBundle:[NSBundle mainBundle]];
+    NSMutableDictionary*prefs = [[NSMutableDictionary alloc] init];
+
+    cpuExtra = [[MenuMeterCPUExtra alloc] initWithBundle:[NSBundle mainBundle] defaults:prefs];
     diskExtra = [[MenuMeterDiskExtra alloc] initWithBundle:[NSBundle mainBundle]];
     netExtra = [[MenuMeterNetExtra alloc] initWithBundle:[NSBundle mainBundle]];
     memExtra = [[MenuMeterMemExtra alloc] initWithBundle:[NSBundle mainBundle]];
+
+    [[NSUserDefaults standardUserDefaults] registerDefaults:prefs];
+    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:prefs];
+    [[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];
 
     preferencesController = [[PreferencesController alloc] init];
 

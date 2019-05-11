@@ -63,6 +63,25 @@ static AppDelegate *appDelegate;
     }
 }
 
+- (void)configDisplay:(BOOL)enabled withTimerInterval:(NSTimeInterval)interval {
+    if (enabled) {
+        if(!statusItem){
+            statusItem=[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+            statusItem.menu = self.menu;
+            statusItem.menu.delegate = self;
+        }
+        [updateTimer invalidate];
+        updateTimer=[NSTimer timerWithTimeInterval:interval target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+        [updateTimer setTolerance:.2*interval];
+        [[NSRunLoop currentRunLoop] addTimer:updateTimer forMode:NSRunLoopCommonModes];
+    }else if(!enabled && statusItem){
+        [updateTimer invalidate];
+        [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
+        statusItem=nil;
+    }
+}
+
+
 #pragma mark NSMenuDelegate
 - (void)menuNeedsUpdate:(NSMenu*)menu {
     statusItem.menu = self.menu;

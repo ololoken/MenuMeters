@@ -35,36 +35,6 @@
 // Pref read/write
 - (void)syncWithDisk;
 
-// CPU menu prefs
-- (double)cpuInterval;
-- (int)cpuDisplayMode;
-- (int)cpuPercentDisplay;
-- (int)cpuMaxProcessCount;
-- (int)cpuGraphLength;
-- (int)cpuHorizontalRows;
-- (int)cpuMenuWidth;
-- (BOOL)cpuAvgAllProcs;
-- (BOOL)cpuAvgLowerHalfProcs;
-- (BOOL)cpuSortByUsage;
-- (BOOL)cpuShowTempreture;
-- (NSColor *)cpuSystemColor;
-- (NSColor *)cpuUserColor;
-- (NSColor *)cpuTemperatureColor;
-- (void)saveCpuInterval:(double)interval;
-- (void)saveCpuDisplayMode:(int)mode;
-- (void)saveCpuPercentDisplay:(int)mode;
-- (void)saveCpuMaxProcessCount:(int)maxCount;
-- (void)saveCpuGraphLength:(int)length;
-- (void)saveCpuHorizontalRows:(int)rows;
-- (void)saveCpuMenuWidth:(int)width;
-- (void)saveCpuAvgAllProcs:(BOOL)average;
-- (void)saveCpuAvgLowerHalfProcs:(BOOL)average;
-- (void)saveCpuSortByUsage:(BOOL)sort;
-- (void)saveCpuTempreture:(BOOL)show;
-- (void)saveCpuSystemColor:(NSColor *)color;
-- (void)saveCpuUserColor:(NSColor *)color;
-- (void)saveCpuTempretureColor:(NSColor *)color;
-
 // Disk menu prefs
 - (double)diskInterval;
 - (int)diskImageset;

@@ -16,6 +16,7 @@
     NSTimer* updateTimer;
 }
 - (void)configDisplay:(NSString*)bundleID fromPrefs:(MenuMeterDefaults*)ourPrefs withTimerInterval:(NSTimeInterval)interval;
+- (void)configDisplay:(BOOL)enabled withTimerInterval:(NSTimeInterval)interval;
 - (void)timerFired:(id)timer;
 
 @property(nonatomic, readonly) BOOL isMenuVisible;

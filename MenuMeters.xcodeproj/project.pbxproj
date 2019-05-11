@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		302F3D5B2284C74C0017FE0C /* CPUPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D4D2284C4060017FE0C /* CPUPreferences.xib */; };
 		308FC0C9227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */; };
 		308FC0CD227C627B00B459B0 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308FC0CC227C627B00B459B0 /* PreferencesController.m */; };
 		308FC0D3227C675600B459B0 /* CubeRootScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0CF227C675600B459B0 /* CubeRootScale.tiff */; };
@@ -86,6 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		302F3D4D2284C4060017FE0C /* CPUPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPUPreferences.xib; sourceTree = "<group>"; };
+		302F3D62228772C80017FE0C /* MenuMeterCPUConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MenuMeterCPUConstants.h; path = MenuExtras/MenuMeterCPU/MenuMeterCPUConstants.h; sourceTree = "<group>"; };
 		308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuMetersPreferencesWindow.xib; sourceTree = "<group>"; };
 		308FC0CB227C624E00B459B0 /* PreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		308FC0CC227C627B00B459B0 /* PreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; wrapsLines = 0; };
@@ -129,7 +132,6 @@
 		D4050C3A19BFF74100DB69A4 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = German; path = MenuExtras/MenuMeterMem/German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4050C3B19BFF74900DB69A4 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D40DB4C203D260E800A87BC9 /* MenuMeterMem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterMem.h; path = Common/MenuMeterMem.h; sourceTree = "<group>"; };
-		D40DB4C403D260E800A87BC9 /* MenuMeterCPU.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterCPU.h; path = Common/MenuMeterCPU.h; sourceTree = "<group>"; };
 		D40DB4C503D260E800A87BC9 /* MenuMeterDisk.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterDisk.h; path = Common/MenuMeterDisk.h; sourceTree = "<group>"; };
 		D40DB4C603D260E800A87BC9 /* MenuMeterNet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterNet.h; path = Common/MenuMeterNet.h; sourceTree = "<group>"; };
 		D40DB50E03D2631100A87BC9 /* SystemUIPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemUIPlugin.framework; path = /System/Library/PrivateFrameworks/SystemUIPlugin.framework; sourceTree = "<absolute>"; };
@@ -353,7 +355,6 @@
 				30C0F29C2279F52C003E6699 /* smc_reader.xcodeproj */,
 				D48A784B10181DE6008E3207 /* AppleUndocumented.h */,
 				D4510D9104F2F0FD00A87BC9 /* MenuMeters.h */,
-				D40DB4C403D260E800A87BC9 /* MenuMeterCPU.h */,
 				D40DB4C503D260E800A87BC9 /* MenuMeterDisk.h */,
 				D40DB4C203D260E800A87BC9 /* MenuMeterMem.h */,
 				D40DB4C603D260E800A87BC9 /* MenuMeterNet.h */,
@@ -505,6 +506,7 @@
 		D477AAD603D4B9DE00A87BC9 /* MenuMeterCPU */ = {
 			isa = PBXGroup;
 			children = (
+				302F3D62228772C80017FE0C /* MenuMeterCPUConstants.h */,
 				D477AAE803D4BB7D00A87BC9 /* MenuMeterCPUView.h */,
 				D477AAE903D4BB7D00A87BC9 /* MenuMeterCPUView.m */,
 				D477AAED03D4BB8600A87BC9 /* MenuMeterCPUExtra.h */,
@@ -525,6 +527,7 @@
 			children = (
 				D4ECB38E05FE71B000954E26 /* Info.plist */,
 				D477AAFF03D4BEB400A87BC9 /* Localizable.strings */,
+				302F3D4D2284C4060017FE0C /* CPUPreferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				3383C1971B69D8D000915D5D /* ArrowsIdle.tiff in Resources */,
 				3383C1981B69D8D000915D5D /* ArrowsReadWrite.tiff in Resources */,
 				308FC0D3227C675600B459B0 /* CubeRootScale.tiff in Resources */,
+				302F3D5B2284C74C0017FE0C /* CPUPreferences.xib in Resources */,
 				3383C1991B69D8D000915D5D /* ArrowsWrite.tiff in Resources */,
 				3383C19A1B69D8D000915D5D /* ArrowsRead.tiff in Resources */,
 				3383C19B1B69D8D000915D5D /* Color ArrowsWrite.tiff in Resources */,
@@ -804,7 +808,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yujitach.MenuMetersApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ololoken.MenuMeters;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -864,7 +868,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yujitach.MenuMetersApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ololoken.MenuMeters;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
