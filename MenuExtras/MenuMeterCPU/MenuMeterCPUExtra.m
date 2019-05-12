@@ -229,7 +229,7 @@ static NSImage* defaultIcon;
 	menuItem = (NSMenuItem *)[extraMenu addItemWithTitle:@"" action:nil keyEquivalent:@""];
 	[menuItem setEnabled:NO];
 
-    // Add top kCPUrocessCountMax most CPU intensive processes
+    // Add title for top most CPU intensive processes
     menuItem = (NSMenuItem *)[extraMenu addItemWithTitle:[bundle localizedStringForKey:kProcessTitle value:nil table:nil]
                                                   action:nil
                                            keyEquivalent:@""];
@@ -273,12 +273,6 @@ static NSImage* defaultIcon;
 	return self;
 
 } // initWithBundle
-
-- (id)initWithBundle:(NSBundle*)bundle defaults:(NSMutableDictionary*)prefs {
-    self = [self initWithBundle:bundle];
-    [prefs addEntriesFromDictionary:defaults];
-    return self;
-}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object

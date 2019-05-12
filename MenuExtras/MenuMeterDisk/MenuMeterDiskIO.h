@@ -21,14 +21,8 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Cocoa/Cocoa.h>
-#import <sys/param.h>
-#import <sys/mount.h>
-#import <IOKit/IOKitLib.h>
 #import <IOKit/storage/IOBlockStorageDriver.h>
-#import "MenuMeters.h"
-#import "MenuMeterDisk.h"
-
+#import "MenuMeterDiskConstants.h"
 
 @interface MenuMeterDiskIO : NSObject {
 

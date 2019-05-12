@@ -97,10 +97,8 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     [[self window] center];
     [[self window] makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
-    if ([sender isKindOfClass:[MenuMeterDiskExtra class]]) {
-        [prefTabs selectTabViewItem:tabDisk];
-    }
-    else if ([sender isKindOfClass:[MenuMeterMemExtra class]]) {
+
+    if ([sender isKindOfClass:[MenuMeterMemExtra class]]) {
         [prefTabs selectTabViewItem:tabMem];
     }
     else if ([sender isKindOfClass:[MenuMeterNetExtra class]]) {
@@ -117,32 +115,20 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 - (void)windowDidLoad {
     // Set the switches on each menu toggle
 
-    [diskMeterToggle setState:([self isExtraWithBundleIDLoaded:kDiskMenuBundleID])];
     [memMeterToggle setState:([self isExtraWithBundleIDLoaded:kMemMenuBundleID])];
     [netMeterToggle setState:([self isExtraWithBundleIDLoaded:kNetMenuBundleID])];
 
-    [self diskPrefChange:nil];
     [self memPrefChange:nil];
     [self netPrefChange:nil];
 
     // Build the preferred interface menu and select (this actually updates the net prefs too)
     [self updateNetInterfaceMenu];
 
-    // On first load populate the image set menu
-    NSEnumerator *diskImageSetEnum = [kDiskImageSets objectEnumerator];
-    [diskImageSet removeAllItems];
-    NSString *imageSetName = nil;
-    while ((imageSetName = [diskImageSetEnum nextObject])) {
-        [diskImageSet addItemWithTitle:
-         [[NSBundle bundleForClass:[self class]] localizedStringForKey:imageSetName value:nil table:nil]];
-    }
-
     // Set up a NSFormatter for use printing timers
     NSNumberFormatter *intervalFormatter = [[NSNumberFormatter alloc] init];
     [intervalFormatter setLocalizesFormat:YES];
     [intervalFormatter setFormat:@"###0.0"];
 
-    [diskIntervalDisplay setFormatter:intervalFormatter];
     [netIntervalDisplay setFormatter:intervalFormatter];
 
     // Configure the scale menu to contain images and enough space
@@ -157,6 +143,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 
 
     [MenuMeterCPUExtra addConfigPane:prefTabs];
+    [MenuMeterDiskExtra addConfigPane:prefTabs];
 
 } // mainViewDidLoad
 
@@ -185,12 +172,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 //
 ///////////////////////////////////////////////////////////////
 - (IBAction)liveUpdateInterval:(id)sender {
-    if (sender == diskInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(diskPrefChange:) object:sender];
-        [self performSelector:@selector(diskPrefChange:) withObject:sender afterDelay:0.0];
-        [diskIntervalDisplay takeDoubleValueFrom:sender];
-    }
-    else if (sender == memInterval) {
+    if (sender == memInterval) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(memPrefChange:) object:sender];
         [self performSelector:@selector(memPrefChange:) withObject:sender afterDelay:0.0];
         [memIntervalDisplay takeDoubleValueFrom:sender];
@@ -219,38 +201,6 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
          userInfo:nil deliverImmediately:YES];
     }
 }
-
-- (IBAction)diskPrefChange:(id)sender {
-
-    // Extra load
-    [self toggleMenu:diskMeterToggle bundleID:kDiskMenuBundleID];
-
-    // Save changes
-    if (sender == diskImageSet) {
-        [ourPrefs saveDiskImageset:(int)[diskImageSet indexOfSelectedItem]];
-    } else if (sender == diskInterval) {
-        [ourPrefs saveDiskInterval:[diskInterval doubleValue]];
-    } else if (sender == diskSelectMode) {
-        [ourPrefs saveDiskSelectMode:(int)[diskSelectMode indexOfSelectedItem]];
-    }
-
-    // Update controls
-    [diskImageSet selectItemAtIndex:-1]; // Work around multiselects. AppKit problem?
-    [diskImageSet selectItemAtIndex:[ourPrefs diskImageset]];
-    [diskInterval setDoubleValue:[ourPrefs diskInterval]];
-    [diskIntervalDisplay takeDoubleValueFrom:diskInterval];
-    [diskSelectMode selectItemAtIndex:-1]; // Work around multiselects. AppKit problem?
-    [diskSelectMode selectItemAtIndex:[ourPrefs diskSelectMode]];
-
-    // Write prefs and notify
-    [ourPrefs syncWithDisk];
-    if ([self isExtraWithBundleIDLoaded:kDiskMenuBundleID]) {
-        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:kDiskMenuBundleID
-                                                                       object:kPrefChangeNotification
-                                                                     userInfo:nil deliverImmediately:YES];
-    }
-
-} // diskPrefChange
 
 - (IBAction)memPrefChange:(id)sender {
 

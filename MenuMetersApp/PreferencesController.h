@@ -23,14 +23,8 @@
     IBOutlet NSTabView               *prefTabs;
 
     IBOutlet NSTabViewItem           *tabMem;
-    IBOutlet NSTabViewItem           *tabDisk;
     IBOutlet NSTabViewItem           *tabNet;
-    // Disk pane controls
-    IBOutlet NSButton                *diskMeterToggle;
-    IBOutlet NSPopUpButton           *diskImageSet;
-    IBOutlet NSTextField             *diskIntervalDisplay;
-    IBOutlet NSSlider                *diskInterval;
-    IBOutlet NSPopUpButton           *diskSelectMode;
+
     // Mem pane controls
     IBOutlet NSButton                *memMeterToggle;
     IBOutlet NSPopUpButton           *memDisplayMode;
@@ -81,7 +75,6 @@
 
 // IB Targets
 - (IBAction)liveUpdateInterval:(id)sender;
-- (IBAction)diskPrefChange:(id)sender;
 - (IBAction)memPrefChange:(id)sender;
 - (IBAction)netPrefChange:(id)sender;
 

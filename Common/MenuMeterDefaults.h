@@ -35,15 +35,6 @@
 // Pref read/write
 - (void)syncWithDisk;
 
-// Disk menu prefs
-- (double)diskInterval;
-- (int)diskImageset;
-- (int)diskSelectMode;
-- (BOOL)diskSpaceForceBaseTwo;
-- (void)saveDiskInterval:(double)interval;
-- (void)saveDiskImageset:(int)imageset;
-- (void)saveDiskSelectMode:(int)mode;
-
 // Mem menu prefs
 - (double)memInterval;
 - (int)memDisplayMode;

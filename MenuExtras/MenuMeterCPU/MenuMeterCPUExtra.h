@@ -21,11 +21,6 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
-#import "AppleUndocumented.h"
-#import "MenuMeters.h"
-#import "MenuMeterDefaults.h"
 #import "MenuMeterCPUConstants.h"
 #import "MenuMeterCPUView.h"
 #import "MenuMeterCPUStats.h"
@@ -61,10 +56,9 @@
 
 } // MenuMeterCPUExtra
 
-+(void)addConfigPane:(NSTabView*)tabView;
++ (void)addConfigPane:(NSTabView*)tabView;
 
-- (id)initWithBundle:(NSBundle*)bundle defaults:(NSMutableDictionary*)prefs;
-
+- (NSDictionary*)defaults;
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change

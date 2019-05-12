@@ -27,6 +27,9 @@
 //
 ///////////////////////////////////////////////////////////////
 
+// Bundle ID for the Disk menu extra
+#define kDiskMenuBundleID                @"com.ragingmenace.MenuMeterDisk"
+
 typedef enum {
 	kDiskActivityIdle 			= 0,
 	kDiskActivityRead,
@@ -40,27 +43,6 @@ typedef enum {
 //
 ///////////////////////////////////////////////////////////////
 
-// Pref dictionary keys
-#define kDiskIntervalPref				@"DiskInterval"
-#define kDiskImageSetPref				@"DiskImageSet"
-#define kDiskSelectModePref				@"DiskSelectMode"
-
-// Hidden pref keys
-#define kDiskSpaceForceBaseTwoPref		@"DiskSpaceForceBaseTwo"
-
-// Timer
-#define kDiskUpdateIntervalMin			0.1f
-#define kDiskUpdateIntervalMax			5.0f
-#define kDiskUpdateIntervalDefault		0.3f
-
-// Image sets
-#define kDiskImageSets					[NSArray arrayWithObjects: @"Color Arrows", @"Arrows", \
-											@"Lights", @"Aqua Lights", @"Disk Arrows", \
-											@"Disk Arrows (large)", nil]
-#define kDiskDarkImageSets				[NSArray arrayWithObjects: @"Dark Color Arrows", @"Dark Arrows", \
-											@"Lights", @"Aqua Lights", @"Disk Arrows", \
-											@"Disk Arrows (large)", nil]
-#define kDiskImageSetDefault			0
 #define kDiskArrowsImageSet				4
 #define kDiskArrowsLargeImageSet		5
 
@@ -70,9 +52,6 @@ enum {
 	kDiskSelectModeEject
 };
 #define kDiskSelectModeDefault			kDiskSelectModeOpen
-
-// Hidden pref defaults
-#define kDiskSpaceForceBaseTwoDefault	NO
 
 // View width, also menubar disk icon image width/height
 #define kDiskViewWidth					16

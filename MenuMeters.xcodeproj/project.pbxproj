@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		302F3D5B2284C74C0017FE0C /* CPUPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D4D2284C4060017FE0C /* CPUPreferences.xib */; };
+		302F3D6422880BF40017FE0C /* DSKPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D6322880BF40017FE0C /* DSKPreferences.xib */; };
 		308FC0C9227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */; };
 		308FC0CD227C627B00B459B0 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308FC0CC227C627B00B459B0 /* PreferencesController.m */; };
 		308FC0D3227C675600B459B0 /* CubeRootScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0CF227C675600B459B0 /* CubeRootScale.tiff */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		302F3D4D2284C4060017FE0C /* CPUPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPUPreferences.xib; sourceTree = "<group>"; };
 		302F3D62228772C80017FE0C /* MenuMeterCPUConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MenuMeterCPUConstants.h; path = MenuExtras/MenuMeterCPU/MenuMeterCPUConstants.h; sourceTree = "<group>"; };
+		302F3D6322880BF40017FE0C /* DSKPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DSKPreferences.xib; path = MenuExtras/MenuMeterDisk/DSKPreferences.xib; sourceTree = "<group>"; };
 		308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuMetersPreferencesWindow.xib; sourceTree = "<group>"; };
 		308FC0CB227C624E00B459B0 /* PreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		308FC0CC227C627B00B459B0 /* PreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; wrapsLines = 0; };
@@ -132,7 +134,7 @@
 		D4050C3A19BFF74100DB69A4 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = German; path = MenuExtras/MenuMeterMem/German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4050C3B19BFF74900DB69A4 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D40DB4C203D260E800A87BC9 /* MenuMeterMem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterMem.h; path = Common/MenuMeterMem.h; sourceTree = "<group>"; };
-		D40DB4C503D260E800A87BC9 /* MenuMeterDisk.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterDisk.h; path = Common/MenuMeterDisk.h; sourceTree = "<group>"; };
+		D40DB4C503D260E800A87BC9 /* MenuMeterDiskConstants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterDiskConstants.h; path = Common/MenuMeterDiskConstants.h; sourceTree = "<group>"; };
 		D40DB4C603D260E800A87BC9 /* MenuMeterNet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterNet.h; path = Common/MenuMeterNet.h; sourceTree = "<group>"; };
 		D40DB50E03D2631100A87BC9 /* SystemUIPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemUIPlugin.framework; path = /System/Library/PrivateFrameworks/SystemUIPlugin.framework; sourceTree = "<absolute>"; };
 		D4157AC019D13D4D008BD05F /* Japanese */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -355,7 +357,6 @@
 				30C0F29C2279F52C003E6699 /* smc_reader.xcodeproj */,
 				D48A784B10181DE6008E3207 /* AppleUndocumented.h */,
 				D4510D9104F2F0FD00A87BC9 /* MenuMeters.h */,
-				D40DB4C503D260E800A87BC9 /* MenuMeterDisk.h */,
 				D40DB4C203D260E800A87BC9 /* MenuMeterMem.h */,
 				D40DB4C603D260E800A87BC9 /* MenuMeterNet.h */,
 				D432074803D3DCBA00A87BC9 /* MenuMeterDefaults.h */,
@@ -411,6 +412,7 @@
 		D42EC94703D498CC00A87BC9 /* MenuMeterDisk */ = {
 			isa = PBXGroup;
 			children = (
+				D40DB4C503D260E800A87BC9 /* MenuMeterDiskConstants.h */,
 				D42EC95A03D49AD900A87BC9 /* MenuMeterDiskView.h */,
 				D42EC95903D49AD900A87BC9 /* MenuMeterDiskView.m */,
 				D42EC95E03D49AE400A87BC9 /* MenuMeterDiskExtra.h */,
@@ -430,6 +432,7 @@
 			children = (
 				D4ECB36F05FE716900954E26 /* Info.plist */,
 				D42EC96E03D49B1D00A87BC9 /* Localizable.strings */,
+				302F3D6322880BF40017FE0C /* DSKPreferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				3383C1A11B69D8D000915D5D /* Dark ArrowsReadWrite.tiff in Resources */,
 				3383C1A21B69D8D000915D5D /* Dark ArrowsWrite.tiff in Resources */,
 				3383C1A31B69D8D000915D5D /* Dark Color ArrowsIdle.tiff in Resources */,
+				302F3D6422880BF40017FE0C /* DSKPreferences.xib in Resources */,
 				3383C1A41B69D8D000915D5D /* Dark Color ArrowsRead.tiff in Resources */,
 				3383C1E81B69DD2D00915D5D /* nl.lproj in Resources */,
 				3383C1A51B69D8D000915D5D /* Dark Color ArrowsReadWrite.tiff in Resources */,

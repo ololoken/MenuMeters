@@ -23,7 +23,6 @@
 
 #import "MenuMeterDefaults.h"
 #import "MenuMeterMem.h"
-#import "MenuMeterDisk.h"
 #import "MenuMeterNet.h"
 
 
@@ -111,50 +110,6 @@
 							 kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
 
 } // syncFromDisk
-
-///////////////////////////////////////////////////////////////
-//
-//	Disk menu prefs
-//
-///////////////////////////////////////////////////////////////
-
-- (double)diskInterval {
-	return [self loadDoublePref:kDiskIntervalPref
-					   lowBound:kDiskUpdateIntervalMin
-					  highBound:kDiskUpdateIntervalMax
-				   defaultValue:kDiskUpdateIntervalDefault];
-} // diskInterval
-
-- (int)diskImageset {
-	return [self loadIntPref:kDiskImageSetPref
-					lowBound:kDiskImageSetDefault
-				   highBound:((int)[kDiskImageSets count] - 1)
-				defaultValue:kDiskImageSetDefault];
-} // diskImageset
-
-- (int)diskSelectMode {
-	return [self loadIntPref:kDiskSelectModePref
-					lowBound:kDiskSelectModeOpen
-				   highBound:kDiskSelectModeEject
-				defaultValue:kDiskSelectModeDefault];
-} // diskSelectMode
-
-- (BOOL)diskSpaceForceBaseTwo {
-	return [self loadBoolPref:kDiskSpaceForceBaseTwoPref
-				 defaultValue:kDiskSpaceForceBaseTwoDefault];
-} // diskSpaceForceBaseTwo
-
-- (void)saveDiskInterval:(double)interval {
-	[self saveDoublePref:kDiskIntervalPref value:interval];
-} // saveDiskInterval
-
-- (void)saveDiskImageset:(int)imageset {
-	[self saveIntPref:kDiskImageSetPref value:imageset];
-} // saveDiskImageset
-
-- (void)saveDiskSelectMode:(int)mode {
-	[self saveIntPref:kDiskSelectModePref value:mode];
-} // saveDiskSelectMode
 
 ///////////////////////////////////////////////////////////////
 //

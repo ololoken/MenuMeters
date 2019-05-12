@@ -21,12 +21,7 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
-#import "AppleUndocumented.h"
-#import "MenuMeters.h"
-#import "MenuMeterDefaults.h"
-#import "MenuMeterDisk.h"
+#import "MenuMeterDiskConstants.h"
 #import "MenuMeterDiskView.h"
 #import "MenuMeterDiskIO.h"
 #import "MenuMeterDiskSpace.h"
@@ -50,5 +45,13 @@
 	NSColor							*fgMenuThemeColor;
 
 } // MenuMeterDiskExtra
+
++ (void)addConfigPane:(NSTabView*)tabView;
+- (NSDictionary*)defaults;
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context;
+
 
 @end

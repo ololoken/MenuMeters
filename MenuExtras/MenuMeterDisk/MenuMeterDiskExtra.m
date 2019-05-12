@@ -41,6 +41,11 @@
 
 @end
 
+static NSDictionary* defaults;
+static NSTabViewItem* prefView;
+static NSArray* kDiskImageSets;
+static NSArray* kDiskDarkImageSets;
+
 
 ///////////////////////////////////////////////////////////////
 //
@@ -50,17 +55,90 @@
 
 @implementation MenuMeterDiskExtra
 
++(void)addConfigPane:(NSTabView*)tabView {
+    if (!prefView) {
+        NSArray*viewObjects;
+        [[NSBundle mainBundle] loadNibNamed:@"DSKPreferences" owner:self topLevelObjects:&viewObjects];
+        NSView*view;
+        for (id a in viewObjects) {
+            if ([a isKindOfClass:[NSView class]]) {
+                view = a;
+            }
+        }
+        prefView = [[NSTabViewItem alloc] init];
+        [prefView setLabel:@"Disk"];
+        [prefView setView:view];
+        [tabView addTabViewItem: prefView];
+
+        NSPopUpButton*diskImageSet;
+        for (id a in [view subviews]) {
+            if ([@"ImageSet" isEqualToString:[a identifier]]) {
+                diskImageSet = a;
+                break;
+            }
+        }
+
+        // On first load populate the image set menu
+        [diskImageSet removeAllItems];
+        for (NSString*imageSetName in kDiskImageSets) {
+            [diskImageSet addItemWithTitle:
+             [[NSBundle bundleForClass:[self class]] localizedStringForKey:imageSetName value:nil table:nil]];
+        }
+        [diskImageSet selectItemAtIndex:[[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskImageSet"]];
+    }
+}
+
+-(NSDictionary*)defaults {
+    if (!defaults) {
+        //TODO: move to plist
+        defaults = @{
+                     @"kDiskMenuBundleID": @YES,
+
+                     @"kDiskUpdateIntervalMin": @0.2f,
+                     @"kDiskUpdateIntervalMax": @4.0f,
+                     @"kDiskUpdateInterval": @0.6f,
+
+                     @"kDiskImageSet": @0,
+
+                     @"kDiskSelectMode": [NSNumber numberWithInt:kDiskSelectModeOpen],
+
+                     @"kDiskSpaceForceBaseTwo": @NO,
+                    };
+    }
+    return defaults;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    [self configFromPrefs:nil];
+}
+
 - initWithBundle:(NSBundle *)bundle {
 
 	self = [super initWithBundle:bundle];
 	if (!self) {
 		return nil;
 	}
-    ourPrefs = [MenuMeterDefaults sharedMenuMeterDefaults];
-	if (!ourPrefs) {
-		NSLog(@"MenuMeterDisk unable to connect to preferences. Abort.");
-		return nil;
-	}
+
+    for (NSString*key in [[self defaults] allKeys]) {
+        [[NSUserDefaults standardUserDefaults] addObserver:self
+                                                forKeyPath:key
+                                                   options:NSKeyValueObservingOptionNew
+                                                   context:NULL];
+    }
+
+    if (!kDiskImageSets) {
+        kDiskImageSets = @[@"Color Arrows", @"Arrows",
+                           @"Lights", @"Aqua Lights", @"Disk Arrows",
+                           @"Disk Arrows (large)"];
+    }
+    if (!kDiskDarkImageSets) {
+        kDiskDarkImageSets = @[@"Dark Color Arrows", @"Dark Arrows",
+                               @"Lights", @"Aqua Lights", @"Disk Arrows",
+                               @"Disk Arrows (large)"];
+    }
 
 	// Create the IO monitor
 	diskIOMonitor = [[MenuMeterDiskIO alloc] init];
@@ -69,12 +147,6 @@
 	if (!(diskIOMonitor && diskSpaceMonitor)) {
 		NSLog(@"MenuMeterDisk unable to load data gatherers. Abort.");
 		return nil;
-	}
-
-	// Calc disk space base 2 or 10 depending on system version unless the user
-	// has forced
-	if (![ourPrefs diskSpaceForceBaseTwo]) {
-		[diskSpaceMonitor setBaseTen:YES];
 	}
 
 	// Setup our menu
@@ -92,11 +164,6 @@
 	}
     [self setView:extraView];
 
-	// Register for pref changes
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
-														selector:@selector(configFromPrefs:)
-															name:kDiskMenuBundleID
-														  object:kPrefChangeNotification];
 	// Register for 10.10 theme changes
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
 														selector:@selector(configFromPrefs:)
@@ -127,6 +194,9 @@
 	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self
 															   name:nil
 															 object:nil];
+    for (NSString*key in [[self defaults] allKeys]) {
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:key];
+    }
 	// Let super do the rest
     [super willUnload];
 
@@ -347,7 +417,7 @@
 	UInt32 modKeys = GetCurrentKeyModifiers();
 
 	// Decide action
-	BOOL eject = ([ourPrefs diskSelectMode] == kDiskSelectModeEject);
+	BOOL eject = ([[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskSelectMode"] == kDiskSelectModeEject);
 	if (modKeys & optionKey) eject = !eject;
 
 	if (eject) {
@@ -393,18 +463,18 @@
 ///////////////////////////////////////////////////////////////
 
 - (void)configFromPrefs:(NSNotification *)notification {
-    [super configDisplay:kDiskMenuBundleID fromPrefs:ourPrefs withTimerInterval:[ourPrefs diskInterval]];
+    [super configDisplay:[[NSUserDefaults standardUserDefaults] doubleForKey:@"kDiskMenuBundleID"]
+       withTimerInterval:[[NSUserDefaults standardUserDefaults] doubleForKey:@"kDiskUpdateInterval"]];
 
-	// Update prefs
-	[ourPrefs syncWithDisk];
 
 	// Handle menubar theme changes
 	fgMenuThemeColor = MenuItemTextColor();
 	
 	// Decide on image set name prefix
-	NSString *imageSetNamePrefix = [kDiskImageSets objectAtIndex:[ourPrefs diskImageset]];
+    NSInteger imageSet = [[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskImageSet"];
+	NSString *imageSetNamePrefix = [kDiskImageSets objectAtIndex:imageSet];
 	if (IsMenuMeterMenuBarDarkThemed()) {
-		imageSetNamePrefix = [kDiskDarkImageSets objectAtIndex:[ourPrefs diskImageset]];
+		imageSetNamePrefix = [kDiskDarkImageSets objectAtIndex:imageSet];
 	}
 
 	// Read/scale the boto disk icon for those styles that need it
@@ -419,8 +489,8 @@
 	readwriteImage = nil;
 
 	// Setup new images as overlays or basic images
-	float menubarHeight = (float)[extraView frame].size.height;
-	if ([ourPrefs diskImageset] == kDiskArrowsImageSet) {
+	float menubarHeight = [extraView frame].size.height;
+	if (imageSet == kDiskArrowsImageSet) {
 		// Small disk arrow is an overlay on the boot disk icon
 		idleImage = [[NSImage alloc] initWithSize:NSMakeSize(kDiskViewWidth, menubarHeight)];
 		[idleImage lockFocus];
@@ -454,7 +524,7 @@
                                                       ofType:@"tiff"]];
         [iconReadWrite drawAtPoint:NSMakePoint(0, 0) fromRect:NSMakeRect(0, 0, [iconReadWrite size].width, [iconReadWrite size].height) operation:NSCompositeSourceOver fraction:1.0f];
 		[readwriteImage unlockFocus];
-	} else if ([ourPrefs diskImageset]  == kDiskArrowsLargeImageSet) {
+	} else if (imageSet  == kDiskArrowsLargeImageSet) {
 		// Large arrow disk icon overlays based on patches by Mac-arena the Bored Zo
 		// (macrulez at softhome.net).
 		// Read

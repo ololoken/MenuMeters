@@ -8,11 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesController">
             <connections>
-                <outlet property="diskImageSet" destination="Fgj-QH-MvL" id="NC3-ET-Bo2"/>
-                <outlet property="diskInterval" destination="C8g-1V-mKw" id="lfE-dI-CVv"/>
-                <outlet property="diskIntervalDisplay" destination="vYQ-Vj-pxA" id="bTq-AM-IEJ"/>
-                <outlet property="diskMeterToggle" destination="9qu-kn-1wJ" id="YAW-Dh-Zfk"/>
-                <outlet property="diskSelectMode" destination="iMd-IV-wNR" id="Efq-Yn-yic"/>
                 <outlet property="memActiveColor" destination="0QO-Sg-fIm" id="jP1-Bb-Hbf"/>
                 <outlet property="memColorTab" destination="L5G-f9-12Y" id="Rbi-eE-1ZA"/>
                 <outlet property="memCompressedColor" destination="ErQ-88-vzs" id="K5K-5t-mui"/>
@@ -53,7 +48,6 @@
                 <outlet property="netThroughputLabeling" destination="mCl-Fx-nYC" id="74b-lt-aoS"/>
                 <outlet property="netTxColor" destination="j4R-pp-NuL" id="bdQ-ys-aHt"/>
                 <outlet property="prefTabs" destination="YLO-66-PNz" id="muj-Th-XNy"/>
-                <outlet property="tabDisk" destination="945-jx-2rh" id="T7c-Fx-zsA"/>
                 <outlet property="tabMem" destination="Dws-mZ-5dN" id="kHq-60-oYw"/>
                 <outlet property="tabNet" destination="mY6-lo-c1j" id="9g1-fm-z9g"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="XJ1-Ub-aQN"/>
@@ -75,104 +69,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Disk" identifier="" id="945-jx-2rh">
-                                <view key="view" id="Ixq-39-Oln">
-                                    <rect key="frame" x="10" y="33" width="565" height="611"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textField verticalHuggingPriority="750" id="fW6-Ck-zmA">
-                                            <rect key="frame" x="28" y="450" width="511" height="13"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="(Holding the Option key will reverse the behavior)" id="jS8-kM-buu">
-                                                <font key="font" metaFont="label"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton verticalHuggingPriority="750" id="iMd-IV-wNR">
-                                            <rect key="frame" x="291" y="468" width="241" height="26"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <popUpButtonCell key="cell" type="push" title="opens the volume" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="erP-WM-6Ir" id="L1g-hc-l4m">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="yjh-bj-9Wc">
-                                                    <items>
-                                                        <menuItem title="opens the volume" state="on" id="erP-WM-6Ir"/>
-                                                        <menuItem title="unmounts/ejects the volume" id="Hrc-re-L6G"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="diskPrefChange:" target="-2" id="BEF-A2-jiv"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <textField verticalHuggingPriority="750" id="teK-pi-7ur">
-                                            <rect key="frame" x="36" y="473" width="251" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Selecting a volume from the disk menu" id="JUs-Hh-DPc">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField verticalHuggingPriority="750" id="JJe-Cy-a4Q">
-                                            <rect key="frame" x="25" y="545" width="168" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):" id="G1U-lB-U22">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton verticalHuggingPriority="750" id="Fgj-QH-MvL">
-                                            <rect key="frame" x="280" y="575" width="262" height="26"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <popUpButtonCell key="cell" type="push" title="ImageSet" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="IuR-L0-lwo" id="5Dp-aB-7GF">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="YIb-3m-gp6">
-                                                    <items>
-                                                        <menuItem title="ImageSet" state="on" id="IuR-L0-lwo"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="diskPrefChange:" target="-2" id="sVs-12-ZEb"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <slider verticalHuggingPriority="750" id="C8g-1V-mKw">
-                                            <rect key="frame" x="26" y="513" width="515" height="25"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <sliderCell key="cell" continuous="YES" alignment="left" minValue="0.10000000000000001" maxValue="5" doubleValue="0.30000000000000004" tickMarkPosition="below" numberOfTickMarks="50" allowsTickMarkValuesOnly="YES" sliderType="linear" id="0bC-Jv-rfF">
-                                                <font key="font" size="12" name="Helvetica"/>
-                                            </sliderCell>
-                                            <connections>
-                                                <action selector="liveUpdateInterval:" target="-2" id="WdU-0s-gn0"/>
-                                            </connections>
-                                        </slider>
-                                        <textField verticalHuggingPriority="750" id="vYQ-Vj-pxA">
-                                            <rect key="frame" x="190" y="545" width="54" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="x" id="oBv-uK-uUD">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <button id="9qu-kn-1wJ">
-                                            <rect key="frame" x="26" y="575" width="251" height="27"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <buttonCell key="cell" type="check" title="Display Disk Activity Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2gh-kY-Gco">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="diskPrefChange:" target="-2" id="QVa-xA-CWX"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </view>
-                            </tabViewItem>
                             <tabViewItem label="Memory" identifier="" id="Dws-mZ-5dN">
                                 <view key="view" id="EDC-XJ-WgG">
                                     <rect key="frame" x="10" y="33" width="565" height="611"/>

@@ -27,10 +27,6 @@
 //
 ///////////////////////////////////////////////////////////////
 
-
-// Bundle ID for the Disk menu extra
-#define kDiskMenuBundleID				@"com.ragingmenace.MenuMeterDisk"
-
 // Bundle ID for the Memory menu extra
 #define kMemMenuBundleID				@"com.ragingmenace.MenuMeterMem"
 

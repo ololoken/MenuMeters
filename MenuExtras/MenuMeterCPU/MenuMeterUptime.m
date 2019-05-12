@@ -22,7 +22,6 @@
 //
 
 #import "MenuMeterUptime.h"
-#import <sys/types.h>
 #import <sys/sysctl.h>
 
 
