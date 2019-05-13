@@ -11,16 +11,16 @@
 		302F3D6422880BF40017FE0C /* DSKPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D6322880BF40017FE0C /* DSKPreferences.xib */; };
 		302F3D662288B6E10017FE0C /* MEMPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D652288B6E10017FE0C /* MEMPreferences.xib */; };
 		302F3D6A22898FD20017FE0C /* MemModeToColorTabTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 302F3D6922898FD20017FE0C /* MemModeToColorTabTransformer.m */; };
+		302F3D6C2289E5040017FE0C /* NETPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D6B2289E5040017FE0C /* NETPreferences.xib */; };
+		302F3D74228A0E900017FE0C /* CubeRootScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D70228A0E900017FE0C /* CubeRootScale.tiff */; };
+		302F3D75228A0E900017FE0C /* SquareRootScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D71228A0E900017FE0C /* SquareRootScale.tiff */; };
+		302F3D76228A0E900017FE0C /* LinearScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D72228A0E900017FE0C /* LinearScale.tiff */; };
+		302F3D77228A0E900017FE0C /* LogScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 302F3D73228A0E900017FE0C /* LogScale.tiff */; };
 		308FC0C9227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */; };
 		308FC0CD227C627B00B459B0 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308FC0CC227C627B00B459B0 /* PreferencesController.m */; };
-		308FC0D3227C675600B459B0 /* CubeRootScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0CF227C675600B459B0 /* CubeRootScale.tiff */; };
-		308FC0D4227C675600B459B0 /* SquareRootScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D0227C675600B459B0 /* SquareRootScale.tiff */; };
-		308FC0D5227C675600B459B0 /* LinearScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D1227C675600B459B0 /* LinearScale.tiff */; };
-		308FC0D6227C675600B459B0 /* LogScale.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D2227C675600B459B0 /* LogScale.tiff */; };
 		308FC0DA227CB33700B459B0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308FC0D9227CB30E00B459B0 /* MainMenu.xib */; };
 		30C0F2A7227A19BF003E6699 /* libsmc_reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C0F2A12279F52D003E6699 /* libsmc_reader.a */; };
 		33281A4A1B6BFB05001EA811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3383C1781B69B72600915D5D /* Assets.xcassets */; };
-		332B0F8F1E0381780020CCBB /* MenuMeterDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D432074903D3DCBA00A87BC9 /* MenuMeterDefaults.m */; };
 		3345DD2F1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3345DD2E1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		3383C1741B69B72600915D5D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3383C1731B69B72600915D5D /* AppDelegate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		3383C1771B69B72600915D5D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3383C1761B69B72600915D5D /* main.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -97,13 +97,16 @@
 		302F3D67228968FE0017FE0C /* MenuMeterMemConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuMeterMemConstants.h; path = MenuExtras/MenuMeterMem/MenuMeterMemConstants.h; sourceTree = "<group>"; };
 		302F3D6822898FD20017FE0C /* MemModeToColorTabTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MemModeToColorTabTransformer.h; path = MenuExtras/MenuMeterMem/MemModeToColorTabTransformer.h; sourceTree = "<group>"; };
 		302F3D6922898FD20017FE0C /* MemModeToColorTabTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MemModeToColorTabTransformer.m; path = MenuExtras/MenuMeterMem/MemModeToColorTabTransformer.m; sourceTree = "<group>"; };
+		302F3D6B2289E5040017FE0C /* NETPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NETPreferences.xib; sourceTree = "<group>"; };
+		302F3D6D2289F90D0017FE0C /* MenuMeterDiskConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuMeterDiskConstants.h; path = MenuExtras/MenuMeterDisk/MenuMeterDiskConstants.h; sourceTree = "<group>"; };
+		302F3D6E2289F96C0017FE0C /* MenuMeterNetConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuMeterNetConstants.h; sourceTree = "<group>"; };
+		302F3D70228A0E900017FE0C /* CubeRootScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = CubeRootScale.tiff; sourceTree = "<group>"; };
+		302F3D71228A0E900017FE0C /* SquareRootScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SquareRootScale.tiff; sourceTree = "<group>"; };
+		302F3D72228A0E900017FE0C /* LinearScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = LinearScale.tiff; sourceTree = "<group>"; };
+		302F3D73228A0E900017FE0C /* LogScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = LogScale.tiff; sourceTree = "<group>"; };
 		308FC0C8227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuMetersPreferencesWindow.xib; sourceTree = "<group>"; };
 		308FC0CB227C624E00B459B0 /* PreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		308FC0CC227C627B00B459B0 /* PreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; wrapsLines = 0; };
-		308FC0CF227C675600B459B0 /* CubeRootScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = CubeRootScale.tiff; sourceTree = "<group>"; };
-		308FC0D0227C675600B459B0 /* SquareRootScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SquareRootScale.tiff; sourceTree = "<group>"; };
-		308FC0D1227C675600B459B0 /* LinearScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = LinearScale.tiff; sourceTree = "<group>"; };
-		308FC0D2227C675600B459B0 /* LogScale.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = LogScale.tiff; sourceTree = "<group>"; };
 		308FC0D9227CB30E00B459B0 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		30C0F29C2279F52C003E6699 /* smc_reader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = smc_reader.xcodeproj; path = smc_reader/smc_reader.xcodeproj; sourceTree = "<group>"; };
 		330D68B32105AB950041B689 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "MenuExtras/MenuMeterCPU/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -139,8 +142,6 @@
 		D4050C3919BFF73500DB69A4 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = German; path = MenuExtras/MenuMeterDisk/German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4050C3A19BFF74100DB69A4 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = German; path = MenuExtras/MenuMeterMem/German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4050C3B19BFF74900DB69A4 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D40DB4C503D260E800A87BC9 /* MenuMeterDiskConstants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterDiskConstants.h; path = Common/MenuMeterDiskConstants.h; sourceTree = "<group>"; };
-		D40DB4C603D260E800A87BC9 /* MenuMeterNet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterNet.h; path = Common/MenuMeterNet.h; sourceTree = "<group>"; };
 		D40DB50E03D2631100A87BC9 /* SystemUIPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemUIPlugin.framework; path = /System/Library/PrivateFrameworks/SystemUIPlugin.framework; sourceTree = "<absolute>"; };
 		D4157AC019D13D4D008BD05F /* Japanese */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4157AC119D13D73008BD05F /* Japanese */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Japanese; path = MenuExtras/MenuMeterMem/Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -175,8 +176,6 @@
 		D42EC98403D49BDE00A87BC9 /* LightsIdle.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = LightsIdle.tiff; path = MenuExtras/MenuMeterDisk/Icons/LightsIdle.tiff; sourceTree = "<group>"; };
 		D42EC98503D49BDE00A87BC9 /* LightsRead.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = LightsRead.tiff; path = MenuExtras/MenuMeterDisk/Icons/LightsRead.tiff; sourceTree = "<group>"; };
 		D42EC98603D49BDE00A87BC9 /* LightsReadWrite.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = LightsReadWrite.tiff; path = MenuExtras/MenuMeterDisk/Icons/LightsReadWrite.tiff; sourceTree = "<group>"; };
-		D432074803D3DCBA00A87BC9 /* MenuMeterDefaults.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MenuMeterDefaults.h; path = Common/MenuMeterDefaults.h; sourceTree = "<group>"; };
-		D432074903D3DCBA00A87BC9 /* MenuMeterDefaults.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MenuMeterDefaults.m; path = Common/MenuMeterDefaults.m; sourceTree = "<group>"; wrapsLines = 0; };
 		D4510D7504F2F06100A87BC9 /* GNU General Public License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "GNU General Public License.rtf"; sourceTree = "<group>"; };
 		D4510D7604F2F06100A87BC9 /* History.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = History.txt; sourceTree = "<group>"; };
 		D4510D7704F2F06100A87BC9 /* MenuMeters Read Me.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "MenuMeters Read Me.rtf"; sourceTree = "<group>"; };
@@ -253,13 +252,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		308FC0CE227C675600B459B0 /* Scales */ = {
+		302F3D6F228A0E900017FE0C /* Scales */ = {
 			isa = PBXGroup;
 			children = (
-				308FC0CF227C675600B459B0 /* CubeRootScale.tiff */,
-				308FC0D0227C675600B459B0 /* SquareRootScale.tiff */,
-				308FC0D1227C675600B459B0 /* LinearScale.tiff */,
-				308FC0D2227C675600B459B0 /* LogScale.tiff */,
+				302F3D70228A0E900017FE0C /* CubeRootScale.tiff */,
+				302F3D71228A0E900017FE0C /* SquareRootScale.tiff */,
+				302F3D72228A0E900017FE0C /* LinearScale.tiff */,
+				302F3D73228A0E900017FE0C /* LogScale.tiff */,
 			);
 			path = Scales;
 			sourceTree = "<group>";
@@ -304,7 +303,6 @@
 		33BA36D41B69E48300B4220E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				308FC0CE227C675600B459B0 /* Scales */,
 				33C91649215BD88B00DEA006 /* Base.lproj */,
 				3383C1DA1B69DD2D00915D5D /* English.lproj */,
 				3383C1DB1B69DD2D00915D5D /* French.lproj */,
@@ -362,9 +360,6 @@
 				30C0F29C2279F52C003E6699 /* smc_reader.xcodeproj */,
 				D48A784B10181DE6008E3207 /* AppleUndocumented.h */,
 				D4510D9104F2F0FD00A87BC9 /* MenuMeters.h */,
-				D40DB4C603D260E800A87BC9 /* MenuMeterNet.h */,
-				D432074803D3DCBA00A87BC9 /* MenuMeterDefaults.h */,
-				D432074903D3DCBA00A87BC9 /* MenuMeterDefaults.m */,
 				D48A79F31018B051008E3207 /* MenuMeterWorkarounds.h */,
 				D48A79F41018B051008E3207 /* MenuMeterWorkarounds.m */,
 			);
@@ -389,6 +384,7 @@
 		D40DB4CD03D2618F00A87BC9 /* MenuMeterNet */ = {
 			isa = PBXGroup;
 			children = (
+				302F3D6E2289F96C0017FE0C /* MenuMeterNetConstants.h */,
 				D4FC162303D26AAA00A87BC9 /* MenuMeterNetView.h */,
 				D4FC162203D26AAA00A87BC9 /* MenuMeterNetView.m */,
 				D4FC162603D26AAA00A87BC9 /* MenuMeterNetExtra.h */,
@@ -416,7 +412,7 @@
 		D42EC94703D498CC00A87BC9 /* MenuMeterDisk */ = {
 			isa = PBXGroup;
 			children = (
-				D40DB4C503D260E800A87BC9 /* MenuMeterDiskConstants.h */,
+				302F3D6D2289F90D0017FE0C /* MenuMeterDiskConstants.h */,
 				D42EC95A03D49AD900A87BC9 /* MenuMeterDiskView.h */,
 				D42EC95903D49AD900A87BC9 /* MenuMeterDiskView.m */,
 				D42EC95E03D49AE400A87BC9 /* MenuMeterDiskExtra.h */,
@@ -497,9 +493,9 @@
 				D45F12DF03D48A1300A87BC9 /* MenuMeterMemExtra.m */,
 				D45F12E303D48A1C00A87BC9 /* MenuMeterMemStats.h */,
 				D45F12E203D48A1C00A87BC9 /* MenuMeterMemStats.m */,
-				D45F12E603D48A2C00A87BC9 /* Resources */,
 				302F3D6822898FD20017FE0C /* MemModeToColorTabTransformer.h */,
 				302F3D6922898FD20017FE0C /* MemModeToColorTabTransformer.m */,
+				D45F12E603D48A2C00A87BC9 /* Resources */,
 			);
 			name = MenuMeterMem;
 			sourceTree = "<group>";
@@ -546,8 +542,10 @@
 		D4FC161903D2697D00A87BC9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				302F3D6F228A0E900017FE0C /* Scales */,
 				D4ECB2EB05FE704C00954E26 /* Info.plist */,
 				D4FC163603D26B0800A87BC9 /* Localizable.strings */,
+				302F3D6B2289E5040017FE0C /* NETPreferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -632,22 +630,19 @@
 			files = (
 				3383C1971B69D8D000915D5D /* ArrowsIdle.tiff in Resources */,
 				3383C1981B69D8D000915D5D /* ArrowsReadWrite.tiff in Resources */,
-				308FC0D3227C675600B459B0 /* CubeRootScale.tiff in Resources */,
 				302F3D5B2284C74C0017FE0C /* CPUPreferences.xib in Resources */,
 				3383C1991B69D8D000915D5D /* ArrowsWrite.tiff in Resources */,
 				3383C19A1B69D8D000915D5D /* ArrowsRead.tiff in Resources */,
 				3383C19B1B69D8D000915D5D /* Color ArrowsWrite.tiff in Resources */,
-				308FC0D6227C675600B459B0 /* LogScale.tiff in Resources */,
 				3383C19C1B69D8D000915D5D /* Color ArrowsRead.tiff in Resources */,
 				308FC0DA227CB33700B459B0 /* MainMenu.xib in Resources */,
 				3383C1E91B69DD2D00915D5D /* zh_CN.lproj in Resources */,
 				3383C1E71B69DD2D00915D5D /* Japanese.lproj in Resources */,
-				308FC0D5227C675600B459B0 /* LinearScale.tiff in Resources */,
 				3383C19D1B69D8D000915D5D /* Color ArrowsIdle.tiff in Resources */,
 				3383C1E41B69DD2D00915D5D /* German.lproj in Resources */,
-				308FC0D4227C675600B459B0 /* SquareRootScale.tiff in Resources */,
 				33C9164A215BD88B00DEA006 /* Base.lproj in Resources */,
 				3383C19E1B69D8D000915D5D /* Color ArrowsReadWrite.tiff in Resources */,
+				302F3D77228A0E900017FE0C /* LogScale.tiff in Resources */,
 				3383C19F1B69D8D000915D5D /* Dark ArrowsIdle.tiff in Resources */,
 				3383C1A01B69D8D000915D5D /* Dark ArrowsRead.tiff in Resources */,
 				3383C1A11B69D8D000915D5D /* Dark ArrowsReadWrite.tiff in Resources */,
@@ -656,10 +651,12 @@
 				302F3D6422880BF40017FE0C /* DSKPreferences.xib in Resources */,
 				3383C1A41B69D8D000915D5D /* Dark Color ArrowsRead.tiff in Resources */,
 				3383C1E81B69DD2D00915D5D /* nl.lproj in Resources */,
+				302F3D76228A0E900017FE0C /* LinearScale.tiff in Resources */,
 				3383C1A51B69D8D000915D5D /* Dark Color ArrowsReadWrite.tiff in Resources */,
 				3383C1A61B69D8D000915D5D /* Dark Color ArrowsWrite.tiff in Resources */,
 				3383C1A71B69D8D000915D5D /* LightsWrite.tiff in Resources */,
 				3383C1A81B69D8D000915D5D /* LightsIdle.tiff in Resources */,
+				302F3D74228A0E900017FE0C /* CubeRootScale.tiff in Resources */,
 				308FC0C9227C5E1B00B459B0 /* MenuMetersPreferencesWindow.xib in Resources */,
 				3383C1A91B69D8D000915D5D /* LightsRead.tiff in Resources */,
 				302F3D662288B6E10017FE0C /* MEMPreferences.xib in Resources */,
@@ -667,9 +664,11 @@
 				3383C1E31B69DD2D00915D5D /* French.lproj in Resources */,
 				3383C1AB1B69D8D000915D5D /* Aqua LightsIdle.tiff in Resources */,
 				3383C1E51B69DD2D00915D5D /* Italian.lproj in Resources */,
+				302F3D6C2289E5040017FE0C /* NETPreferences.xib in Resources */,
 				3383C1AC1B69D8D000915D5D /* Aqua LightsReadWrite.tiff in Resources */,
 				33281A4A1B6BFB05001EA811 /* Assets.xcassets in Resources */,
 				3383C1AD1B69D8D000915D5D /* Aqua LightsWrite.tiff in Resources */,
+				302F3D75228A0E900017FE0C /* SquareRootScale.tiff in Resources */,
 				3383C1AE1B69D8D000915D5D /* Aqua LightsRead.tiff in Resources */,
 				3383C1AF1B69D8D000915D5D /* Disk ArrowsRead.tiff in Resources */,
 				3383C1B01B69D8D000915D5D /* Disk ArrowsReadWrite.tiff in Resources */,
@@ -690,7 +689,6 @@
 				3383C1771B69B72600915D5D /* main.m in Sources */,
 				3383C1881B69BF7700915D5D /* MenuMeterCPUExtra.m in Sources */,
 				3383C18C1B69C75F00915D5D /* MenuMeterMemExtra.m in Sources */,
-				332B0F8F1E0381780020CCBB /* MenuMeterDefaults.m in Sources */,
 				3383C1841B69B88C00915D5D /* MenuMeterCPUStats.m in Sources */,
 				3345DD2F1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m in Sources */,
 				3383C1851B69B89100915D5D /* MenuMeterUptime.m in Sources */,

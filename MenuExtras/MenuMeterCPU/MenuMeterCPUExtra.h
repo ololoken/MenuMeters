@@ -33,8 +33,7 @@
 	// Menu Extra necessities
 	NSMenu 							*extraMenu;
     MenuMeterCPUView 				*extraView;
-	// Prefs object
-	MenuMeterDefaults				*ourPrefs;
+
 	// Info gatherers
 	MenuMeterCPUStats				*cpuInfo;
     MenuMeterCPUTopProcesses        *cpuTopProcesses;
@@ -55,14 +54,5 @@
                                     *temperatureColor;
 
 } // MenuMeterCPUExtra
-
-+ (void)addConfigPane:(NSTabView*)tabView;
-
-- (NSDictionary*)defaults;
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context;
-
 
 @end

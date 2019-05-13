@@ -161,13 +161,6 @@ static NSImage* defaultIcon;
 		return nil;
 	}
 
-    for (NSString*key in [[self defaults] allKeys]) {
-        [[NSUserDefaults standardUserDefaults] addObserver:self
-                                                forKeyPath:key
-                                                   options:NSKeyValueObservingOptionNew
-                                                   context:NULL];
-    }
-
 	// Data gatherers and storage
 	cpuInfo = [[MenuMeterCPUStats alloc] init];
     cpuTopProcesses = [[MenuMeterCPUTopProcesses alloc] init];
@@ -252,18 +245,6 @@ static NSImage* defaultIcon;
 		return nil;
 	}
 	[self setView:extraView];
-
-	// Register for pref changes
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
-														selector:@selector(configFromPrefs:)
-															name:kCPUMenuBundleID
-														  object:kPrefChangeNotification];
-	// Register for 10.10 theme changes
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
-														selector:@selector(configFromPrefs:)
-															name:kAppleInterfaceThemeChangedNotification
-														  object:nil];
-
 	// And configure directly from prefs on first load
 	[self configFromPrefs:nil];
 
@@ -280,20 +261,6 @@ static NSImage* defaultIcon;
                        context:(void *)context {
     [self configFromPrefs:nil];
 }
-
-- (void)willUnload {
-
-	// Unregister pref change notifications
-	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self
-															   name:nil
-															 object:nil];
-    for (NSString*key in [[self defaults] allKeys]) {
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:key];
-    }
-	// Let super do the rest
-	[super willUnload];
-
-} // willUnload
 
  // dealloc
 

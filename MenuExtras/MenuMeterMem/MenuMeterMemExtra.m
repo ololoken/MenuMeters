@@ -134,6 +134,7 @@ static NSTabViewItem* prefView;
                 view = a;
             }
         }
+        
         prefView = [[NSTabViewItem alloc] init];
         [prefView setLabel:@"Memory"];
         [prefView setView:view];
@@ -147,13 +148,6 @@ static NSTabViewItem* prefView;
 	if (!self) {
 		return nil;
 	}
-
-    for (NSString*key in [[self defaults] allKeys]) {
-       [[NSUserDefaults standardUserDefaults] addObserver:self
-                                                forKeyPath:key
-                                                   options:NSKeyValueObservingOptionNew
-                                                   context:NULL];
-    }
 
 	// Build our CPU statistics gatherer and history
 	memStats = [[MenuMeterMemStats alloc] init];
@@ -281,13 +275,6 @@ static NSTabViewItem* prefView;
 	if (!(memFloatMBFormatter && memIntMBFormatter && prettyIntFormatter && percentFormatter)) {
 		return nil;
 	}
-
-	// Register for 10.10 theme changes
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
-														selector:@selector(configFromPrefs:)
-															name:kAppleInterfaceThemeChangedNotification
-														  object:nil];
-
 	// And configure directly from prefs on first load
 	[self configFromPrefs:nil];
 
@@ -304,20 +291,6 @@ static NSTabViewItem* prefView;
     [self configFromPrefs:nil];
 }
 
-
-- (void)willUnload {
-
-	// Unregister pref change notifications
-	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self
-															   name:nil
-															 object:nil];
-    for (NSString*key in [[self defaults] allKeys]) {
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:key];
-    }
-	// Let super do the rest
-    [super willUnload];
-
-} // willUnload
 
  // dealloc
 
@@ -939,8 +912,8 @@ static NSTabViewItem* prefView;
 ///////////////////////////////////////////////////////////////
 
 - (void)configFromPrefs:(NSNotification *)notification {
-    [super configDisplay:[[NSUserDefaults standardUserDefaults] doubleForKey:@"kMemMenuBundleID"] withTimerInterval:
-     [[NSUserDefaults standardUserDefaults] floatForKey:@"kMemUpdateInterval"]];
+    [super configDisplay:[[NSUserDefaults standardUserDefaults] doubleForKey:@"kMemMenuBundleID"]
+       withTimerInterval:[[NSUserDefaults standardUserDefaults] floatForKey:@"kMemUpdateInterval"]];
 
 	// Handle menubar theme changes
 	fgMenuThemeColor = MenuItemTextColor();
@@ -948,42 +921,42 @@ static NSTabViewItem* prefView;
 	// Cache colors to skip archive cycle from prefs
     freeColor = kMemFreeColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemFreeColor"]) {
-        [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
+        freeColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
                                                dataForKey:@"kMemFreeColor"]];
     }
     usedColor = kMemUsedColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemUsedColor"]) {
-        [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
+        usedColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
                                                        dataForKey:@"kMemUsedColor"]];
     }
     activeColor = kMemActiveColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemActiveColor"]) {
-        [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
+        activeColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
                                                          dataForKey:@"kMemActiveColor"]];
     }
     inactiveColor = kMemInactiveColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemInactiveColor"]) {
-        [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
+        inactiveColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
                                                            dataForKey:@"kMemInactiveColor"]];
     }
     wireColor = kMemWireColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemWireColor"]) {
-        [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
+        wireColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
                                                        dataForKey:@"kMemWireColor"]];
     }
     compressedColor = kMemCompressedColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemCompressedColor"]) {
-        [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
+        compressedColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
                                                              dataForKey:@"kMemCompressedColor"]];
     }
     pageInColor = kMemPageInColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemPageInColor"]) {
-        [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
+        pageInColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
                                                          dataForKey:@"kMemPageInColor"]];
     }
     pageOutColor = kMemPageOutColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemPageOutColor"]) {
-        [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
+        pageOutColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
                                                           dataForKey:@"kMemPageOutColor"]];
     }
 

@@ -27,6 +27,8 @@
 //	Constants
 //
 ///////////////////////////////////////////////////////////////
+// Bundle ID for the Net menu extra
+#define kNetMenuBundleID                @"com.ragingmenace.MenuMeterNet"
 
 // Widths of the various displays
 #define kNetArrowDisplayWidth				13

@@ -27,9 +27,6 @@
 //
 ///////////////////////////////////////////////////////////////
 
-// Bundle ID for the Net menu extra
-#define kNetMenuBundleID				@"com.ragingmenace.MenuMeterNet"
-
 ///////////////////////////////////////////////////////////////
 //
 //	Preference information
@@ -41,30 +38,12 @@
 // domain
 #define kMenuMeterDefaultsDomain		@"com.ragingmenace.MenuMeters"
 
-// Old name we no longer use
-#define kMenuMeterObsoleteDomain		@"MenuMeters"
-
-// Pref versioning
-#define	kPrefVersionKey					@"MenuMeterPrefVersion"
-#define	kCurrentPrefVersion				8
-
-///////////////////////////////////////////////////////////////
-//
-//	Notifications
-//
-///////////////////////////////////////////////////////////////
-
-// Preferences were changed
-#define kPrefChangeNotification			@"prefChange"
-
 ///////////////////////////////////////////////////////////////
 //
 //	String formats
 //
 ///////////////////////////////////////////////////////////////
 
-#define kMenuIndentFormat				@"    %@"
-#define kMenuDoubleIndentFormat			@"        %@"
-#define kMenuTripleIndentFormat			@"            %@"
+
 
 

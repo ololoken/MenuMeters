@@ -33,8 +33,7 @@
 	// Menu Extra necessities
 	NSMenu 							*extraMenu;
     MenuMeterMemView 				*extraView;
-	// Pref object
-	MenuMeterDefaults				*ourPrefs;
+
 	// Info gathers
 	MenuMeterMemStats				*memStats;
 	// Localized strings
@@ -61,12 +60,5 @@
 	NSColor							*fgMenuThemeColor;
 
 } // MenuMeterMemExtra
-
-+ (void)addConfigPane:(NSTabView*)tabView;
-- (NSDictionary*)defaults;
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context;
 
 @end

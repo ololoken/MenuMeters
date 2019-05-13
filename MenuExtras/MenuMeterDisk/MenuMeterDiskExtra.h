@@ -33,8 +33,7 @@
 	// Menu Extra necessities
 	NSMenu 							*extraMenu;
     MenuMeterDiskView 				*extraView;
-	// Pref object
-	MenuMeterDefaults				*ourPrefs;
+
 	// Info gatherers
 	MenuMeterDiskIO					*diskIOMonitor;
 	MenuMeterDiskSpace				*diskSpaceMonitor;
@@ -45,13 +44,5 @@
 	NSColor							*fgMenuThemeColor;
 
 } // MenuMeterDiskExtra
-
-+ (void)addConfigPane:(NSTabView*)tabView;
-- (NSDictionary*)defaults;
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context;
-
 
 @end

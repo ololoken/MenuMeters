@@ -21,15 +21,11 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Foundation/Foundation.h>
-#import <sys/types.h>
 #import <sys/sysctl.h>
-#import <sys/socket.h>
 #import <net/if.h>
 #import <net/if_dl.h>
 #import <net/if_var.h>
 #import <net/route.h>
-#import <limits.h>
 #import "MenuMeterNetPPP.h"
 
 @interface MenuMeterNetStats : NSObject {

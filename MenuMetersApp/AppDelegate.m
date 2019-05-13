@@ -25,8 +25,6 @@
     MenuMeterDiskExtra *diskExtra;
     MenuMeterNetExtra *netExtra;
     MenuMeterMemExtra *memExtra;
-
-    NSTimer *timer;
 }
 
 //@synthesize preferences;
@@ -52,13 +50,18 @@
     [prefs addEntriesFromDictionary:[cpuExtra defaults]];
     [prefs addEntriesFromDictionary:[diskExtra defaults]];
     [prefs addEntriesFromDictionary:[memExtra defaults]];
+    [prefs addEntriesFromDictionary:[netExtra defaults]];
     [[NSUserDefaults standardUserDefaults] registerDefaults:prefs];
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:prefs];
     [[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];
 
     preferencesController = [[PreferencesController alloc] init];
 
-    if (needToShowPrefs || ![preferencesController anyExtraMenuLoaded]) {
+    BOOL nothingLoaded = ![[NSUserDefaults standardUserDefaults] boolForKey:@"kNetMenuBundleID"]
+        && ![[NSUserDefaults standardUserDefaults] boolForKey:@"kMemMenuBundleID"]
+        && ![[NSUserDefaults standardUserDefaults] boolForKey:@"kCPUMenuBundleID"]
+        && ![[NSUserDefaults standardUserDefaults] boolForKey:@"kDiskMenuBundleID"];
+    if (needToShowPrefs || nothingLoaded) {
         [self showPreferences:nil];
     }
 }

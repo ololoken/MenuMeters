@@ -21,14 +21,9 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-#import <IOKit/IOKitLib.h>
-#import <IOKit/network/IOEthernetInterface.h>
-#import <IOKit/network/IONetworkInterface.h>
 #import <IOKit/network/IOEthernetController.h>
-#import <mach/mach_port.h>
-#import "MenuMeterNet.h"
+#import "MenuMeterNetConstants.h"
 #import "MenuMeterNetPPP.h"
 
 

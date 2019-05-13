@@ -114,19 +114,92 @@
 //	init/unload/dealloc
 //
 ///////////////////////////////////////////////////////////////
+static NSDictionary* defaults;
+static NSTabViewItem* prefView;
 
 @implementation MenuMeterNetExtra
+
+-(NSDictionary*)defaults {
+    if (!defaults) {
+        //TODO: move to plist
+        defaults = @{
+                     @"kNetMenuBundleID": @YES,
+
+                     @"kNetDisplayMode": [NSNumber numberWithInt:kNetDisplayArrows],
+                     @"kNetDisplayOrientation": [NSNumber numberWithInt:kNetDisplayOrientRxTx],
+
+                     @"kNetPreferInterface": kNetPrimaryInterface,
+
+                     @"kNetUpdateIntervalMax": @20.0f,
+                     @"kNetUpdateIntervalMin": @0.5f,
+                     @"kNetUpdateInterval": @2.0f,
+
+                     @"kNetScale": [NSNumber numberWithInt:kNetScaleInterfaceSpeed],
+                     @"kNetScaleCalc": [NSNumber numberWithInt:kNetScaleCalcCubeRoot],
+
+                     @"kNetGraphWidthMax": @88,
+                     @"kNetGraphWidthMin": @11,
+                     @"kNetGraphWidth": @33,
+
+                     @"kNetGraphStyle": [NSNumber numberWithInt:kNetGraphStyleStandard],
+                     
+                     @"kNetThroughputLabel": @YES,
+                     @"kNetThroughput1KBound": @NO,
+
+                     @"kNetTransmitColor": [NSArchiver archivedDataWithRootObject:kNetTransmitColorDefault],
+                     @"kNetReceiveColor": [NSArchiver archivedDataWithRootObject:kNetReceiveColorDefault],
+                     @"kNetInactiveColor": [NSArchiver archivedDataWithRootObject:kNetInactiveColorDefault]
+                     };
+    }
+    return defaults;
+}
+
++(void)addConfigPane:(NSTabView*)tabView {
+    if (!prefView) {
+        NSArray*viewObjects;
+        [[NSBundle mainBundle] loadNibNamed:@"NETPreferences" owner:self topLevelObjects:&viewObjects];
+        NSView*view;
+        for (id a in viewObjects) {
+            if ([a isKindOfClass:[NSView class]]) {
+                view = a;
+            }
+        }
+
+        NSPopUpButton*netScaleCalc;
+        for (id a in [view subviews]) {
+            if ([@"ScaleCalc" isEqualToString:[a identifier]]) {
+                netScaleCalc = a;
+                break;
+            }
+        }
+        // Configure the scale menu to contain images and enough space
+        [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LinearScale" ofType:@"tiff"]]];
+        [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] title]]];
+        [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SquareRootScale" ofType:@"tiff"]]];
+        [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] title]]];
+        [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CubeRootScale" ofType:@"tiff"]]];
+        [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] title]]];
+        [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LogScale" ofType:@"tiff"]]];
+        [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLog] title]]];
+
+        prefView = [[NSTabViewItem alloc] init];
+        [prefView setLabel:@"Net"];
+        [prefView setView:view];
+        [tabView addTabViewItem: prefView];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    [self configFromPrefs:nil];
+}
 
 - initWithBundle:(NSBundle *)bundle {
 
 	self = [super initWithBundle:bundle];
 	if (!self) {
-		return nil;
-	}
-
-    ourPrefs = [MenuMeterDefaults sharedMenuMeterDefaults];
-    if (!ourPrefs) {
-		NSLog(@"MenuMeterCPU unable to connect to preferences. Abort.");
 		return nil;
 	}
 
@@ -256,11 +329,6 @@
 	[tempFormat setFormat:@"#,##0"];
 	prettyIntFormatter = [NSUnarchiver unarchiveObjectWithData:[NSArchiver archivedDataWithRootObject:tempFormat]];
 
-	// Register for pref changes
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
-														selector:@selector(configFromPrefs:)
-															name:kNetMenuBundleID
-														  object:kPrefChangeNotification];
 	// And configure directly from prefs on first load
 	[self configFromPrefs:nil];
 
@@ -269,18 +337,6 @@
     return self;
 
 } // initWithBundle
-
-- (void)willUnload {
-
-	// Unregister pref change notifications
-	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self
-															   name:nil
-															 object:nil];
-
-	// Let super do the rest
-    [super willUnload];
-
-} // willUnload
 
  // dealloc
 
@@ -300,7 +356,7 @@
 	// Don't render without data
 	if (![netHistoryData count]) return nil;
 
-    int netDisplayModePrefs = [ourPrefs netDisplayMode];
+    NSUInteger netDisplayModePrefs = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetDisplayMode"]+1;
 	// Draw displays
 	if (netDisplayModePrefs & kNetDisplayGraph) {
 		[self renderGraphIntoImage:currentImage];
@@ -655,13 +711,14 @@
             
 			// Add interface selection submenus
 			BOOL hadInterfaceSelector = NO;
+            NSString*preferInterface = [[NSUserDefaults standardUserDefaults] stringForKey:@"kNetPreferInterface"];
 			if ([[details objectForKey:@"primary"] boolValue]) {
 				NSMenuItem *primarySwitchItem = (NSMenuItem *)[interfaceSubmenu addItemWithTitle:[localizedStrings objectForKey:kSelectPrimaryInterfaceTitle]
 																						  action:@selector(switchDisplay:)
 																				   keyEquivalent:@""];
 				[primarySwitchItem setRepresentedObject:kNetPrimaryInterface];
 				[primarySwitchItem setTarget:self];
-				if ([[ourPrefs netPreferInterface] isEqualToString:kNetPrimaryInterface]) {
+				if ([preferInterface isEqualToString:kNetPrimaryInterface]) {
 					[primarySwitchItem setEnabled:NO];
 				} else {
 					[primarySwitchItem setEnabled:YES];
@@ -677,7 +734,7 @@
 				[interfaceSwitchItem setRepresentedObject:[details objectForKey:@"devicename"]];
 				[interfaceSwitchItem setTarget:self];
 				// Disable if this is preferred
-				if ([[details objectForKey:@"devicename"] isEqualToString:[ourPrefs netPreferInterface]]) {
+				if ([[details objectForKey:@"devicename"] isEqualToString:preferInterface]) {
 					[interfaceSwitchItem setEnabled:NO];
 				}
 				hadInterfaceSelector = YES;
@@ -688,7 +745,7 @@
 			}
             
 			// Checkmark the interface menu if we haven't found one already
-			if ([[ourPrefs netPreferInterface] isEqualToString:kNetPrimaryInterface] && [[details objectForKey:@"primary"] boolValue]) {
+			if ([preferInterface isEqualToString:kNetPrimaryInterface] && [[details objectForKey:@"primary"] boolValue]) {
 					// This is the primary and the primary is preferred
 					[titleItem setState:NSOnState];
 			} else if (preferredInterfaceConfig && [details objectForKey:@"devicename"]) {
@@ -761,8 +818,8 @@
 - (void)renderGraphIntoImage:(NSImage *)image {
 
 	// Cache style and other values for duration of this method
-	int graphStyle = [ourPrefs netGraphStyle];
-	BOOL rxOnTop = ([ourPrefs netDisplayOrientation] == kNetDisplayOrientRxTx) ? YES : NO;
+	NSInteger graphStyle = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetGraphStyle"];
+	BOOL rxOnTop = ([[NSUserDefaults standardUserDefaults] integerForKey:@"kNetDisplayOrientation"] == kNetDisplayOrientRxTx) ? YES : NO;
 	NSSize imageSize = [image size];
 	float graphHeight = (float)floor((imageSize.height - 1) / 2);
 
@@ -788,7 +845,8 @@
 
 	// Get scale (scale is based on latest primary data, not historical)
 	float scaleFactor = 0;
-	switch ([ourPrefs netScaleMode]) {
+    NSInteger scaleCalc = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetScaleCalc"];
+	switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"kNetScale"]) {
 		case kNetScaleInterfaceSpeed:
 			if ([preferredInterfaceConfig objectForKey:@"speed"]) {
 				scaleFactor = [[preferredInterfaceConfig objectForKey:@"speed"] floatValue] / 8;  // Convert to bytes
@@ -804,7 +862,7 @@
 			break;
 	}
 	if (scaleFactor > 0) {
-		switch ([ourPrefs netScaleCalc]) {
+		switch (scaleCalc) {
 			case kNetScaleCalcLinear:
 				// Nothing
 				break;
@@ -823,7 +881,8 @@
 	// Loop over pixels in desired width until we're out of data
 	int renderPosition = 0;
 	float renderHeight = graphHeight - 0.5f;  // Save room for baseline
-	for (renderPosition = 0; renderPosition < [ourPrefs netGraphLength]; renderPosition++) {
+    NSInteger graphLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetGraphWidth"];
+	for (renderPosition = 0; renderPosition < graphLength; renderPosition++) {
 		// No data at this position?
 		if ((renderPosition >= [netHistoryData count]) ||
 			(renderPosition >= [netHistoryIntervals count])) break;
@@ -845,7 +904,7 @@
 		// Calc scaled values
 		float txValue = [[primaryStats objectForKey:@"deltaout"] floatValue] / sampleInterval;
 		float rxValue = [[primaryStats objectForKey:@"deltain"] floatValue] / sampleInterval;
-		switch ([ourPrefs netScaleCalc]) {
+		switch (scaleCalc) {
 			case kNetScaleCalcLinear:
 				txValue = txValue / scaleFactor;
 				rxValue = rxValue / scaleFactor;
@@ -949,7 +1008,8 @@
 
 	// Get scale (scale is based on latest primary data, not historical)
 	float scaleFactor = 0;
-	switch ([ourPrefs netScaleMode]) {
+    NSInteger scaleCalc = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetScaleCalc"];
+	switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"kNetScale"]) {
 		case kNetScaleInterfaceSpeed:
 			if ([preferredInterfaceConfig objectForKey:@"speed"]) {
 				scaleFactor = [[preferredInterfaceConfig objectForKey:@"speed"] floatValue] / 8;  // Convert to bytes
@@ -965,7 +1025,7 @@
 			break;
 	}
 	if (scaleFactor > 0) {
-		switch ([ourPrefs netScaleCalc]) {
+		switch (scaleCalc) {
 			case kNetScaleCalcLinear:
 				// Nothing
 				break;
@@ -990,7 +1050,7 @@
 		if (primaryStats && sampleIntervalNum && ([sampleIntervalNum floatValue] > 0) && (scaleFactor > 0)) {
 			txValue = [[primaryStats objectForKey:@"deltaout"] floatValue] / [sampleIntervalNum floatValue];
 			rxValue = [[primaryStats objectForKey:@"deltain"] floatValue] / [sampleIntervalNum floatValue];
-			switch ([ourPrefs netScaleCalc]) {
+			switch (scaleCalc) {
 				case kNetScaleCalcLinear:
 					txValue = txValue / scaleFactor;
 					rxValue = rxValue / scaleFactor;
@@ -1017,7 +1077,7 @@
 	// Lock on image and draw
 	[image lockFocus];
 	if ([[preferredInterfaceConfig objectForKey:@"interfaceup"] boolValue]) {
-		if ([ourPrefs netDisplayOrientation] == kNetDisplayOrientRxTx) {
+		if ([[NSUserDefaults standardUserDefaults] integerForKey:@"kNetDisplayOrientation"] == kNetDisplayOrientRxTx) {
 			[[rxColor colorWithAlphaComponent:rxValue] set];
 			[upArrow fill];
 			[rxColor set];
@@ -1065,7 +1125,7 @@
     rxValue = MAX(rxValue, 0);
 
 	// Construct strings
-	double sampleInterval = [ourPrefs netInterval];
+	double sampleInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:@"kNetUpdateInterval"];
 	NSNumber *sampleIntervalNum = [netHistoryIntervals lastObject];
 	if (!sampleIntervalNum && ([sampleIntervalNum doubleValue] > 0)) {
 		sampleInterval = [sampleIntervalNum doubleValue];
@@ -1094,11 +1154,13 @@
 	[image lockFocus];
 	// Draw label if needed
 	float labelOffset = 0;
-	if ([ourPrefs netThroughputLabel]) {
-		if ([ourPrefs netDisplayMode] & kNetDisplayGraph) {
-			labelOffset += [ourPrefs netGraphLength] + kNetDisplayGapWidth;
+    NSInteger displayMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetDisplayMode"]+1;
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kNetThroughputLabel"]) {
+		if (displayMode & kNetDisplayGraph) {
+			labelOffset += [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetGraphWidth"]
+                + kNetDisplayGapWidth;
 		}
-		if ([ourPrefs netDisplayMode] & kNetDisplayArrows) {
+		if (displayMode & kNetDisplayArrows) {
 			labelOffset += kNetArrowDisplayWidth + kNetDisplayGapWidth;
 		}
 		if (interfaceUp) {
@@ -1108,7 +1170,7 @@
 		}
 	}
 	// No descenders, so render lower
-	if ([ourPrefs netDisplayOrientation] == kNetDisplayOrientRxTx) {
+	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"kNetDisplayOrientation"] == kNetDisplayOrientRxTx) {
 		[renderRxString drawAtPoint:NSMakePoint((float)ceil(menuWidth - [renderRxString size].width), (float)floor([image size].height / 2) - 1)];
 		[renderTxString drawAtPoint:NSMakePoint((float)ceil(menuWidth - [renderTxString size].width), -1)];
 	}
@@ -1129,10 +1191,10 @@
 - (void)timerFired:(NSTimer *)timer {
 
 	// Get new config
-	preferredInterfaceConfig = [netConfig interfaceConfigForInterfaceName:[ourPrefs netPreferInterface]];
+	preferredInterfaceConfig = [netConfig interfaceConfigForInterfaceName:[[NSUserDefaults standardUserDefaults] stringForKey:@"kNetPreferInterface"]];
 
 	// Get interval for the sample
-	NSTimeInterval currentSampleInterval = [ourPrefs netInterval];
+	NSTimeInterval currentSampleInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:@"kNetUpdateInterval"];
 	if (lastSampleDate) {
 		currentSampleInterval = -[lastSampleDate timeIntervalSinceNow];
 	}
@@ -1141,12 +1203,14 @@
 	NSDictionary *netLoad = [netStats netStatsForInterval:currentSampleInterval];
 
 	// Add to history (at least one)
-	if ([ourPrefs netDisplayMode] & kNetDisplayGraph) {
-		if ([netHistoryData count] >= [ourPrefs netGraphLength]) {
-			[netHistoryData removeObjectsInRange:NSMakeRange(0, [netHistoryData count] - [ourPrefs netGraphLength] + 1)];
+    NSInteger displayMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetDisplayMode"]+1;
+    NSInteger graphLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetGraphWidth"];
+	if (displayMode & kNetDisplayGraph) {
+		if ([netHistoryData count] >= graphLength) {
+			[netHistoryData removeObjectsInRange:NSMakeRange(0, [netHistoryData count] - graphLength + 1)];
 		}
-		if ([netHistoryIntervals count] >= [ourPrefs netGraphLength]) {
-			[netHistoryIntervals removeObjectsInRange:NSMakeRange(0, [netHistoryIntervals count] - [ourPrefs netGraphLength] + 1)];
+		if ([netHistoryIntervals count] >= graphLength) {
+			[netHistoryIntervals removeObjectsInRange:NSMakeRange(0, [netHistoryIntervals count] - graphLength + 1)];
 		}
 	} else {
 		[netHistoryData removeAllObjects];
@@ -1343,8 +1407,8 @@
 	preferredInterfaceConfig = newConfig;
 
 	// Update prefs
-	[ourPrefs saveNetPreferInterface:interfaceName];
-	[ourPrefs syncWithDisk];
+	//[ourPrefs saveNetPreferInterface:interfaceName];
+	//[ourPrefs syncWithDisk];
 	// Send the notification to the pref pane
 
 } // switchDisplay
@@ -1412,21 +1476,30 @@
 ///////////////////////////////////////////////////////////////
 
 - (void)configFromPrefs:(NSNotification *)notification {
-    [super configDisplay:kNetMenuBundleID  fromPrefs:ourPrefs withTimerInterval:[ourPrefs netInterval]];
-
-	// Update prefs
-	[ourPrefs syncWithDisk];
+    [super configDisplay:[[NSUserDefaults standardUserDefaults] boolForKey:@"kNetMenuBundleID"]
+       withTimerInterval:[[NSUserDefaults standardUserDefaults] floatForKey:@"kNetUpdateInterval"]];
 
 	// Cache colors to skip archiver
-	txColor = [ourPrefs netTransmitColor];
-	rxColor = [ourPrefs netReceiveColor];
-	inactiveColor = [ourPrefs netInactiveColor];
+	txColor = kNetTransmitColorDefault;
+    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kNetTransmitColor"]) {
+        txColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kNetTransmitColor"]];
+    }
+	rxColor = kNetReceiveColorDefault;
+    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kNetReceiveColor"]) {
+        rxColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kNetReceiveColor"]];
+    }
+	inactiveColor = kNetInactiveColorDefault;
+    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kNetInactiveColor"]) {
+        inactiveColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kNetInactiveColor"]];
+    }
 
 	// Generate arrow bezier path offset as needed for current display mode
 	float arrowOffset =  0;
 	float viewHeight = (float)[extraView frame].size.height;
-	if ([ourPrefs netDisplayMode] & kNetDisplayGraph) {
-		arrowOffset = [ourPrefs netGraphLength] + kNetDisplayGapWidth;
+    NSUInteger displayMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetDisplayMode"]+1;
+	if (displayMode & kNetDisplayGraph) {
+		arrowOffset = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetGraphWidth"]
+            + kNetDisplayGapWidth;
 	}
 	upArrow = [NSBezierPath bezierPath];
 	[upArrow moveToPoint:NSMakePoint(arrowOffset + (kNetArrowDisplayWidth / 2) + 0.5f, viewHeight - 3.5f)];
@@ -1471,7 +1544,8 @@
 	}
 	[throughputLabel lockFocus];
 	// No descenders, render lower
-	if ([ourPrefs netDisplayOrientation] == kNetDisplayOrientRxTx) {
+    NSInteger displayOrientation = [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetDisplayOrientation"];
+	if (displayOrientation == kNetDisplayOrientRxTx) {
 		[renderRxString drawAtPoint:NSMakePoint(0, floorf(viewHeight / 2) - 2)];
 		[renderTxString drawAtPoint:NSMakePoint(0, -1)];
 	} else {
@@ -1493,7 +1567,7 @@
 											nil]];
 	[inactiveThroughputLabel lockFocus];
 	// No descenders, render lower
-	if ([ourPrefs netDisplayOrientation] == kNetDisplayOrientRxTx) {
+	if (displayOrientation == kNetDisplayOrientRxTx) {
 		[renderRxString drawAtPoint:NSMakePoint(0, floorf(viewHeight / 2) - 2)];
 		[renderTxString drawAtPoint:NSMakePoint(0, -1)];
 	} else {
@@ -1505,17 +1579,19 @@
 	// Fix our menu view size to match our config
 	menuWidth = 0;
 	int displayCount = 0;
-	if ([ourPrefs netDisplayMode] & kNetDisplayGraph) {
-		menuWidth += [ourPrefs netGraphLength];
+	if (displayMode & kNetDisplayGraph) {
+		menuWidth += [[NSUserDefaults standardUserDefaults] integerForKey:@"kNetGraphWidth"];
 		displayCount++;
 	}
-	if ([ourPrefs netDisplayMode] & kNetDisplayArrows) {
+	if (displayMode & kNetDisplayArrows) {
 		menuWidth += kNetArrowDisplayWidth;
 		displayCount++;
 	}
-	if ([ourPrefs netDisplayMode] & kNetDisplayThroughput) {
+	if (displayMode & kNetDisplayThroughput) {
 		displayCount++;
-		if ([ourPrefs netThroughputLabel]) menuWidth += (float)ceil([throughputLabel size].width);
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kNetThroughputLabel"]) {
+            menuWidth += (float)ceil([throughputLabel size].width);
+        }
 		// Deal with localizable throughput suffix
 		float suffixMaxWidth = 0;
 		NSAttributedString *throughString = [[NSAttributedString alloc]
@@ -1576,8 +1652,8 @@
 ///////////////////////////////////////////////////////////////
 
 - (NSString *)throughputStringForBPS:(double)bps {
-
-	if ((bps < 1024) && [ourPrefs netThroughput1KBound]) {
+    BOOL bound1k = [[NSUserDefaults standardUserDefaults] boolForKey:@"kNetThroughput1KBound"];
+	if ((bps < 1024) && bound1k) {
 		bps = 0;
 	}
 	if (bps > 1073741824) {
@@ -1588,7 +1664,7 @@
 		return [NSString stringWithFormat:@"%@%@",
 					[bytesFormatter stringForObjectValue:[NSNumber numberWithDouble:(double)bps / 1048576]],
 					[localizedStrings objectForKey:kMBPerSecondLabel]];
-	} else if ((bps > 1024) || [ourPrefs netThroughput1KBound]) {
+	} else if ((bps > 1024) || bound1k) {
 		return [NSString stringWithFormat:@"%@%@",
 					[bytesFormatter stringForObjectValue:[NSNumber numberWithDouble:(double)bps / 1024]],
 					[localizedStrings objectForKey:kKBPerSecondLabel]];
@@ -1609,7 +1685,8 @@
 - (NSString *)menubarThroughputStringForBytes:(double)bytes inInterval:(NSTimeInterval)interval {
 
 	double bps = bytes / interval;
-	if ((bps < 1024) && [ourPrefs netThroughput1KBound]) {
+    BOOL bound1k = [[NSUserDefaults standardUserDefaults] boolForKey:@"kNetThroughput1KBound"];
+	if ((bps < 1024) && bound1k) {
 		bps = 0;
 	}
 	if (bps > 1073741824) {
@@ -1628,7 +1705,7 @@
 		// Patch from Alex Eddy, don't show decimals to limit to 4 digits
 		return [NSString stringWithFormat:@"%.0f%@", bps / 1024,
 				[localizedStrings objectForKey:kKBPerSecondLabel]];
-	} else if ((bps > 1024) || [ourPrefs netThroughput1KBound]) {
+	} else if ((bps > 1024) || bound1k) {
 		return [NSString stringWithFormat:@"%@%@",
 				[bytesFormatter stringForObjectValue:[NSNumber numberWithDouble:(double)bps / 1024]],
 				[localizedStrings objectForKey:kKBPerSecondLabel]];
@@ -1640,7 +1717,7 @@
 } // menubarThroughputStringForBytes:inInterval:
 
 - (NSString *)stringForBytes:(double)bytes {
-
+    BOOL bound1k = [[NSUserDefaults standardUserDefaults] boolForKey:@"kNetThroughput1KBound"];
 	if (bytes > 1073741824) {
 		return [NSString stringWithFormat:@"%@%@",
 					[bytesFormatter stringForObjectValue:[NSNumber numberWithDouble:bytes / 1073741824]],
@@ -1649,7 +1726,7 @@
 		return [NSString stringWithFormat:@"%@%@",
 					[bytesFormatter stringForObjectValue:[NSNumber numberWithDouble:bytes / 1048576]],
 					[localizedStrings objectForKey:kMBLabel]];
-	} else if ((bytes > 1024) || [ourPrefs netThroughput1KBound]) {
+	} else if ((bytes > 1024) || bound1k) {
 		return [NSString stringWithFormat:@"%@%@",
 					[bytesFormatter stringForObjectValue:[NSNumber numberWithDouble:bytes / 1024]],
 					[localizedStrings objectForKey:kKBLabel]];

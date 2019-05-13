@@ -122,13 +122,6 @@ static NSArray* kDiskDarkImageSets;
 		return nil;
 	}
 
-    for (NSString*key in [[self defaults] allKeys]) {
-        [[NSUserDefaults standardUserDefaults] addObserver:self
-                                                forKeyPath:key
-                                                   options:NSKeyValueObservingOptionNew
-                                                   context:NULL];
-    }
-
     if (!kDiskImageSets) {
         kDiskImageSets = @[@"Color Arrows", @"Arrows",
                            @"Lights", @"Aqua Lights", @"Disk Arrows",
@@ -164,12 +157,6 @@ static NSArray* kDiskDarkImageSets;
 	}
     [self setView:extraView];
 
-	// Register for 10.10 theme changes
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self
-														selector:@selector(configFromPrefs:)
-															name:kAppleInterfaceThemeChangedNotification
-														  object:nil];
-
 	// And configure directly from prefs on first load
 	[self configFromPrefs:nil];
 
@@ -187,22 +174,6 @@ static NSArray* kDiskDarkImageSets;
     return self;
 
 } // initWithBundle
-
-- (void)willUnload {
-
-	// Unregister pref change notifications
-	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self
-															   name:nil
-															 object:nil];
-    for (NSString*key in [[self defaults] allKeys]) {
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:key];
-    }
-	// Let super do the rest
-    [super willUnload];
-
-} // willUnload
-
- // dealloc
 
 ///////////////////////////////////////////////////////////////
 //
