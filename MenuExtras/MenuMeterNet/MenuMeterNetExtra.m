@@ -115,7 +115,6 @@
 //
 ///////////////////////////////////////////////////////////////
 static NSDictionary* defaults;
-static NSTabViewItem* prefView;
 
 @implementation MenuMeterNetExtra
 
@@ -155,37 +154,33 @@ static NSTabViewItem* prefView;
 }
 
 +(void)addConfigPane:(NSTabView*)tabView {
-    if (!prefView) {
-        NSArray*viewObjects;
-        [[NSBundle mainBundle] loadNibNamed:@"NETPreferences" owner:self topLevelObjects:&viewObjects];
-        NSView*view;
-        for (id a in viewObjects) {
-            if ([a isKindOfClass:[NSView class]]) {
-                view = a;
+    NSArray*viewObjects;
+    [[NSBundle mainBundle] loadNibNamed:@"NETPreferences" owner:self topLevelObjects:&viewObjects];
+    for (id view in viewObjects) {
+        if ([view isKindOfClass:[NSView class]]) {
+            NSPopUpButton*netScaleCalc;
+            for (id a in [view subviews]) {
+                if ([@"ScaleCalc" isEqualToString:[a identifier]]) {
+                    netScaleCalc = a;
+                    break;
+                }
             }
-        }
+            // Configure the scale menu to contain images and enough space
+            [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LinearScale" ofType:@"tiff"]]];
+            [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] title]]];
+            [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SquareRootScale" ofType:@"tiff"]]];
+            [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] title]]];
+            [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CubeRootScale" ofType:@"tiff"]]];
+            [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] title]]];
+            [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LogScale" ofType:@"tiff"]]];
+            [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLog] title]]];
 
-        NSPopUpButton*netScaleCalc;
-        for (id a in [view subviews]) {
-            if ([@"ScaleCalc" isEqualToString:[a identifier]]) {
-                netScaleCalc = a;
-                break;
-            }
+            NSTabViewItem*prefView = [[NSTabViewItem alloc] init];
+            [prefView setLabel:@"Net"];
+            [prefView setView:view];
+            [tabView addTabViewItem: prefView];
+            break;
         }
-        // Configure the scale menu to contain images and enough space
-        [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LinearScale" ofType:@"tiff"]]];
-        [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] title]]];
-        [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SquareRootScale" ofType:@"tiff"]]];
-        [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] title]]];
-        [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CubeRootScale" ofType:@"tiff"]]];
-        [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] title]]];
-        [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LogScale" ofType:@"tiff"]]];
-        [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLog] title]]];
-
-        prefView = [[NSTabViewItem alloc] init];
-        [prefView setLabel:@"Net"];
-        [prefView setView:view];
-        [tabView addTabViewItem: prefView];
     }
 }
 

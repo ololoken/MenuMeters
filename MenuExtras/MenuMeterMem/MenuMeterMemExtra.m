@@ -86,7 +86,6 @@
 //
 ///////////////////////////////////////////////////////////////
 static NSDictionary* defaults;
-static NSTabViewItem* prefView;
 
 @implementation MenuMeterMemExtra
 
@@ -125,20 +124,16 @@ static NSTabViewItem* prefView;
 }
 
 +(void)addConfigPane:(NSTabView*)tabView {
-    if (!prefView) {
-        NSArray*viewObjects;
-        [[NSBundle mainBundle] loadNibNamed:@"MEMPreferences" owner:self topLevelObjects:&viewObjects];
-        NSView*view;
-        for (id a in viewObjects) {
-            if ([a isKindOfClass:[NSView class]]) {
-                view = a;
-            }
+    NSArray*viewObjects;
+    [[NSBundle mainBundle] loadNibNamed:@"MEMPreferences" owner:self topLevelObjects:&viewObjects];
+    for (id view in viewObjects) {
+        if ([view isKindOfClass:[NSView class]]) {
+            NSTabViewItem* prefView = [[NSTabViewItem alloc] init];
+            [prefView setLabel:@"Memory"];
+            [prefView setView:view];
+            [tabView addTabViewItem: prefView];
+            break;
         }
-        
-        prefView = [[NSTabViewItem alloc] init];
-        [prefView setLabel:@"Memory"];
-        [prefView setView:view];
-        [tabView addTabViewItem: prefView];
     }
 }
 

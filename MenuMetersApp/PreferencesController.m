@@ -48,7 +48,15 @@
     [super showWindow:sender];
     [[self window] center];
     [[self window] makeKeyAndOrderFront:self];
+    [MenuMeterCPUExtra addConfigPane:prefTabs];
+    [MenuMeterDiskExtra addConfigPane:prefTabs];
+    [MenuMeterMemExtra addConfigPane:prefTabs];
+    [MenuMeterNetExtra addConfigPane:prefTabs];
     [NSApp activateIgnoringOtherApps:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowWillClose:)
+                                                 name:NSWindowWillCloseNotification
+                                               object:self.window];
 }
 
 ///////////////////////////////////////////////////////////////
@@ -58,21 +66,15 @@
 ///////////////////////////////////////////////////////////////
 
 - (void)windowDidLoad {
+}
 
-    [MenuMeterCPUExtra addConfigPane:prefTabs];
-    [MenuMeterDiskExtra addConfigPane:prefTabs];
-    [MenuMeterMemExtra addConfigPane:prefTabs];
-    [MenuMeterNetExtra addConfigPane:prefTabs];
-
-} // mainViewDidLoad
-
-- (void)close {
-
-    // Unregister all notifications
-    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self name:nil object:nil];
-
-    [super close];
-
-} // close
+-(void)windowWillClose:(NSNotification *)notification {
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self
+                                                               name:nil
+                                                             object:nil];
+    for (NSTabViewItem*item in [prefTabs tabViewItems]) {
+        [prefTabs removeTabViewItem:item];
+    }
+}
 
 @end

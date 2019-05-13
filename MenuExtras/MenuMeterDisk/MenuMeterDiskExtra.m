@@ -42,7 +42,6 @@
 @end
 
 static NSDictionary* defaults;
-static NSTabViewItem* prefView;
 static NSArray* kDiskImageSets;
 static NSArray* kDiskDarkImageSets;
 
@@ -56,35 +55,32 @@ static NSArray* kDiskDarkImageSets;
 @implementation MenuMeterDiskExtra
 
 +(void)addConfigPane:(NSTabView*)tabView {
-    if (!prefView) {
-        NSArray*viewObjects;
-        [[NSBundle mainBundle] loadNibNamed:@"DSKPreferences" owner:self topLevelObjects:&viewObjects];
-        NSView*view;
-        for (id a in viewObjects) {
-            if ([a isKindOfClass:[NSView class]]) {
-                view = a;
-            }
-        }
-        prefView = [[NSTabViewItem alloc] init];
-        [prefView setLabel:@"Disk"];
-        [prefView setView:view];
-        [tabView addTabViewItem: prefView];
+    NSArray*viewObjects;
+    [[NSBundle mainBundle] loadNibNamed:@"DSKPreferences" owner:self topLevelObjects:&viewObjects];
+    for (id view in viewObjects) {
+        if ([view isKindOfClass:[NSView class]]) {
+            NSTabViewItem* prefView = [[NSTabViewItem alloc] init];
+            [prefView setLabel:@"Disk"];
+            [prefView setView:view];
+            [tabView addTabViewItem: prefView];
 
-        NSPopUpButton*diskImageSet;
-        for (id a in [view subviews]) {
-            if ([@"ImageSet" isEqualToString:[a identifier]]) {
-                diskImageSet = a;
-                break;
+            NSPopUpButton*diskImageSet;
+            for (id a in [view subviews]) {
+                if ([@"ImageSet" isEqualToString:[a identifier]]) {
+                    diskImageSet = a;
+                    break;
+                }
             }
-        }
 
-        // On first load populate the image set menu
-        [diskImageSet removeAllItems];
-        for (NSString*imageSetName in kDiskImageSets) {
-            [diskImageSet addItemWithTitle:
-             [[NSBundle bundleForClass:[self class]] localizedStringForKey:imageSetName value:nil table:nil]];
+            // On load populate the image set menu
+            [diskImageSet removeAllItems];
+            for (NSString*imageSetName in kDiskImageSets) {
+                [diskImageSet addItemWithTitle:
+                 [[NSBundle bundleForClass:[self class]] localizedStringForKey:imageSetName value:nil table:nil]];
+            }
+            [diskImageSet selectItemAtIndex:[[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskImageSet"]];
+            break;
         }
-        [diskImageSet selectItemAtIndex:[[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskImageSet"]];
     }
 }
 

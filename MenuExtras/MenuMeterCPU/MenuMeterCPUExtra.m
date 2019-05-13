@@ -88,7 +88,6 @@
 NSDictionary *const CPU_DEFAULTS;
 
 static NSDictionary* defaults;
-static NSTabViewItem* prefView;
 static NSInteger processMenuItems = 0;
 static NSImage* defaultIcon;
 
@@ -137,19 +136,16 @@ static NSImage* defaultIcon;
 }
 
 +(void)addConfigPane:(NSTabView*)tabView {
-    if (!prefView) {
-        NSArray*viewObjects;
-        [[NSBundle mainBundle] loadNibNamed:@"CPUPreferences" owner:self topLevelObjects:&viewObjects];
-        NSView*view;
-        for (id a in viewObjects) {
-            if ([a isKindOfClass:[NSView class]]) {
-                view = a;
-            }
+    NSArray*viewObjects;
+    [[NSBundle mainBundle] loadNibNamed:@"CPUPreferences" owner:self topLevelObjects:&viewObjects];
+    for (id view in viewObjects) {
+        if ([view isKindOfClass:[NSView class]]) {
+            NSTabViewItem* prefView = [[NSTabViewItem alloc] init];
+            [prefView setLabel:@"CPU"];
+            [prefView setView:view];
+            [tabView addTabViewItem: prefView];
+            break;
         }
-        prefView = [[NSTabViewItem alloc] init];
-        [prefView setLabel:@"CPU"];
-        [prefView setView:view];
-        [tabView addTabViewItem: prefView];
     }
 }
 
