@@ -21,26 +21,19 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
-#import "AppleUndocumented.h"
-#import "MenuMeters.h"
-#import "MenuMeterDefaults.h"
-#import "MenuMeterCPU.h"
+#import "MenuMeterCPUConstants.h"
 #import "MenuMeterCPUView.h"
 #import "MenuMeterCPUStats.h"
 #import "MenuMeterCPUTopProcesses.h"
 #import "MenuMeterUptime.h"
 #import "MenuMeterWorkarounds.h"
 
-
 @interface MenuMeterCPUExtra : NSMenuExtra {
 
 	// Menu Extra necessities
 	NSMenu 							*extraMenu;
     MenuMeterCPUView 				*extraView;
-	// Prefs object
-	MenuMeterDefaults				*ourPrefs;
+
 	// Info gatherers
 	MenuMeterCPUStats				*cpuInfo;
     MenuMeterCPUTopProcesses        *cpuTopProcesses;

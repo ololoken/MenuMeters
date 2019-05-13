@@ -12,13 +12,51 @@
 @implementation MenuMetersMenuExtraBase
 static AppDelegate *appDelegate;
 
++ (void)addConfigPane:(NSTabView*)tabView {
+    [self doesNotRecognizeSelector:_cmd];
+}
+
+-(NSDictionary*)defaults {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    [self doesNotRecognizeSelector:_cmd];
+}
+
+- (void)configFromPrefs:(id)sender {
+    [self doesNotRecognizeSelector:_cmd];
+}
+
 -(instancetype)initWithBundle:(NSBundle*)bundle
 {
     self=[super initWithBundle:bundle];
+    for (NSString*key in [[self defaults] allKeys]) {
+        [[NSUserDefaults standardUserDefaults] addObserver:self
+                                                forKeyPath:key
+                                                   options:NSKeyValueObservingOptionNew
+                                                   context:NULL];
+    }
+    // Register for 10.10 theme changes
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
+                                                        selector:@selector(configFromPrefs:)
+                                                            name:kAppleInterfaceThemeChangedNotification
+                                                          object:nil];
     appDelegate = (AppDelegate *)[NSApplication sharedApplication].delegate;
     return self;
 }
 -(void)willUnload {
+    for (NSString*key in [[self defaults] allKeys]) {
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:key];
+    }
+    // Unregister any change notifications
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self
+                                                               name:nil
+                                                             object:nil];
     [updateTimer invalidate];
     updateTimer = nil;
     [super willUnload];
@@ -44,9 +82,9 @@ static AppDelegate *appDelegate;
         [statusItem.button displayRectIgnoringOpacity:statusItem.button.bounds];
     }
 }
-- (void)configDisplay:(NSString*)bundleID fromPrefs:(MenuMeterDefaults*)ourPrefs withTimerInterval:(NSTimeInterval)interval
-{
-    if([ourPrefs loadBoolPref:bundleID defaultValue:YES]){
+
+- (void)configDisplay:(BOOL)enabled withTimerInterval:(NSTimeInterval)interval {
+    if (enabled) {
         if(!statusItem){
             statusItem=[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
             statusItem.menu = self.menu;
@@ -56,12 +94,13 @@ static AppDelegate *appDelegate;
         updateTimer=[NSTimer timerWithTimeInterval:interval target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
         [updateTimer setTolerance:.2*interval];
         [[NSRunLoop currentRunLoop] addTimer:updateTimer forMode:NSRunLoopCommonModes];
-    }else if(![ourPrefs loadBoolPref:bundleID defaultValue:YES] && statusItem){
+    }else if(!enabled && statusItem){
         [updateTimer invalidate];
         [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
         statusItem=nil;
     }
 }
+
 
 #pragma mark NSMenuDelegate
 - (void)menuNeedsUpdate:(NSMenu*)menu {

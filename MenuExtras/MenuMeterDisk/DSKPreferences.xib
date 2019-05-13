@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="565" height="611"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="IVc-as-x5E">
+                    <rect key="frame" x="28" y="445" width="511" height="13"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="(Holding the Option key will reverse the behavior)" id="IYS-Wg-f6c">
+                        <font key="font" metaFont="label"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="pS4-Q4-Dgy">
+                    <rect key="frame" x="291" y="463" width="241" height="26"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <popUpButtonCell key="cell" type="push" title="opens the volume" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="8AR-Vi-7Ww" id="OeF-AH-dxH">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="gkN-xQ-VtY">
+                            <items>
+                                <menuItem title="opens the volume" state="on" id="8AR-Vi-7Ww"/>
+                                <menuItem title="unmounts/ejects the volume" id="ily-cK-8eV"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="dUh-Ny-4lq" name="selectedIndex" keyPath="values.kDiskSelectMode" id="vEd-Uq-aG2"/>
+                    </connections>
+                </popUpButton>
+                <textField verticalHuggingPriority="750" id="bPl-jb-N41">
+                    <rect key="frame" x="36" y="468" width="251" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Selecting a volume from the disk menu" id="b25-Tj-jCV">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="8oZ-Jv-uMj">
+                    <rect key="frame" x="25" y="540" width="514" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):      %d" id="aqD-vR-5sS">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="dUh-Ny-4lq" name="displayPatternValue1" keyPath="values.kDiskUpdateInterval" id="jXN-z8-op2">
+                            <dictionary key="options">
+                                <string key="NSDisplayPattern">Update interval (seconds):           %{value1}@</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+                <popUpButton identifier="ImageSet" verticalHuggingPriority="750" id="fUn-pM-wwb">
+                    <rect key="frame" x="280" y="570" width="262" height="26"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <popUpButtonCell key="cell" type="push" title="ImageSet" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="GcM-7y-5YW" id="CTi-Ss-Ke7">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="bTs-Mr-yAS">
+                            <items>
+                                <menuItem title="ImageSet" state="on" id="GcM-7y-5YW"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="dUh-Ny-4lq" name="selectedIndex" keyPath="values.kDiskImageSet" id="g0c-1J-bZQ"/>
+                    </connections>
+                </popUpButton>
+                <slider verticalHuggingPriority="750" id="wkz-vR-7sC">
+                    <rect key="frame" x="26" y="508" width="515" height="24"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.20000000000000001" maxValue="4" doubleValue="1.2" tickMarkPosition="below" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="ygZ-ky-rJf">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="dUh-Ny-4lq" name="maxValue" keyPath="values.kDiskUpdateIntervalMax" id="UpY-IE-94a"/>
+                        <binding destination="dUh-Ny-4lq" name="minValue" keyPath="values.kDiskUpdateIntervalMin" previousBinding="UpY-IE-94a" id="lnG-iY-mOY"/>
+                        <binding destination="dUh-Ny-4lq" name="value" keyPath="values.kDiskUpdateInterval" previousBinding="lnG-iY-mOY" id="4Nl-J9-zjG"/>
+                    </connections>
+                </slider>
+                <button id="r1U-Um-zQS">
+                    <rect key="frame" x="26" y="570" width="251" height="27"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Display Disk Activity Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="XwJ-IC-fvU">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="dUh-Ny-4lq" name="value" keyPath="values.kDiskMenuBundleID" id="g3w-iC-sSB"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="139.5" y="154.5"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="dUh-Ny-4lq"/>
+    </objects>
+</document>

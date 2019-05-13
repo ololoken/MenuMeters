@@ -27,18 +27,6 @@
 //
 ///////////////////////////////////////////////////////////////
 
-// Bundle ID for the CPU menu extra
-#define kCPUMenuBundleID				@"com.ragingmenace.MenuMeterCPU"
-
-// Bundle ID for the Disk menu extra
-#define kDiskMenuBundleID				@"com.ragingmenace.MenuMeterDisk"
-
-// Bundle ID for the Memory menu extra
-#define kMemMenuBundleID				@"com.ragingmenace.MenuMeterMem"
-
-// Bundle ID for the Net menu extra
-#define kNetMenuBundleID				@"com.ragingmenace.MenuMeterNet"
-
 ///////////////////////////////////////////////////////////////
 //
 //	Preference information
@@ -50,30 +38,12 @@
 // domain
 #define kMenuMeterDefaultsDomain		@"com.ragingmenace.MenuMeters"
 
-// Old name we no longer use
-#define kMenuMeterObsoleteDomain		@"MenuMeters"
-
-// Pref versioning
-#define	kPrefVersionKey					@"MenuMeterPrefVersion"
-#define	kCurrentPrefVersion				8
-
-///////////////////////////////////////////////////////////////
-//
-//	Notifications
-//
-///////////////////////////////////////////////////////////////
-
-// Preferences were changed
-#define kPrefChangeNotification			@"prefChange"
-
 ///////////////////////////////////////////////////////////////
 //
 //	String formats
 //
 ///////////////////////////////////////////////////////////////
 
-#define kMenuIndentFormat				@"    %@"
-#define kMenuDoubleIndentFormat			@"        %@"
-#define kMenuTripleIndentFormat			@"            %@"
+
 
 

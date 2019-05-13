@@ -5,20 +5,32 @@
 //  Created by Yuji on 2015/08/01.
 //
 //
+#define kMenuIndentFormat                  @"    %@"
+#define kMenuDoubleIndentFormat            @"        %@"
+#define kMenuTripleIndentFormat            @"            %@"
 
 #import <Foundation/Foundation.h>
 #import "AppleUndocumented.h"
-#import "MenuMeterDefaults.h"
 
 @interface MenuMetersMenuExtraBase : NSMenuExtra <NSMenuDelegate>
 {
     NSStatusItem* statusItem;
     NSTimer* updateTimer;
 }
-- (void)configDisplay:(NSString*)bundleID fromPrefs:(MenuMeterDefaults*)ourPrefs withTimerInterval:(NSTimeInterval)interval;
+- (void)configDisplay:(BOOL)enabled withTimerInterval:(NSTimeInterval)interval;
 - (void)timerFired:(id)timer;
 
 @property(nonatomic, readonly) BOOL isMenuVisible;
+
++ (void)addConfigPane:(NSTabView*)tabView;
+
+- (void)configFromPrefs:(id)sender;
+- (NSDictionary*)defaults;
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context;
+
 @end
 
 #define NSMenuExtra MenuMetersMenuExtraBase

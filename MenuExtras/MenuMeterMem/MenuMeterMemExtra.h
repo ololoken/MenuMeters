@@ -21,12 +21,8 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
 #import "AppleUndocumented.h"
-#import "MenuMeters.h"
-#import "MenuMeterDefaults.h"
-#import "MenuMeterMem.h"
+#import "MenuMeterMemConstants.h"
 #import "MenuMeterMemView.h"
 #import "MenuMeterMemStats.h"
 #import "MenuMeterWorkarounds.h"
@@ -37,8 +33,7 @@
 	// Menu Extra necessities
 	NSMenu 							*extraMenu;
     MenuMeterMemView 				*extraView;
-	// Pref object
-	MenuMeterDefaults				*ourPrefs;
+
 	// Info gathers
 	MenuMeterMemStats				*memStats;
 	// Localized strings

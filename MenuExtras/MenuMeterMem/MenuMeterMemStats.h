@@ -21,13 +21,8 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
 #import <dlfcn.h>
-#import <mach/mach.h>
-#import <mach/mach_error.h>
 #import <sys/sysctl.h>
-#import <unistd.h>
 #import "MenuMeterWorkarounds.h"
 
 

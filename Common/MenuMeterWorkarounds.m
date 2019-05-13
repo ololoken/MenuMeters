@@ -63,25 +63,19 @@ __private_extern__ BOOL OSIsMavericksOrLater(void) {
 }
 
 __private_extern__ void LiveUpdateMenuItemTitle(NSMenu *menu, CFIndex index, NSString *title) {
-    LiveUpdateMenuItemTitleAndVisibility(menu, index, title, NO);
-}
+    // Update a menu itm various displays. Under 10.4 the Carbon and Cocoa menus
+    // were not kept in sync. This problem disappeared later (not a problem in
+    // 10.5). Since x86_64 can't call Carbon we have to wrap this in our
+    // own call.
 
-__private_extern__ void LiveUpdateMenuItemTitleAndVisibility(NSMenu *menu, CFIndex index, NSString *title, BOOL hidden) {
-
-	// Update a menu itm various displays. Under 10.4 the Carbon and Cocoa menus
-	// were not kept in sync. This problem disappeared later (not a problem in
-	// 10.5). Since x86_64 can't call Carbon we have to wrap this in our
-	// own call.
-
-	// Guard against < 1 based values (such as the output of [NSMenu indexOfItem:]
-	// when the item is not found.
-	if (index < 0) return;
+    // Guard against < 1 based values (such as the output of [NSMenu indexOfItem:]
+    // when the item is not found.
+    if (index < 0) return;
 
     if (title)
         [[menu itemAtIndex:index] setTitle:title];
-    [[menu itemAtIndex:index] setHidden:hidden];
-
-} // LiveUpdateMenuItemTitle
+    [[menu itemAtIndex:index] setHidden:NO];
+}
 
 __private_extern__ void LiveUpdateMenu(NSMenu *menu) {
 

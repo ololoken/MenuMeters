@@ -27,6 +27,9 @@
 //
 ///////////////////////////////////////////////////////////////
 
+// Bundle ID for the Memory menu extra
+#define kMemMenuBundleID                @"com.ragingmenace.MenuMeterMem"
+
 // Widths of the various displays
 #define kMemPieDisplayWidth					17.0f
 #define kMemNumberDisplayShortWidth			20.0f
@@ -48,54 +51,15 @@
 #define kMemSwapMaxCountInfoMenuIndex		12
 #define kMemSwapSizeInfoMenuIndex			13
 
-///////////////////////////////////////////////////////////////
-//
-//	Preference information
-//
-///////////////////////////////////////////////////////////////
 
-// Pref dictionary keys
-#define kMemIntervalPref					@"MemInterval"
-#define kMemDisplayModePref					@"MemDisplayMode"
-#define kMemUsedFreeLabelPref				@"MemUsedFreeLabel"
-#define kMemPressurePref				@"MemPressure"
-#define kMemPageIndicatorPref				@"MemPagingIndicator"
-#define kMemGraphLengthPref					@"MemGraphLength"
-#define kMemFreeColorPref					@"MemFreeColor"
-#define kMemUsedColorPref					@"MemUsedColor"
-#define kMemActiveColorPref					@"MemActiveColor"
-#define kMemInactiveColorPref				@"MemInactiveColor"
-#define kMemWireColorPref					@"MemWireColor"
-#define kMemCompressedColorPref				@"MemCompressedColor"
-#define kMemPageInColorPref					@"MemPageInColor"
-#define kMemPageOutColorPref				@"MemPageOutColor"
 
 // Display modes
 enum {
-	kMemDisplayPie							= 1,
+	kMemDisplayPie							= 0,
 	kMemDisplayBar,
 	kMemDisplayGraph,
 	kMemDisplayNumber
 };
-#define kMemDisplayDefault					kMemDisplayPie
-
-// Used/Free label
-#define kMemUsedFreeLabelDefault			YES
-
-#define kMemPressureDefault           NO
-
-// Page indicator
-#define kMemPageIndicatorDefault			NO
-
-// Timer
-#define kMemUpdateIntervalMin				1.0
-#define kMemUpdateIntervalMax				60.0
-#define kMemUpdateIntervalDefault			10.0
-
-// Graph display
-#define kMemGraphWidthMin					11
-#define kMemGraphWidthMax					88
-#define kMemGraphWidthDefault				33
 
 // Colors
 											// Clover

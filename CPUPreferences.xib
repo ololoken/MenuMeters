@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="565" height="611"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box verticalHuggingPriority="750" boxType="separator" id="yaL-dS-Y32">
+                    <rect key="frame" x="75" y="74" width="464" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="IBT-W4-R6P">
+                    <rect key="frame" x="25" y="68" width="45" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Colors" id="Pwj-fS-edz">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" id="g5j-C4-MdL">
+                    <rect key="frame" x="121" y="209" width="417" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="JCB-NI-6Hn">
+                    <rect key="frame" x="24" y="208" width="93" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Miscellaneous" id="Wwc-Al-QGy">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" id="vgj-St-AoK">
+                    <rect key="frame" x="122" y="410" width="417" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="tBE-ZF-84e">
+                    <rect key="frame" x="25" y="410" width="93" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Graph Display" id="gy5-rW-CP3">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" id="0PT-RX-M8n">
+                    <rect key="frame" x="169" y="292" width="369" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="iY2-LF-UFN">
+                    <rect key="frame" x="24" y="292" width="145" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Thermometer Display" id="KH7-g0-SW6">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" id="X0m-UM-w5U">
+                    <rect key="frame" x="154" y="470" width="385" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="zI1-Jy-RL0">
+                    <rect key="frame" x="25" y="469" width="124" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Percentage Display" id="VgQ-9t-YtI">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="1s5-iM-e02">
+                    <rect key="frame" x="81" y="382" width="87" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Graph width:" id="mbc-aW-M1X">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="2Xi-JE-qCj">
+                    <rect key="frame" x="59" y="256" width="115" height="22"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal Rows:" id="wea-NY-BGk">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button id="YQd-tc-aRP">
+                    <rect key="frame" x="99" y="176" width="368" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Show average for multiple processors as single display" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="1Av-Bp-1Vy">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUAvgAllProcs" id="XLC-IA-zio"/>
+                    </connections>
+                </button>
+                <button id="nFD-Ga-Y2W">
+                    <rect key="frame" x="99" y="156" width="403" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Show average for least utilized processors as single display" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Cuo-0u-QmN">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="enabled" keyPath="values.kCPUAvgAllProcs" id="vdP-dq-UcC">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUAvgLowerHalfProcs" id="kms-LJ-xPc"/>
+                    </connections>
+                </button>
+                <button id="lr3-xd-vGt">
+                    <rect key="frame" x="99" y="136" width="137" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Sort by CPU usage" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="PY0-Nw-LUU">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="enabled" keyPath="values.kCPUAvgAllProcs" id="xxn-df-lzK">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUSortByUsage" id="XcR-r3-pwJ"/>
+                    </connections>
+                </button>
+                <popUpButton verticalHuggingPriority="750" id="SlS-Jr-Jwe">
+                    <rect key="frame" x="243" y="440" width="231" height="26"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <popUpButtonCell key="cell" type="push" title="User and System (small text)" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="6HF-f7-9xs" id="IvY-Ji-Xfq">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="uic-0n-MLH">
+                            <items>
+                                <menuItem title="Total (large text)" id="M4P-D6-6A8"/>
+                                <menuItem title="Total (medium text)" id="jMp-Dt-D1W"/>
+                                <menuItem title="User and System (small text)" state="on" id="6HF-f7-9xs"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="selectedIndex" keyPath="values.kCPUPercentDisplay" id="w1W-wk-QLa"/>
+                    </connections>
+                </popUpButton>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="4F9-GF-bBk">
+                    <rect key="frame" x="81" y="446" width="148" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Display percentage as:" id="jLI-f7-1lr">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <slider verticalHuggingPriority="750" id="fUL-8a-0Sb">
+                    <rect key="frame" x="179" y="375" width="300" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" controlSize="small" alignment="left" minValue="11" maxValue="88" doubleValue="11" tickMarkPosition="below" numberOfTickMarks="8" allowsTickMarkValuesOnly="YES" sliderType="linear" id="JPK-Z9-Wvl">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUGraphWidthMax" id="eZI-1X-Eya"/>
+                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUGraphWidthMin" previousBinding="eZI-1X-Eya" id="bg3-qu-h18"/>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUGraphWidth" previousBinding="bg3-qu-h18" id="8pi-o6-qNx">
+                            <dictionary key="options">
+                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </slider>
+                <slider verticalHuggingPriority="750" id="BDf-rO-e7F">
+                    <rect key="frame" x="179" y="256" width="299" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" controlSize="small" state="on" alignment="left" minValue="1" maxValue="8" doubleValue="4" tickMarkPosition="below" numberOfTickMarks="8" allowsTickMarkValuesOnly="YES" sliderType="linear" id="q1w-ap-bhM">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUHorizontalRowsMax" id="3dW-z4-wyh"/>
+                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUHorizontalRowsMin" previousBinding="3dW-z4-wyh" id="eTR-p1-u6a"/>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUHorizontalRows" previousBinding="eTR-p1-u6a" id="WAq-hv-zK4"/>
+                    </connections>
+                </slider>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="9g7-tz-zyN">
+                    <rect key="frame" x="59" y="232" width="115" height="22"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal Width:" id="MDZ-pr-wQS">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <slider verticalHuggingPriority="750" id="dvZ-ZO-di3">
+                    <rect key="frame" x="179" y="232" width="299" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" controlSize="small" state="on" alignment="left" minValue="60" maxValue="400" doubleValue="120" tickMarkPosition="below" numberOfTickMarks="8" sliderType="linear" id="Jgd-3m-M0I">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUHorizontalWidthMax" id="vMa-0g-Mev"/>
+                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUHorizontalWidthMin" previousBinding="vMa-0g-Mev" id="ldx-79-Gem"/>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUHorizontalWidth" previousBinding="ldx-79-Gem" id="LK2-xL-3Ax"/>
+                    </connections>
+                </slider>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="a4X-Xl-ji0">
+                    <rect key="frame" x="233" y="57" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="System" id="qHH-be-0Pd">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="8Sw-yy-aVG">
+                    <rect key="frame" x="93" y="57" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="User" id="Hfw-1H-fqM">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell id="ftQ-Bg-hWv">
+                    <rect key="frame" x="117" y="19" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUUserColor" id="rOX-54-9Yr">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <colorWell id="8zb-43-RDF">
+                    <rect key="frame" x="257" y="19" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUSystemColor" id="pwf-D9-SEG">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="Cm8-J7-PWJ">
+                    <rect key="frame" x="25" y="540" width="515" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):      %d" id="C9c-Fh-r8O">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="displayPatternValue1" keyPath="values.kCPUUpdateInterval" id="LSO-eH-XVx">
+                            <dictionary key="options">
+                                <string key="NSDisplayPattern">Update interval (seconds):           %{value1}@</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+                <slider verticalHuggingPriority="750" id="y3q-dc-yU1">
+                    <rect key="frame" x="26" y="508" width="515" height="25"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="10" doubleValue="2" tickMarkPosition="below" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="ei7-qh-fy2">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUUpdateIntervalMax" id="zOe-QH-tRa"/>
+                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUUpdateIntervalMin" previousBinding="zOe-QH-tRa" id="H7G-RJ-yhY"/>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUUpdateInterval" previousBinding="H7G-RJ-yhY" id="WfT-1F-m4O">
+                            <dictionary key="options">
+                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </slider>
+                <popUpButton verticalHuggingPriority="750" id="Uxb-Ou-7ts">
+                    <rect key="frame" x="256" y="570" width="286" height="26"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <popUpButtonCell key="cell" type="push" title="Horizontal Thermometer" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Ip7-ad-QY2" id="sIF-Fu-efh">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="8FA-Vs-dHo">
+                            <items>
+                                <menuItem title="Percentage" id="iUI-aQ-wAk"/>
+                                <menuItem title="Graph" id="Htv-7w-iXM"/>
+                                <menuItem title="Graph and Percentage" id="ZFT-Np-fe3"/>
+                                <menuItem title="Thermometer" id="Rhs-f5-D7Y"/>
+                                <menuItem title="Percentage and Thermometer" id="cGd-uU-lbM"/>
+                                <menuItem title="Graph and Thermometer" id="gMh-Qh-uEe"/>
+                                <menuItem title="Graph, Percentage and Thermometer" id="GU2-Tj-e6p"/>
+                                <menuItem title="Horizontal Thermometer" state="on" id="Ip7-ad-QY2" userLabel="Menu Item - Horizontal Thermometer"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="selectedIndex" keyPath="values.kCPUDisplayMode" id="DTs-pO-jDL"/>
+                    </connections>
+                </popUpButton>
+                <button id="48X-0M-yxe">
+                    <rect key="frame" x="26" y="570" width="227" height="27"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Display CPU Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="AG0-Pe-8c8">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUMenuBundleID" id="Mzq-NX-AFk">
+                            <dictionary key="options">
+                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
+                <box verticalHuggingPriority="750" boxType="separator" id="fjV-Rc-JUQ">
+                    <rect key="frame" x="138" y="351" width="402" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="se7-rx-Spn">
+                    <rect key="frame" x="26" y="351" width="106" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Process Display" id="85u-c4-GAD">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="GqA-OV-gie">
+                    <rect key="frame" x="25" y="323" width="211" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Top process count: (%d)" id="zz3-ls-Ldz">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="displayPatternValue1" keyPath="values.kCPUProcessCount" id="Glh-NM-PG3">
+                            <dictionary key="options">
+                                <string key="NSDisplayPattern">Top process count: (%{value1}@)</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+                <slider verticalHuggingPriority="750" id="O5r-mt-suI">
+                    <rect key="frame" x="252" y="316" width="287" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="25" tickMarkPosition="below" numberOfTickMarks="26" allowsTickMarkValuesOnly="YES" sliderType="linear" id="egN-hW-gqM">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUProcessCountMax" id="P7Q-Sm-Jzl"/>
+                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUProcessCountMin" previousBinding="P7Q-Sm-Jzl" id="ARU-tx-E43"/>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUProcessCount" previousBinding="ARU-tx-E43" id="D4I-he-yZf"/>
+                    </connections>
+                </slider>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="wfz-n8-gWH">
+                    <rect key="frame" x="367" y="57" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Temperature" id="0tZ-yw-wYO">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell id="B61-z7-4dB">
+                    <rect key="frame" x="391" y="19" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUTemperatureColor" id="h05-Rq-7ki">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <button verticalHuggingPriority="750" id="eju-3i-Qti">
+                    <rect key="frame" x="99" y="116" width="178" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Include CPU Temperature" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ioc-Ma-y21">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUShowTemperature" id="hdl-9U-UfY"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="139.5" y="154.5"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="8Tl-Bt-w0i"/>
+    </objects>
+</document>

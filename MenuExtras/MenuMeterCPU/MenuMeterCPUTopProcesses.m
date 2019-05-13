@@ -22,7 +22,6 @@
 //
 
 #import "MenuMeterCPUTopProcesses.h"
-#import "MenuMeterCPU.h"
 
 ///////////////////////////////////////////////////////////////
 //
@@ -70,7 +69,8 @@ NSString* const kProcessListItemCPUKey           = @"cpuPercent";
     }
     psTimer = [NSTimer timerWithTimeInterval:1.0 repeats:YES block:^(NSTimer*timer) {
         NSUInteger ranges[PARTS_ARR_SIZE];
-        NSString*output = [self runCommand:[NSString stringWithFormat:@"/bin/ps -Ao pid=PID,pcpu=CPU,ruid=UID,ruser=USR,comm=CMD -rc | /usr/bin/head -%@", @(kCPUrocessCountMax+1)]];
+        NSString*output = [self runCommand:[NSString stringWithFormat:@"/bin/ps -Ao pid=PID,pcpu=CPU,ruid=UID,ruser=USR,comm=CMD -rc | /usr/bin/head -%ld",
+                                            [[NSUserDefaults standardUserDefaults] integerForKey:@"kCPUProcessCountMax"]]];
         NSArray*lines = [output componentsSeparatedByString:@"\n"];
         for (NSString*line in lines) {
             NSUInteger index = [lines indexOfObject:line];
@@ -107,13 +107,11 @@ NSString* const kProcessListItemCPUKey           = @"cpuPercent";
     [psTimer invalidate];
 } // stopUpdateProcessList
     
-- (NSArray *)runningProcessesByCPUUsage:(NSUInteger)maxItem
-{
+- (NSArray *)runningProcessesByCPUUsage:(NSUInteger)maxItem {
     return [psOutArray subarrayWithRange:NSMakeRange(0, MIN(maxItem, psOutArray.count))];
 }
 
-- (NSString *)runCommand:(NSString *)commandToRun
-{
+- (NSString *)runCommand:(NSString *)commandToRun {
     NSPipe *pipe = [NSPipe pipe];
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/bin/sh"];
