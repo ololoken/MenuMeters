@@ -83,7 +83,7 @@
                 <slider verticalHuggingPriority="750" id="wkz-vR-7sC">
                     <rect key="frame" x="26" y="508" width="515" height="24"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <sliderCell key="cell" continuous="YES" alignment="left" minValue="0.20000000000000001" maxValue="4" doubleValue="0.59999999999999998" tickMarkPosition="below" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="ygZ-ky-rJf">
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.20000000000000001" maxValue="4" doubleValue="1.2" tickMarkPosition="below" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="ygZ-ky-rJf">
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>

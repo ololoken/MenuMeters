@@ -51,6 +51,7 @@
     NSMutableDictionary*prefs = [[NSMutableDictionary alloc] init];
     [prefs addEntriesFromDictionary:[cpuExtra defaults]];
     [prefs addEntriesFromDictionary:[diskExtra defaults]];
+    [prefs addEntriesFromDictionary:[memExtra defaults]];
     [[NSUserDefaults standardUserDefaults] registerDefaults:prefs];
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:prefs];
     [[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];

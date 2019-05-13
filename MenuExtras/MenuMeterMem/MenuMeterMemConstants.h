@@ -27,6 +27,9 @@
 //
 ///////////////////////////////////////////////////////////////
 
+// Bundle ID for the Memory menu extra
+#define kMemMenuBundleID                @"com.ragingmenace.MenuMeterMem"
+
 // Widths of the various displays
 #define kMemPieDisplayWidth					17.0f
 #define kMemNumberDisplayShortWidth			20.0f
@@ -58,7 +61,7 @@
 #define kMemIntervalPref					@"MemInterval"
 #define kMemDisplayModePref					@"MemDisplayMode"
 #define kMemUsedFreeLabelPref				@"MemUsedFreeLabel"
-#define kMemPressurePref				@"MemPressure"
+#define kMemPressurePref				    @"MemPressure"
 #define kMemPageIndicatorPref				@"MemPagingIndicator"
 #define kMemGraphLengthPref					@"MemGraphLength"
 #define kMemFreeColorPref					@"MemFreeColor"
@@ -72,7 +75,7 @@
 
 // Display modes
 enum {
-	kMemDisplayPie							= 1,
+	kMemDisplayPie							= 0,
 	kMemDisplayBar,
 	kMemDisplayGraph,
 	kMemDisplayNumber

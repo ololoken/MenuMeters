@@ -22,30 +22,8 @@
     // Main controls
     IBOutlet NSTabView               *prefTabs;
 
-    IBOutlet NSTabViewItem           *tabMem;
     IBOutlet NSTabViewItem           *tabNet;
 
-    // Mem pane controls
-    IBOutlet NSButton                *memMeterToggle;
-    IBOutlet NSPopUpButton           *memDisplayMode;
-    IBOutlet NSTextField             *memIntervalDisplay;
-    IBOutlet NSSlider                *memInterval;
-    IBOutlet NSButton                *memFreeUsedLabeling;
-    IBOutlet NSButton                *memPageIndicator;
-    IBOutlet NSSlider                *memGraphWidth;
-    IBOutlet NSTextField             *memGraphWidthLabel;
-    IBOutlet NSTabView               *memColorTab;
-    IBOutlet NSColorWell             *memActiveColor;
-    IBOutlet NSColorWell             *memInactiveColor;
-    IBOutlet NSColorWell             *memWiredColor;
-    IBOutlet NSColorWell             *memCompressedColor;
-    IBOutlet NSColorWell             *memFreeColor;
-    IBOutlet NSColorWell             *memUsedColor;
-    IBOutlet NSColorWell             *memPageinColor;
-    IBOutlet NSTextField             *memPageinColorLabel;
-    IBOutlet NSColorWell             *memPageoutColor;
-    IBOutlet NSTextField             *memPageoutColorLabel;
-    IBOutlet NSButton                *memPressureMode;
     // Net pane controls
     IBOutlet NSButton                *netMeterToggle;
     IBOutlet NSPopUpButton           *netDisplayMode;
@@ -75,7 +53,6 @@
 
 // IB Targets
 - (IBAction)liveUpdateInterval:(id)sender;
-- (IBAction)memPrefChange:(id)sender;
 - (IBAction)netPrefChange:(id)sender;
 
 - (bool)anyExtraMenuLoaded;

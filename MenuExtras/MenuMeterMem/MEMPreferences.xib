@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="565" height="611"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button id="WhN-mH-1Fb">
+                    <rect key="frame" x="178" y="444" width="212" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Show paging activity indicator" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="UK4-2d-07C">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemPageIndicator" id="xtL-bT-WH9"/>
+                    </connections>
+                </button>
+                <box verticalHuggingPriority="750" boxType="separator" id="jUD-9i-1Xb">
+                    <rect key="frame" x="82" y="469" width="457" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" id="7mh-UR-CVR">
+                    <rect key="frame" x="25" y="468" width="189" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="General" id="k3Z-52-tth">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button id="1Ws-0v-NdV">
+                    <rect key="frame" x="178" y="424" width="212" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Show Used/Free labels" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Igc-vw-E7r">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemUsedFreeLabel" id="VRe-nm-JaL"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="Tag-dQ-fnD">
+                    <rect key="frame" x="25" y="540" width="516" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):       %d" id="Ggv-6x-mqv">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="displayPatternValue1" keyPath="values.kMemUpdateInterval" id="Qj4-7T-GvL">
+                            <dictionary key="options">
+                                <string key="NSDisplayPattern">Update interval (seconds):           %{value1}@</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="g6q-U8-caw">
+                    <rect key="frame" x="280" y="570" width="262" height="26"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <popUpButtonCell key="cell" type="push" title="Usage Chart" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="JuQ-dD-ESA" id="S4R-1R-BRx">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="pUb-cX-qtt">
+                            <items>
+                                <menuItem title="Usage Chart" state="on" id="JuQ-dD-ESA"/>
+                                <menuItem title="Usage Bar" id="UmE-Wm-sya"/>
+                                <menuItem title="Usage History Graph" id="Y6J-Ge-4uG"/>
+                                <menuItem title="Used/Free Totals" id="Grm-x5-G2O"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="selectedIndex" keyPath="values.kMemDisplayMode" id="oF7-Bc-PJQ"/>
+                    </connections>
+                </popUpButton>
+                <button id="bKQ-gX-73v">
+                    <rect key="frame" x="26" y="570" width="251" height="27"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Display Memory Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="cau-eU-QLU">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemMenuBundleID" id="B5B-78-RWm"/>
+                    </connections>
+                </button>
+                <button id="Ah9-7z-vgp">
+                    <rect key="frame" x="177" y="404" width="212" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Display memory pressure" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="dtf-bx-89Q">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemPressure" id="YDE-Cu-i5R"/>
+                    </connections>
+                </button>
+                <tabView drawsBackground="NO" type="noTabsNoBorder" id="HCd-J1-LYK">
+                    <rect key="frame" x="148" y="220" width="271" height="71"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <font key="font" metaFont="message"/>
+                    <tabViewItems>
+                        <tabViewItem identifier="" id="KCW-oH-RS0">
+                            <view key="view" id="BaW-Qm-UXC">
+                                <rect key="frame" x="0.0" y="0.0" width="271" height="71"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <colorWell id="GLD-QZ-eVw">
+                                        <rect key="frame" x="200" y="9" width="53" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemInactiveColor" id="xUn-yI-dav">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </colorWell>
+                                    <colorWell id="b6V-fL-I2c">
+                                        <rect key="frame" x="111" y="9" width="53" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemWireColor" id="Nlg-eJ-gAm">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </colorWell>
+                                    <colorWell id="Qdw-NN-53F">
+                                        <rect key="frame" x="22" y="9" width="53" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemActiveColor" id="JLK-31-pW6">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </colorWell>
+                                    <textField verticalHuggingPriority="750" id="4Ux-ZS-Voq">
+                                        <rect key="frame" x="-2" y="47" width="100" height="14"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Active" id="La0-oO-g46">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" id="bJd-od-kPx">
+                                        <rect key="frame" x="176" y="47" width="100" height="14"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Inactive" id="d2t-Pn-Zwf">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" id="5jR-R6-hx1">
+                                        <rect key="frame" x="87" y="47" width="100" height="14"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Wired" id="0JU-ux-b9D">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem identifier="" id="uHr-tp-q4Y">
+                            <view key="view" id="w3X-ZF-xVr">
+                                <rect key="frame" x="0.0" y="0.0" width="271" height="71"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <colorWell id="4Xq-EX-fC1">
+                                        <rect key="frame" x="155" y="9" width="53" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemUsedColor" id="4pK-IE-wlX">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </colorWell>
+                                    <textField verticalHuggingPriority="750" id="85k-KA-hB6">
+                                        <rect key="frame" x="76" y="47" width="34" height="14"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Free" id="NMg-PH-qoV">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" id="KGB-XE-qaQ">
+                                        <rect key="frame" x="166" y="47" width="31" height="14"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Used" id="AV4-fj-nAj">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell id="7iY-qT-Y8u">
+                                        <rect key="frame" x="66" y="9" width="53" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemFreeColor" id="KXu-d9-ptj">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </colorWell>
+                                </subviews>
+                            </view>
+                        </tabViewItem>
+                    </tabViewItems>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="selectedIndex" keyPath="values.kMemDisplayMode" id="rRY-qT-ZbA">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">MemModeToColorTabTransformer</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </tabView>
+                <box verticalHuggingPriority="750" boxType="separator" id="qcH-cz-dLE">
+                    <rect key="frame" x="122" y="371" width="417" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <slider verticalHuggingPriority="750" id="DSa-3W-9BK">
+                    <rect key="frame" x="179" y="336" width="299" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" controlSize="small" alignment="left" minValue="11" maxValue="88" doubleValue="33" tickMarkPosition="below" numberOfTickMarks="8" allowsTickMarkValuesOnly="YES" sliderType="linear" id="nWo-dY-tA6">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="maxValue" keyPath="values.kMemGraphWidthMax" id="Z0O-eB-QUM"/>
+                        <binding destination="8BO-sx-R5T" name="minValue" keyPath="values.kMemGraphWidthMin" previousBinding="Z0O-eB-QUM" id="7Qk-62-VdI"/>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemGraphWidth" previousBinding="7Qk-62-VdI" id="TgU-YD-ucs"/>
+                    </connections>
+                </slider>
+                <textField verticalHuggingPriority="750" id="Ce1-MB-oQn">
+                    <rect key="frame" x="25" y="373" width="93" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Graph Display" id="1Vq-wo-IHr">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="0GI-yS-l3E">
+                    <rect key="frame" x="87" y="343" width="87" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Graph width:" id="6B9-rs-u1r">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField hidden="YES" verticalHuggingPriority="750" id="djI-wQ-urk">
+                    <rect key="frame" x="323" y="203" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Paging Rate" id="CmH-5g-5Hr">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell hidden="YES" id="MHi-r0-4vh">
+                    <rect key="frame" x="347" y="165" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemPageRateColor" id="nL9-jT-ZE0">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <textField verticalHuggingPriority="750" id="XUU-6S-4u3">
+                    <rect key="frame" x="234" y="203" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Pageout" id="ChQ-Uf-Chf">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell id="25l-Vr-UdZ">
+                    <rect key="frame" x="258" y="165" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemPageOutColor" id="cp4-av-udJ">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <textField verticalHuggingPriority="750" id="piU-kj-3ZK">
+                    <rect key="frame" x="145" y="203" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Pagein" id="23k-bq-zIW">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell id="bai-zX-Qgg">
+                    <rect key="frame" x="169" y="165" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemPageInColor" id="JjM-gQ-M2p">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <box verticalHuggingPriority="750" boxType="separator" id="zIc-Rp-wub">
+                    <rect key="frame" x="75" y="297" width="464" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" id="ToH-o1-Jr1">
+                    <rect key="frame" x="25" y="296" width="45" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Colors" id="64f-Pf-nCw">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <slider verticalHuggingPriority="750" id="GM9-5k-43I">
+                    <rect key="frame" x="26" y="508" width="515" height="25"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="60" doubleValue="15" tickMarkPosition="below" numberOfTickMarks="60" allowsTickMarkValuesOnly="YES" sliderType="linear" id="Tk3-sJ-1Fd">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="8BO-sx-R5T" name="maxValue" keyPath="values.kMemUpdateIntervalMax" id="NEn-Pf-b8R"/>
+                        <binding destination="8BO-sx-R5T" name="minValue" keyPath="values.kMemUpdateIntervalMin" previousBinding="NEn-Pf-b8R" id="wEO-xZ-Q8Z"/>
+                        <binding destination="8BO-sx-R5T" name="value" keyPath="values.kMemUpdateInterval" previousBinding="wEO-xZ-Q8Z" id="Txp-mf-8Bb"/>
+                    </connections>
+                </slider>
+            </subviews>
+            <point key="canvasLocation" x="139.5" y="154.5"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="8BO-sx-R5T"/>
+    </objects>
+</document>

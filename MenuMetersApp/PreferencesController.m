@@ -98,10 +98,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
     [[self window] makeKeyAndOrderFront:self];
     [NSApp activateIgnoringOtherApps:YES];
 
-    if ([sender isKindOfClass:[MenuMeterMemExtra class]]) {
-        [prefTabs selectTabViewItem:tabMem];
-    }
-    else if ([sender isKindOfClass:[MenuMeterNetExtra class]]) {
+    if ([sender isKindOfClass:[MenuMeterNetExtra class]]) {
         [prefTabs selectTabViewItem:tabNet];
     }
 }
@@ -115,10 +112,8 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 - (void)windowDidLoad {
     // Set the switches on each menu toggle
 
-    [memMeterToggle setState:([self isExtraWithBundleIDLoaded:kMemMenuBundleID])];
     [netMeterToggle setState:([self isExtraWithBundleIDLoaded:kNetMenuBundleID])];
 
-    [self memPrefChange:nil];
     [self netPrefChange:nil];
 
     // Build the preferred interface menu and select (this actually updates the net prefs too)
@@ -144,6 +139,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 
     [MenuMeterCPUExtra addConfigPane:prefTabs];
     [MenuMeterDiskExtra addConfigPane:prefTabs];
+    [MenuMeterMemExtra addConfigPane:prefTabs];
 
 } // mainViewDidLoad
 
@@ -172,12 +168,7 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
 //
 ///////////////////////////////////////////////////////////////
 - (IBAction)liveUpdateInterval:(id)sender {
-    if (sender == memInterval) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(memPrefChange:) object:sender];
-        [self performSelector:@selector(memPrefChange:) withObject:sender afterDelay:0.0];
-        [memIntervalDisplay takeDoubleValueFrom:sender];
-    }
-    else if (sender == netInterval) {
+    if (sender == netInterval) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(netPrefChange:) object:sender];
         [self performSelector:@selector(netPrefChange:) withObject:sender afterDelay:0.0];
         [netIntervalDisplay takeDoubleValueFrom:sender];
@@ -201,98 +192,6 @@ static void scChangeCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, vo
          userInfo:nil deliverImmediately:YES];
     }
 }
-
-- (IBAction)memPrefChange:(id)sender {
-
-    // Extra load
-    [self toggleMenu:memMeterToggle bundleID:kMemMenuBundleID];
-
-    // Save changes
-    if (sender == memDisplayMode) {
-        [ourPrefs saveMemDisplayMode:(int)[memDisplayMode indexOfSelectedItem] + 1];
-    } else if (sender == memInterval) {
-        [ourPrefs saveMemInterval:[memInterval doubleValue]];
-    } else if (sender == memFreeUsedLabeling) {
-        [ourPrefs saveMemUsedFreeLabel:[memFreeUsedLabeling state]];
-    } else if (sender == memPageIndicator) {
-        [ourPrefs saveMemPageIndicator:[memPageIndicator state]];
-    } else if (sender == memPressureMode) {
-        [ourPrefs saveMemPressure:[memPressureMode state]];
-    } else if (sender == memGraphWidth) {
-        [ourPrefs saveMemGraphLength:[memGraphWidth intValue]];
-    } else if (sender == memActiveColor) {
-        [ourPrefs saveMemActiveColor:[memActiveColor color]];
-    } else if (sender == memInactiveColor) {
-        [ourPrefs saveMemInactiveColor:[memInactiveColor color]];
-    } else if (sender == memWiredColor) {
-        [ourPrefs saveMemWireColor:[memWiredColor color]];
-    } else if (sender == memCompressedColor) {
-        [ourPrefs saveMemCompressedColor:[memCompressedColor color]];
-    } else if (sender == memFreeColor) {
-        [ourPrefs saveMemFreeColor:[memFreeColor color]];
-    } else if (sender == memUsedColor) {
-        [ourPrefs saveMemUsedColor:[memUsedColor color]];
-    } else if (sender == memPageinColor) {
-        [ourPrefs saveMemPageInColor:[memPageinColor color]];
-    } else if (sender == memPageoutColor) {
-        [ourPrefs saveMemPageOutColor:[memPageoutColor color]];
-    }
-
-    // Update controls
-    [memDisplayMode selectItemAtIndex:-1]; // Work around multiselects. AppKit problem?
-    [memDisplayMode selectItemAtIndex:[ourPrefs memDisplayMode] - 1];
-    [memInterval setDoubleValue:[ourPrefs memInterval]];
-    [memFreeUsedLabeling setState:[ourPrefs memUsedFreeLabel]];
-    [memPageIndicator setState:[ourPrefs memPageIndicator]];
-    [memPressureMode setState:[ourPrefs memPressure]];
-    [memGraphWidth setIntValue:[ourPrefs memGraphLength]];
-    [memActiveColor setColor:[ourPrefs memActiveColor]];
-    [memInactiveColor setColor:[ourPrefs memInactiveColor]];
-    [memWiredColor setColor:[ourPrefs memWireColor]];
-    [memCompressedColor setColor:[ourPrefs memCompressedColor]];
-    [memFreeColor setColor:[ourPrefs memFreeColor]];
-    [memUsedColor setColor:[ourPrefs memUsedColor]];
-    [memPageinColor setColor:[ourPrefs memPageInColor]];
-    [memPageoutColor setColor:[ourPrefs memPageOutColor]];
-    [memIntervalDisplay takeIntValueFrom:memInterval];
-
-    // Disable controls as needed
-    if ((([memDisplayMode indexOfSelectedItem] + 1) == kMemDisplayPie) ||
-        (([memDisplayMode indexOfSelectedItem] + 1) == kMemDisplayBar) ||
-        (([memDisplayMode indexOfSelectedItem] + 1) == kMemDisplayGraph)) {
-        [memFreeUsedLabeling setEnabled:NO];
-        [memColorTab selectTabViewItemAtIndex:kMemActiveWiredInactiveColorTab];
-    } else {
-        [memFreeUsedLabeling setEnabled:YES];
-        [memColorTab selectTabViewItemAtIndex:kMemUsedFreeColorTab];
-    }
-    if (([memDisplayMode indexOfSelectedItem] + 1) == kMemDisplayGraph) {
-        [memGraphWidth setEnabled:YES];
-        [memGraphWidthLabel setTextColor:[NSColor controlTextColor]];
-    } else {
-        [memGraphWidth setEnabled:NO];
-        [memGraphWidthLabel setTextColor:[NSColor lightGrayColor]];
-    }
-    if ([memPageIndicator state]) {
-        [memPageinColorLabel setTextColor:[NSColor controlTextColor]];
-        [memPageoutColorLabel setTextColor:[NSColor controlTextColor]];
-        [memPageinColor setEnabled:YES];
-        [memPageoutColor setEnabled:YES];
-    } else {
-        [memPageinColorLabel setTextColor:[NSColor lightGrayColor]];
-        [memPageoutColorLabel setTextColor:[NSColor lightGrayColor]];
-        [memPageinColor setEnabled:NO];
-        [memPageoutColor setEnabled:NO];
-    }
-    if (([memDisplayMode indexOfSelectedItem] +1) == kMemDisplayBar) {
-        [memPressureMode setEnabled:YES];
-    }
-    else {
-        [memPressureMode setEnabled:NO];
-    }
-
-    [self saveAndNotify:kMemMenuBundleID];
-} // memPrefChange
 
 - (IBAction)netPrefChange:(id)sender {
 

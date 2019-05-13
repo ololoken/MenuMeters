@@ -22,7 +22,7 @@
 //
 
 #import "MenuMeterDefaults.h"
-#import "MenuMeterMem.h"
+#import "MenuMeterMemConstants.h"
 #import "MenuMeterNet.h"
 
 

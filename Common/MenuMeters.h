@@ -27,9 +27,6 @@
 //
 ///////////////////////////////////////////////////////////////
 
-// Bundle ID for the Memory menu extra
-#define kMemMenuBundleID				@"com.ragingmenace.MenuMeterMem"
-
 // Bundle ID for the Net menu extra
 #define kNetMenuBundleID				@"com.ragingmenace.MenuMeterNet"
 
