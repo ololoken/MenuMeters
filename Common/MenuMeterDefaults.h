@@ -21,8 +21,6 @@
 // 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
 #import "MenuMeters.h"
 
 @interface MenuMeterDefaults : NSObject
@@ -34,36 +32,6 @@
 
 // Pref read/write
 - (void)syncWithDisk;
-
-// Mem menu prefs
-//- (double)memInterval;
-//- (int)memDisplayMode;
-//- (BOOL)memUsedFreeLabel;
-//- (int)memGraphLength;
-//- (BOOL)memPageIndicator;
-//- (BOOL)memPressure;
-//- (NSColor *)memFreeColor;
-//- (NSColor *)memUsedColor;
-//- (NSColor *)memActiveColor;
-//- (NSColor *)memInactiveColor;
-//- (NSColor *)memWireColor;
-//- (NSColor *)memCompressedColor;
-//- (NSColor *)memPageInColor;
-//- (NSColor *)memPageOutColor;
-//- (void)saveMemInterval:(double)interval;
-//- (void)saveMemDisplayMode:(int)mode;
-//- (void)saveMemPageIndicator:(BOOL)indicator;
-//- (void)saveMemUsedFreeLabel:(BOOL)label;
-//- (void)saveMemPressure:(BOOL)label;
-//- (void)saveMemGraphLength:(int)length;
-//- (void)saveMemFreeColor:(NSColor *)color;
-//- (void)saveMemUsedColor:(NSColor *)color;
-//- (void)saveMemActiveColor:(NSColor *)color;
-//- (void)saveMemInactiveColor:(NSColor *)color;
-//- (void)saveMemWireColor:(NSColor *)color;
-//- (void)saveMemCompressedColor:(NSColor *)color;
-//- (void)saveMemPageInColor:(NSColor *)color;
-//- (void)saveMemPageOutColor:(NSColor *)color;
 
 // Net menu prefs
 - (double)netInterval;

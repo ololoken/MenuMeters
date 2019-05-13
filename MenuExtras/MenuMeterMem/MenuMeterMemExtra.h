@@ -22,8 +22,6 @@
 //
 
 #import "AppleUndocumented.h"
-#import "MenuMeters.h"
-#import "MenuMeterDefaults.h"
 #import "MenuMeterMemConstants.h"
 #import "MenuMeterMemView.h"
 #import "MenuMeterMemStats.h"
