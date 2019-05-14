@@ -73,15 +73,6 @@ static host_statistics64_Ptr host_statistics64_Impl = NULL;
 		return nil;
 	}
 
-	// OS version
-	isTigerOrLater = OSIsTigerOrLater();
-	isMavericksOrLater = OSIsMavericksOrLater();
-
-	// On Mavericks we must have host_statistics64
-	if (isMavericksOrLater && !host_statistics64_Impl) {
-		return nil;
-	}
-
 	// Build the Mach host reference
 	selfHost = mach_host_self();
 	if (!selfHost) {

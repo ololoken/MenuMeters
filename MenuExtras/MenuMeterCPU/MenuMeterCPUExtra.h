@@ -26,7 +26,6 @@
 #import "MenuMeterCPUStats.h"
 #import "MenuMeterCPUTopProcesses.h"
 #import "MenuMeterUptime.h"
-#import "MenuMeterWorkarounds.h"
 
 @interface MenuMeterCPUExtra : NSMenuExtra {
 

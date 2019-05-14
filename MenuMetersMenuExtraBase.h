@@ -5,6 +5,8 @@
 //  Created by Yuji on 2015/08/01.
 //
 //
+#define CLAMP(v, min, max) MIN(max, MAX(v, min))
+
 #define kMenuIndentFormat                  @"    %@"
 #define kMenuDoubleIndentFormat            @"        %@"
 #define kMenuTripleIndentFormat            @"            %@"

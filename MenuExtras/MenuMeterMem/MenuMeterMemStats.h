@@ -23,7 +23,6 @@
 
 #import <dlfcn.h>
 #import <sys/sysctl.h>
-#import "MenuMeterWorkarounds.h"
 
 
 @interface MenuMeterMemStats : NSObject {

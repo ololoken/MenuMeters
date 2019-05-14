@@ -355,15 +355,24 @@ static NSImage* defaultIcon;
 
 	// Update the various displays starting with uptime
 	NSString *title = [NSString stringWithFormat:kMenuIndentFormat, [uptimeInfo uptime]];
-	if (title) LiveUpdateMenuItemTitle(extraMenu, kCPUUptimeInfoMenuIndex, title);
+    if (title) {
+        [[extraMenu itemAtIndex:kCPUUptimeInfoMenuIndex] setTitle:title];
+        [[extraMenu itemAtIndex:kCPUUptimeInfoMenuIndex] setHidden:NO];
+    }
     
 	// Tasks
 	title = [NSString stringWithFormat:kMenuIndentFormat, [cpuInfo currentProcessorTasks]];
-	if (title) LiveUpdateMenuItemTitle(extraMenu, kCPUTaskInfoMenuIndex, title);
+    if (title) {
+        [[extraMenu itemAtIndex:kCPUTaskInfoMenuIndex] setTitle:title];
+        [[extraMenu itemAtIndex:kCPUTaskInfoMenuIndex] setHidden:NO];
+    }
     
 	// Load
 	title = [NSString stringWithFormat:kMenuIndentFormat, [cpuInfo loadAverage]];
-	if (title) LiveUpdateMenuItemTitle(extraMenu, kCPULoadInfoMenuIndex, title);
+    if (title) {
+        [[extraMenu itemAtIndex:kCPULoadInfoMenuIndex] setTitle:title];
+        [[extraMenu itemAtIndex:kCPULoadInfoMenuIndex] setHidden:NO];
+    }
     
     // Top CPU intensive processes
     NSUInteger cpuTopProcessesCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"kCPUProcessCount"];
@@ -684,9 +693,6 @@ static NSImage* defaultIcon;
 	// Update content
 	[self menu];
 
-	// Force the menu to redraw
-	LiveUpdateMenu(extraMenu);
-
 } // updateMenuWhenDown
 
 ///////////////////////////////////////////////////////////////
@@ -730,7 +736,9 @@ static NSImage* defaultIcon;
        withTimerInterval:[[NSUserDefaults standardUserDefaults] doubleForKey:@"kCPUUpdateInterval"]];
 
 	// Handle menubar theme changes
-	fgMenuThemeColor = MenuItemTextColor();
+	fgMenuThemeColor = [@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]
+        ? [NSColor whiteColor]
+        : [NSColor blackColor];
 
 	// Cache colors to skip archiver
     userColor = kCPUUserColorDefault;

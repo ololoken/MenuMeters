@@ -1252,10 +1252,9 @@ static NSDictionary* defaults;
 			NSMenuItem *pppMenuItem = [updateInfoForService objectForKey:@"pppstatusitem"];
 			switch ([(NSNumber *)[[details objectForKey:@"pppstatus"] objectForKey:@"status"] unsignedIntValue]) {
 				case PPP_IDLE:
-					LiveUpdateMenuItemTitle(extraMenu,
-											[extraMenu indexOfItem:pppMenuItem],
-											[NSString stringWithFormat:kMenuDoubleIndentFormat,
-												[localizedStrings objectForKey:kPPPNoConnectTitle]]);
+					[[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                           [localizedStrings objectForKey:kPPPNoConnectTitle]]];
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setHidden:NO];
 					break;
 				case PPP_INITIALIZE:
 				case PPP_CONNECTLINK:
@@ -1267,10 +1266,9 @@ static NSDictionary* defaults;
 				case PPP_HOLDOFF:
 				case PPP_ONHOLD:
 				case PPP_WAITONBUSY:
-					LiveUpdateMenuItemTitle(extraMenu,
-											[extraMenu indexOfItem:pppMenuItem],
-											[NSString stringWithFormat:kMenuDoubleIndentFormat,
-												[localizedStrings objectForKey:kPPPConnectingTitle]]);
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                           [localizedStrings objectForKey:kPPPConnectingTitle]]];
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setHidden:NO];
 					break;
 				case PPP_RUNNING:
 					if ([[details objectForKey:@"pppstatus"] objectForKey:@"timeElapsed"]) {
@@ -1279,25 +1277,22 @@ static NSDictionary* defaults;
 						secs %= (60 * 60);
 						uint32_t mins = secs / 60;
 						secs %= 60;
-						LiveUpdateMenuItemTitle(extraMenu,
-												[extraMenu indexOfItem:pppMenuItem],
-												[NSString stringWithFormat:kMenuDoubleIndentFormat,
-													[NSString stringWithFormat:
-														[localizedStrings objectForKey:kPPPConnectedWithTimeTitle],
-														hours, mins, secs]]);
+                        [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                               [NSString stringWithFormat:
+                                                                                                [localizedStrings objectForKey:kPPPConnectedWithTimeTitle],
+                                                                                                hours, mins, secs]]];
+                        [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setHidden:NO];
 					} else {
-						LiveUpdateMenuItemTitle(extraMenu,
-												[extraMenu indexOfItem:pppMenuItem],
-												[NSString stringWithFormat:kMenuDoubleIndentFormat, kPPPConnectedTitle]);
+                        [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat, kPPPConnectedTitle]];
+                        [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setHidden:NO];
 					}
 					break;
 					break;
 				case PPP_TERMINATE:
 				case PPP_DISCONNECTLINK:
-					LiveUpdateMenuItemTitle(extraMenu,
-											[extraMenu indexOfItem:pppMenuItem],
-											[NSString stringWithFormat:kMenuDoubleIndentFormat,
-												[localizedStrings objectForKey:kPPPDisconnectingTitle]]);
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                           [localizedStrings objectForKey:kPPPDisconnectingTitle]]];
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:pppMenuItem]] setHidden:NO];
 			};
 		}
 		// Throughput updates
@@ -1309,59 +1304,51 @@ static NSDictionary* defaults;
 				NSMenuItem *targetItem = [updateInfoForService objectForKey:@"deltaoutitem"];
 				NSNumber *throughputNumber = [throughputDetails objectForKey:@"deltaout"];
 				if (targetItem && throughputNumber) {
-					LiveUpdateMenuItemTitle(extraMenu,
-											[extraMenu indexOfItem:targetItem],
-											[NSString stringWithFormat:kMenuDoubleIndentFormat,
-												[NSString stringWithFormat:@"%@ %@",
-													[localizedStrings objectForKey:kTxLabel],
-													[self throughputStringForBytes:[throughputNumber doubleValue] inInterval:[sampleIntervalNum doubleValue]]]]);
+					[[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                          [NSString stringWithFormat:@"%@ %@",
+                                                                                           [localizedStrings objectForKey:kTxLabel],
+                                                                                           [self throughputStringForBytes:[throughputNumber doubleValue] inInterval:[sampleIntervalNum doubleValue]]]]];
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setHidden:NO];
 				}
 				targetItem = [updateInfoForService objectForKey:@"deltainitem"];
 				throughputNumber = [throughputDetails objectForKey:@"deltain"];
 				if (targetItem && throughputNumber) {
-					LiveUpdateMenuItemTitle(extraMenu,
-											[extraMenu indexOfItem:targetItem],
-											[NSString stringWithFormat:kMenuDoubleIndentFormat,
-												[NSString stringWithFormat:@"%@ %@",
-													[localizedStrings objectForKey:kRxLabel],
-													[self throughputStringForBytes:[throughputNumber doubleValue] inInterval:[sampleIntervalNum doubleValue]]]]);
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                          [NSString stringWithFormat:@"%@ %@",
+                                                                                           [localizedStrings objectForKey:kRxLabel],
+                                                                                           [self throughputStringForBytes:[throughputNumber doubleValue] inInterval:[sampleIntervalNum doubleValue]]]]];
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setHidden:NO];
 				}
 				targetItem = [updateInfoForService objectForKey:@"totaloutitem"];
 				throughputNumber = [throughputDetails objectForKey:@"totalout"];
 				if (targetItem && throughputNumber) {
-					LiveUpdateMenuItemTitle(extraMenu,
-											[extraMenu indexOfItem:targetItem],
-											[NSString stringWithFormat:kMenuDoubleIndentFormat,
-												[NSString stringWithFormat:[localizedStrings objectForKey:kTrafficTotalFormat],
-													[localizedStrings objectForKey:kTxLabel],
-														[self stringForBytes:[throughputNumber doubleValue]],
-														[prettyIntFormatter stringForObjectValue:throughputNumber]]]);
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                          [NSString stringWithFormat:[localizedStrings objectForKey:kTrafficTotalFormat],
+                                                                                           [localizedStrings objectForKey:kTxLabel],
+                                                                                           [self stringForBytes:[throughputNumber doubleValue]],
+                                                                                           [prettyIntFormatter stringForObjectValue:throughputNumber]]]];
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setHidden:NO];
 				}
 				targetItem = [updateInfoForService objectForKey:@"totalinitem"];
 				throughputNumber = [throughputDetails objectForKey:@"totalin"];
 				if (targetItem && throughputNumber) {
-					LiveUpdateMenuItemTitle(extraMenu,
-											[extraMenu indexOfItem:targetItem],
-											[NSString stringWithFormat:kMenuDoubleIndentFormat,
-												[NSString stringWithFormat:[localizedStrings objectForKey:kTrafficTotalFormat],
-													[localizedStrings objectForKey:kRxLabel],
-													[self stringForBytes:[throughputNumber doubleValue]],
-													[prettyIntFormatter stringForObjectValue:throughputNumber]]]);
+					[[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                          [NSString stringWithFormat:[localizedStrings objectForKey:kTrafficTotalFormat],
+                                                                                           [localizedStrings objectForKey:kRxLabel],
+                                                                                           [self stringForBytes:[throughputNumber doubleValue]],
+                                                                                           [prettyIntFormatter stringForObjectValue:throughputNumber]]]];
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setHidden:NO];
 				}
 				targetItem = [updateInfoForService objectForKey:@"peakitem"];
 				throughputNumber = [throughputDetails objectForKey:@"peak"];
 				if (targetItem && throughputNumber) {
-					LiveUpdateMenuItemTitle(extraMenu,
-											[extraMenu indexOfItem:targetItem],
-											[NSString stringWithFormat:kMenuDoubleIndentFormat,
-												[self throughputStringForBPS:[throughputNumber doubleValue]]]);
+					[[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setTitle:[NSString stringWithFormat:kMenuDoubleIndentFormat,
+                                                                                          [self throughputStringForBPS:[throughputNumber doubleValue]]]];
+                    [[extraMenu itemAtIndex:[extraMenu indexOfItem:targetItem]] setHidden:NO];
 				}
 			}
 		}
 	} // end details loop
-
-	// Force the menu to redraw
-	LiveUpdateMenu(extraMenu);
 
 } // updateMenuWhenDown
 

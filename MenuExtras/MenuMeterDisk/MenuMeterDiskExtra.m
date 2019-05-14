@@ -440,12 +440,14 @@ static NSArray* kDiskDarkImageSets;
 
 
 	// Handle menubar theme changes
-	fgMenuThemeColor = MenuItemTextColor();
+    fgMenuThemeColor = [@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]
+        ? [NSColor whiteColor]
+        : [NSColor blackColor];
 	
 	// Decide on image set name prefix
     NSInteger imageSet = [[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskImageSet"];
 	NSString *imageSetNamePrefix = [kDiskImageSets objectAtIndex:imageSet];
-	if (IsMenuMeterMenuBarDarkThemed()) {
+	if ([@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]) {
 		imageSetNamePrefix = [kDiskDarkImageSets objectAtIndex:imageSet];
 	}
 

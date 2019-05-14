@@ -22,10 +22,6 @@
 //
 
 #import "PreferencesController.h"
-#import "MenuMeterCPUExtra.h"
-#import "MenuMeterDiskExtra.h"
-#import "MenuMeterMemExtra.h"
-#import "MenuMeterNetExtra.h"
 
 ///////////////////////////////////////////////////////////////
 //

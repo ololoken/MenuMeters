@@ -25,7 +25,6 @@
 #import "MenuMeterMemConstants.h"
 #import "MenuMeterMemView.h"
 #import "MenuMeterMemStats.h"
-#import "MenuMeterWorkarounds.h"
 
 
 @interface MenuMeterMemExtra : NSMenuExtra  {

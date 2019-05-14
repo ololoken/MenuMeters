@@ -392,31 +392,36 @@ static NSDictionary* defaults;
 					[memFloatMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"usedmb"]],
 					[memFloatMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"freemb"]],
 					[memIntMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"totalmb"]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemUsageInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemUsageInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemUsageInfoMenuIndex] setHidden:NO];
 	// Wired
 	title = [NSString stringWithFormat:kMenuIndentFormat,
 				[NSString stringWithFormat:[localizedStrings objectForKey:kActiveWiredFormat],
 					[memFloatMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"activemb"]],
 					[memFloatMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"wiremb"]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemActiveWiredInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemActiveWiredInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemActiveWiredInfoMenuIndex] setHidden:NO];
 	// Inactive/Free
 	title = [NSString stringWithFormat:kMenuIndentFormat,
 				[NSString stringWithFormat:[localizedStrings objectForKey:kInactiveFreeFormat],
 					[memFloatMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"inactivemb"]],
 					[memFloatMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"freepagemb"]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemInactiveFreeInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemInactiveFreeInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemInactiveFreeInfoMenuIndex] setHidden:NO];
 	// Compressed
 	title = [NSString stringWithFormat:kMenuIndentFormat,
 				[NSString stringWithFormat:[localizedStrings objectForKey:kCompressedFormat],
 					[memFloatMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"compressedmb"]],
 					[memFloatMBFormatter stringForObjectValue:[currentMemStats objectForKey:@"uncompressedmb"]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemCompressedInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemCompressedInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemCompressedInfoMenuIndex] setHidden:NO];
 	// VM paging
 	title = [NSString stringWithFormat:kMenuIndentFormat,
 				[NSString stringWithFormat:[localizedStrings objectForKey:kVMPagingFormat],
 					[prettyIntFormatter stringForObjectValue:[currentMemStats objectForKey:@"pageins"]],
 					[prettyIntFormatter stringForObjectValue:[currentMemStats objectForKey:@"pageouts"]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemVMPageInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemVMPageInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemVMPageInfoMenuIndex] setHidden:NO];
 	// VM cache
 	title = [NSString stringWithFormat:kMenuIndentFormat,
 				[NSString stringWithFormat:[localizedStrings objectForKey:kVMCacheFormat],
@@ -426,13 +431,15 @@ static NSDictionary* defaults;
 						[NSNumber numberWithDouble:
 							(double)(([[currentMemStats objectForKey:@"hits"] doubleValue] /
 									  [[currentMemStats objectForKey:@"lookups"] doubleValue]) * 100.0)]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemVMCacheInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemVMCacheInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemVMCacheInfoMenuIndex] setHidden:NO];
 	// VM fault
 	title = [NSString stringWithFormat:kMenuIndentFormat,
 				[NSString stringWithFormat:[localizedStrings objectForKey:kVMFaultCopyOnWriteFormat],
 					[prettyIntFormatter stringForObjectValue:[currentMemStats objectForKey:@"faults"]],
 					[prettyIntFormatter stringForObjectValue:[currentMemStats objectForKey:@"cowfaults"]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemVMFaultInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemVMFaultInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemVMFaultInfoMenuIndex] setHidden:NO];
 	// Swap count/path, Tiger swap encryptioninfo from Michael Nordmeyer (http://goodyworks.com)
 	if ([[currentSwapStats objectForKey:@"swapencrypted"] boolValue]) {
 		title = [NSString stringWithFormat:kMenuIndentFormat,
@@ -443,7 +450,8 @@ static NSDictionary* defaults;
 						[prettyIntFormatter stringForObjectValue:[currentSwapStats objectForKey:@"swapcount"]],
 						[currentSwapStats objectForKey:@"swappath"]]];
 	}
-	LiveUpdateMenuItemTitle(extraMenu, kMemSwapCountInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemSwapCountInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemSwapCountInfoMenuIndex] setHidden:NO];
 	// Swap max
 	title = [NSString stringWithFormat:kMenuIndentFormat,
 				[NSString stringWithFormat:
@@ -451,13 +459,15 @@ static NSDictionary* defaults;
 						[localizedStrings objectForKey:kMaxMultiSwapFormat] :
 						[localizedStrings objectForKey:kMaxSingleSwapFormat]),
 					[prettyIntFormatter stringForObjectValue:[currentSwapStats objectForKey:@"swapcountpeak"]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemSwapMaxCountInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemSwapMaxCountInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemSwapMaxCountInfoMenuIndex] setHidden:NO];
 	// Swap size, Tiger swap used path from Michael Nordmeyer (http://goodyworks.com)
 	title = [NSString stringWithFormat:kMenuIndentFormat,
 		[NSString stringWithFormat:[localizedStrings objectForKey:kSwapSizeUsedFormat],
 			[memIntMBFormatter stringForObjectValue:[currentSwapStats objectForKey:@"swapsizemb"]],
 			[memIntMBFormatter stringForObjectValue:[currentSwapStats objectForKey:@"swapusedmb"]]]];
-	LiveUpdateMenuItemTitle(extraMenu, kMemSwapSizeInfoMenuIndex, title);
+    [[extraMenu itemAtIndex:kMemSwapSizeInfoMenuIndex] setTitle:title];
+    [[extraMenu itemAtIndex:kMemSwapSizeInfoMenuIndex] setHidden:NO];
 
 } // updateMenuContent
 
@@ -543,7 +553,7 @@ static NSDictionary* defaults;
 	totalArc += inactiveMB / totalMB;
 
 	// Finish arc with black or gray
-	if (IsMenuMeterMenuBarDarkThemed()) {
+	if ([@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]) {
 		[[NSColor darkGrayColor] set];		
 	} else {
 		[[NSColor blackColor] set];
@@ -636,7 +646,7 @@ static NSDictionary* defaults;
   [activeColor set];
   [pressurePath fill];
   
-  if (IsMenuMeterMenuBarDarkThemed()) {
+  if ([@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]) {
     [[NSColor darkGrayColor] set];
   } else {
     [fgMenuThemeColor set];
@@ -691,7 +701,7 @@ static NSDictionary* defaults;
 	[activePath fill];
 	[wireColor set];
 	[wirePath fill];
-	if (IsMenuMeterMenuBarDarkThemed()) {
+	if ([@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]) {
 		[[NSColor darkGrayColor] set];
 	} else {
 		[fgMenuThemeColor set];
@@ -798,7 +808,7 @@ static NSDictionary* defaults;
 	[image lockFocus];
 	float indicatorHeight = (float)[image size].height;
 	
-	BOOL darkTheme = IsMenuMeterMenuBarDarkThemed();
+	BOOL darkTheme = [@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]];
 
 	// Set up the pageout path
 	NSBezierPath *arrow = [NSBezierPath bezierPath];
@@ -900,9 +910,6 @@ static NSDictionary* defaults;
 	// Update the menu content
 	[self updateMenuContent];
 
-	// Force the menu to redraw
-	LiveUpdateMenu(extraMenu);
-
 } // updateMenuWhenDown
 
 ///////////////////////////////////////////////////////////////
@@ -916,7 +923,9 @@ static NSDictionary* defaults;
        withTimerInterval:[[NSUserDefaults standardUserDefaults] floatForKey:@"kMemUpdateInterval"]];
 
 	// Handle menubar theme changes
-	fgMenuThemeColor = MenuItemTextColor();
+    fgMenuThemeColor = [@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]
+        ? [NSColor whiteColor]
+        : [NSColor blackColor];
 	
 	// Cache colors to skip archive cycle from prefs
     freeColor = kMemFreeColorDefault;

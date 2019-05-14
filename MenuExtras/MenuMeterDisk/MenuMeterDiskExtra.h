@@ -25,7 +25,6 @@
 #import "MenuMeterDiskView.h"
 #import "MenuMeterDiskIO.h"
 #import "MenuMeterDiskSpace.h"
-#import "MenuMeterWorkarounds.h"
 
 
 @interface MenuMeterDiskExtra : NSMenuExtra {

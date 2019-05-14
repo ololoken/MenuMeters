@@ -24,7 +24,6 @@
 		3345DD2F1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3345DD2E1B6BEFDE003843FC /* MenuMetersMenuExtraBase.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		3383C1741B69B72600915D5D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3383C1731B69B72600915D5D /* AppDelegate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		3383C1771B69B72600915D5D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3383C1761B69B72600915D5D /* main.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		3383C1831B69B88800915D5D /* MenuMeterWorkarounds.m in Sources */ = {isa = PBXBuildFile; fileRef = D48A79F41018B051008E3207 /* MenuMeterWorkarounds.m */; };
 		3383C1841B69B88C00915D5D /* MenuMeterCPUStats.m in Sources */ = {isa = PBXBuildFile; fileRef = D477AAF103D4BB9200A87BC9 /* MenuMeterCPUStats.m */; };
 		3383C1851B69B89100915D5D /* MenuMeterUptime.m in Sources */ = {isa = PBXBuildFile; fileRef = D477AAF503D4BB9D00A87BC9 /* MenuMeterUptime.m */; };
 		3383C1861B69B97E00915D5D /* MenuMeterCPUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D477AAE903D4BB7D00A87BC9 /* MenuMeterCPUView.m */; };
@@ -212,8 +211,6 @@
 		D477AAFA03D4BEA900A87BC9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = English; path = MenuExtras/MenuMeterCPU/English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D478F451101A8AE100C79173 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		D48A784B10181DE6008E3207 /* AppleUndocumented.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleUndocumented.h; path = Common/AppleUndocumented.h; sourceTree = "<group>"; };
-		D48A79F31018B051008E3207 /* MenuMeterWorkarounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuMeterWorkarounds.h; path = Common/MenuMeterWorkarounds.h; sourceTree = "<group>"; };
-		D48A79F41018B051008E3207 /* MenuMeterWorkarounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuMeterWorkarounds.m; path = Common/MenuMeterWorkarounds.m; sourceTree = "<group>"; };
 		D4D2ADD01910ABB3004E2469 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Italian; path = MenuExtras/MenuMeterCPU/Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4D2ADD51910AC03004E2469 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Italian; path = MenuExtras/MenuMeterDisk/Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4D2ADD81910AC5F004E2469 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Italian; path = MenuExtras/MenuMeterMem/Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -360,8 +357,6 @@
 				30C0F29C2279F52C003E6699 /* smc_reader.xcodeproj */,
 				D48A784B10181DE6008E3207 /* AppleUndocumented.h */,
 				D4510D9104F2F0FD00A87BC9 /* MenuMeters.h */,
-				D48A79F31018B051008E3207 /* MenuMeterWorkarounds.h */,
-				D48A79F41018B051008E3207 /* MenuMeterWorkarounds.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -685,7 +680,6 @@
 			files = (
 				308FC0CD227C627B00B459B0 /* PreferencesController.m in Sources */,
 				3383C1951B69C78B00915D5D /* MenuMeterDiskExtra.m in Sources */,
-				3383C1831B69B88800915D5D /* MenuMeterWorkarounds.m in Sources */,
 				3383C1771B69B72600915D5D /* main.m in Sources */,
 				3383C1881B69BF7700915D5D /* MenuMeterCPUExtra.m in Sources */,
 				3383C18C1B69C75F00915D5D /* MenuMeterMemExtra.m in Sources */,

@@ -26,7 +26,6 @@
 #import "MenuMeterNetConfig.h"
 #import "MenuMeterNetStats.h"
 #import "MenuMeterNetPPP.h"
-#import "MenuMeterWorkarounds.h"
 
 
 @interface MenuMeterNetExtra : NSMenuExtra {
