@@ -12,8 +12,16 @@
 @implementation MenuMetersMenuExtraBase
 static AppDelegate *appDelegate;
 
-+ (void)addConfigPane:(NSTabView*)tabView {
+#pragma mark ABSTRACT_METHODS
+
+- (id)getConfigPane {
     [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
+- (BOOL)enabled {
+    [self doesNotRecognizeSelector:_cmd];
+    return NO;
 }
 
 -(NSDictionary*)defaults {
@@ -31,6 +39,8 @@ static AppDelegate *appDelegate;
 - (void)configFromPrefs:(id)sender {
     [self doesNotRecognizeSelector:_cmd];
 }
+
+#pragma mark -
 
 -(instancetype)initWithBundle:(NSBundle*)bundle
 {
@@ -100,7 +110,6 @@ static AppDelegate *appDelegate;
         statusItem=nil;
     }
 }
-
 
 #pragma mark NSMenuDelegate
 - (void)menuNeedsUpdate:(NSMenu*)menu {

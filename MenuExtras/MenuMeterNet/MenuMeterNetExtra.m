@@ -153,7 +153,7 @@ static NSDictionary* defaults;
     return defaults;
 }
 
-+(void)addConfigPane:(NSTabView*)tabView {
+-(id)getConfigPane {
     NSArray*viewObjects;
     [[NSBundle mainBundle] loadNibNamed:@"NETPreferences" owner:self topLevelObjects:&viewObjects];
     for (id view in viewObjects) {
@@ -178,10 +178,14 @@ static NSDictionary* defaults;
             NSTabViewItem*prefView = [[NSTabViewItem alloc] init];
             [prefView setLabel:@"Net"];
             [prefView setView:view];
-            [tabView addTabViewItem: prefView];
-            break;
+            return prefView;
         }
     }
+    return nil;
+}
+
+- (BOOL)enabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"kNetMenuBundleID"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

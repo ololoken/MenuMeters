@@ -44,19 +44,27 @@
     return self;
 }
 
--(IBAction)showWindow:(id)sender {
-    [super showWindow:sender];
+-(void)showWindowWithExtras:(id)sender extras:(NSMutableArray<MenuMetersMenuExtraBase*>*)extras {
+    if (![[self window] isVisible]) {
+        [self showWindow:sender];
+        for (MenuMetersMenuExtraBase*extra in extras) {
+            [prefTabs addTabViewItem:[extra getConfigPane]];
+        }
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(windowWillClose:)
+                                                     name:NSWindowWillCloseNotification
+                                                   object:self.window];
+    }
+    NSInteger active = 0;
+    for (MenuMetersMenuExtraBase*extra in extras) {
+        if (extra == sender) {
+            active = [extras indexOfObject:extra];
+        }
+    }
+    [prefTabs selectTabViewItemAtIndex:active];
+    [NSApp activateIgnoringOtherApps:YES];
     [[self window] center];
     [[self window] makeKeyAndOrderFront:self];
-    [MenuMeterCPUExtra addConfigPane:prefTabs];
-    [MenuMeterDiskExtra addConfigPane:prefTabs];
-    [MenuMeterMemExtra addConfigPane:prefTabs];
-    [MenuMeterNetExtra addConfigPane:prefTabs];
-    [NSApp activateIgnoringOtherApps:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(windowWillClose:)
-                                                 name:NSWindowWillCloseNotification
-                                               object:self.window];
 }
 
 ///////////////////////////////////////////////////////////////

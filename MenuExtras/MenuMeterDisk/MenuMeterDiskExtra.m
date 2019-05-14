@@ -54,7 +54,7 @@ static NSArray* kDiskDarkImageSets;
 
 @implementation MenuMeterDiskExtra
 
-+(void)addConfigPane:(NSTabView*)tabView {
+-(id)getConfigPane {
     NSArray*viewObjects;
     [[NSBundle mainBundle] loadNibNamed:@"DSKPreferences" owner:self topLevelObjects:&viewObjects];
     for (id view in viewObjects) {
@@ -62,7 +62,6 @@ static NSArray* kDiskDarkImageSets;
             NSTabViewItem* prefView = [[NSTabViewItem alloc] init];
             [prefView setLabel:@"Disk"];
             [prefView setView:view];
-            [tabView addTabViewItem: prefView];
 
             NSPopUpButton*diskImageSet;
             for (id a in [view subviews]) {
@@ -79,10 +78,16 @@ static NSArray* kDiskDarkImageSets;
                  [[NSBundle bundleForClass:[self class]] localizedStringForKey:imageSetName value:nil table:nil]];
             }
             [diskImageSet selectItemAtIndex:[[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskImageSet"]];
-            break;
+            return prefView;
         }
     }
+    return nil;
 }
+
+- (BOOL)enabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"kDiskMenuBundleID"];
+}
+
 
 -(NSDictionary*)defaults {
     if (!defaults) {

@@ -17,20 +17,19 @@
 
 @end
 
+static PreferencesController *preferencesController;
+
 @implementation AppDelegate
 {
-    PreferencesController *preferencesController;
-
-    MenuMeterCPUExtra *cpuExtra;
-    MenuMeterDiskExtra *diskExtra;
-    MenuMeterNetExtra *netExtra;
-    MenuMeterMemExtra *memExtra;
+    NSMutableArray<MenuMetersMenuExtraBase*> *extras;
 }
 
 //@synthesize preferences;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     bool needToShowPrefs = NO;
+    extras = [[NSMutableArray alloc] init];
+
     NSArray* apps = [NSRunningApplication runningApplicationsWithBundleIdentifier:NSBundle.mainBundle.bundleIdentifier];
     if ([apps count] > 1) {
         for (NSRunningApplication *app in apps) {
@@ -41,33 +40,36 @@
         needToShowPrefs = YES;
     }
 
-    cpuExtra = [[MenuMeterCPUExtra alloc] initWithBundle:[NSBundle mainBundle]];
-    diskExtra = [[MenuMeterDiskExtra alloc] initWithBundle:[NSBundle mainBundle]];
-    netExtra = [[MenuMeterNetExtra alloc] initWithBundle:[NSBundle mainBundle]];
-    memExtra = [[MenuMeterMemExtra alloc] initWithBundle:[NSBundle mainBundle]];
+    [extras addObject:[[MenuMeterCPUExtra alloc] initWithBundle:[NSBundle mainBundle]]];
+    [extras addObject:[[MenuMeterMemExtra alloc] initWithBundle:[NSBundle mainBundle]]];
+    [extras addObject:[[MenuMeterDiskExtra alloc] initWithBundle:[NSBundle mainBundle]]];
+    [extras addObject:[[MenuMeterNetExtra alloc] initWithBundle:[NSBundle mainBundle]]];
 
     NSMutableDictionary*prefs = [[NSMutableDictionary alloc] init];
-    [prefs addEntriesFromDictionary:[cpuExtra defaults]];
-    [prefs addEntriesFromDictionary:[diskExtra defaults]];
-    [prefs addEntriesFromDictionary:[memExtra defaults]];
-    [prefs addEntriesFromDictionary:[netExtra defaults]];
+    for (MenuMetersMenuExtraBase*extra in extras) {
+        [prefs addEntriesFromDictionary:[extra defaults]];
+    }
     [[NSUserDefaults standardUserDefaults] registerDefaults:prefs];
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:prefs];
     [[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];
 
-    preferencesController = [[PreferencesController alloc] init];
-
-    BOOL nothingLoaded = ![[NSUserDefaults standardUserDefaults] boolForKey:@"kNetMenuBundleID"]
-        && ![[NSUserDefaults standardUserDefaults] boolForKey:@"kMemMenuBundleID"]
-        && ![[NSUserDefaults standardUserDefaults] boolForKey:@"kCPUMenuBundleID"]
-        && ![[NSUserDefaults standardUserDefaults] boolForKey:@"kDiskMenuBundleID"];
+    BOOL nothingLoaded = YES;
+    for (MenuMetersMenuExtraBase*extra in extras) {
+        if ([extra enabled]) {
+            nothingLoaded = NO;
+            break;
+        }
+    }
     if (needToShowPrefs || nothingLoaded) {
         [self showPreferences:nil];
     }
 }
 
 - (void)showPreferences:(id)sender {
-    [preferencesController showWindow:sender];
+    if (!preferencesController) {
+        preferencesController = [[PreferencesController alloc] init];
+    }
+    [preferencesController showWindowWithExtras:sender extras:extras];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

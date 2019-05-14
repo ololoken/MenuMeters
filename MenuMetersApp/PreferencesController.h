@@ -9,14 +9,15 @@
 #define PreferencesController_h
 
 #import <SystemConfiguration/SystemConfiguration.h>
-
-
+#import "MenuMetersMenuExtraBase.h"
 
 @interface PreferencesController : NSWindowController {
     // Main controls
     IBOutlet NSTabView               *prefTabs;
 
 }
+
+-(void)showWindowWithExtras:(id)sender extras:(NSMutableArray<MenuMetersMenuExtraBase*>*)extras;
 
 @end
 

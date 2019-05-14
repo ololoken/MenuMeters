@@ -22,8 +22,8 @@
 
 @property(nonatomic, readonly) BOOL isMenuVisible;
 
-+ (void)addConfigPane:(NSTabView*)tabView;
-
+- (id)getConfigPane;
+- (BOOL)enabled;
 - (void)configFromPrefs:(id)sender;
 - (NSDictionary*)defaults;
 - (void)observeValueForKeyPath:(NSString *)keyPath

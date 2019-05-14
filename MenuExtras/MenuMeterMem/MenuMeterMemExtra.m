@@ -123,7 +123,7 @@ static NSDictionary* defaults;
     return defaults;
 }
 
-+(void)addConfigPane:(NSTabView*)tabView {
+-(id)getConfigPane {
     NSArray*viewObjects;
     [[NSBundle mainBundle] loadNibNamed:@"MEMPreferences" owner:self topLevelObjects:&viewObjects];
     for (id view in viewObjects) {
@@ -131,11 +131,16 @@ static NSDictionary* defaults;
             NSTabViewItem* prefView = [[NSTabViewItem alloc] init];
             [prefView setLabel:@"Memory"];
             [prefView setView:view];
-            [tabView addTabViewItem: prefView];
-            break;
+            return prefView;
         }
     }
+    return nil;
 }
+
+- (BOOL)enabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"kMemMenuBundleID"];
+}
+
 
 - initWithBundle:(NSBundle *)bundle {
 

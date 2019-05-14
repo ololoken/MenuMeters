@@ -135,7 +135,7 @@ static NSImage* defaultIcon;
     return defaults;
 }
 
-+(void)addConfigPane:(NSTabView*)tabView {
+-(id)getConfigPane {
     NSArray*viewObjects;
     [[NSBundle mainBundle] loadNibNamed:@"CPUPreferences" owner:self topLevelObjects:&viewObjects];
     for (id view in viewObjects) {
@@ -143,10 +143,14 @@ static NSImage* defaultIcon;
             NSTabViewItem* prefView = [[NSTabViewItem alloc] init];
             [prefView setLabel:@"CPU"];
             [prefView setView:view];
-            [tabView addTabViewItem: prefView];
-            break;
+            return prefView;
         }
     }
+    return nil;
+}
+
+- (BOOL)enabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"kCPUMenuBundleID"];
 }
 
 
