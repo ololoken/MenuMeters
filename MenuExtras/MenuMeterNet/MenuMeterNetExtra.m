@@ -165,15 +165,6 @@ static NSDictionary* defaults;
                     break;
                 }
             }
-            // Configure the scale menu to contain images and enough space
-            [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LinearScale" ofType:@"tiff"]]];
-            [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLinear] title]]];
-            [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SquareRootScale" ofType:@"tiff"]]];
-            [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcSquareRoot] title]]];
-            [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CubeRootScale" ofType:@"tiff"]]];
-            [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcCubeRoot] title]]];
-            [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setImage:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LogScale" ofType:@"tiff"]]];
-            [[netScaleCalc itemAtIndex:kNetScaleCalcLog] setTitle:[NSString stringWithFormat:@"  %@", [[netScaleCalc itemAtIndex:kNetScaleCalcLog] title]]];
 
             NSTabViewItem*prefView = [[NSTabViewItem alloc] init];
             [prefView setLabel:@"Net"];
@@ -186,13 +177,6 @@ static NSDictionary* defaults;
 
 - (BOOL)enabled {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"kNetMenuBundleID"];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    [self configFromPrefs:nil];
 }
 
 - initWithBundle:(NSBundle *)bundle {

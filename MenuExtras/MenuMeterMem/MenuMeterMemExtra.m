@@ -284,14 +284,6 @@ static NSDictionary* defaults;
 
 } // initWithBundle
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    [self configFromPrefs:nil];
-}
-
-
  // dealloc
 
 ///////////////////////////////////////////////////////////////

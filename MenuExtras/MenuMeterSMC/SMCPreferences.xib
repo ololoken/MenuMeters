@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="565" height="611"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="kVZ-c2-FJS">
+                    <rect key="frame" x="25" y="540" width="515" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Update interval (seconds):      %d" id="oTi-zr-dai">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <slider verticalHuggingPriority="750" id="AjM-Vb-F46">
+                    <rect key="frame" x="26" y="508" width="515" height="25"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="10" doubleValue="2" tickMarkPosition="below" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="ONa-Wn-eH8">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="maxValue" keyPath="values.kSMCUpdateIntervalMax" id="jh2-qT-hL1"/>
+                        <binding destination="Hgt-OO-N56" name="minValue" keyPath="values.kSMCUpdateIntervalMin" previousBinding="jh2-qT-hL1" id="Uo1-01-ywI"/>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCUpdateInterval" previousBinding="Uo1-01-ywI" id="gRy-J4-mnF"/>
+                    </connections>
+                </slider>
+                <popUpButton verticalHuggingPriority="750" id="kcF-ae-1jR">
+                    <rect key="frame" x="256" y="570" width="286" height="26"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <popUpButtonCell key="cell" type="push" title="Big" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" enabled="NO" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="ECk-TR-I1h" id="7bB-IM-ATT">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="9lI-4g-eOk">
+                            <items>
+                                <menuItem title="Big" id="ECk-TR-I1h" userLabel="Big - one row"/>
+                                <menuItem title="Small" id="fBb-Sn-i4p" userLabel="Small - two rows"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="selectedIndex" keyPath="values.kSMCDisplayMode" id="dob-4h-3t8"/>
+                    </connections>
+                </popUpButton>
+                <button id="Eg1-ve-ebX">
+                    <rect key="frame" x="26" y="570" width="227" height="27"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Display SMC Menu Meter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="E5Q-Cz-p62">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCMenuBundleID" id="fdn-op-oLa"/>
+                    </connections>
+                </button>
+                <box verticalHuggingPriority="750" boxType="separator" id="36L-4B-C7t">
+                    <rect key="frame" x="80" y="474" width="460" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="1Lt-xs-GqH">
+                    <rect key="frame" x="26" y="473" width="124" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Display" id="Xre-VU-BEP">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" id="RLt-c5-9Ex">
+                    <rect key="frame" x="118" y="433" width="154" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="CPU Temperature " bezelStyle="regularSquare" imagePosition="left" inset="2" id="jZt-P5-46I">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCTemperatureCPU" id="lQU-U8-iY7"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" id="Blh-72-qDv">
+                    <rect key="frame" x="118" y="396" width="154" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="GPU Temperature" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="B5Z-9O-lwa">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCTemperatureGPU" id="M0i-d6-i8x"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" id="o3B-Vo-vM3">
+                    <rect key="frame" x="292" y="433" width="154" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="CPU Total Power" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="aHc-pQ-ATP">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCPowerCPU" id="nU8-Wu-Xnv"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" id="vgS-m2-9vW">
+                    <rect key="frame" x="292" y="396" width="154" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="System Total Power" bezelStyle="regularSquare" imagePosition="left" inset="2" id="bQF-9I-h2n">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCPowerAll" id="a3A-9Z-XBW"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="zHN-ma-UNd">
+                    <rect key="frame" x="102" y="58" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="CPU 🌡" id="Q7r-jF-y7s">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell id="nXd-jJ-Rnd">
+                    <rect key="frame" x="126" y="20" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCTemperatureCPUColor" id="CIF-UZ-0c6">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="hZs-vH-4iZ">
+                    <rect key="frame" x="185" y="58" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" alignment="center" title="GPU 🌡" id="74v-fh-Iw0">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell enabled="NO" id="nlT-nr-aWU">
+                    <rect key="frame" x="209" y="20" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCTemperatureGPUColor" id="3rV-Xf-9oA">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="aPB-VP-hrb">
+                    <rect key="frame" x="280" y="58" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" alignment="center" title="CPU ⚡" id="Lk7-34-buC">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell enabled="NO" id="XZW-m9-d9H">
+                    <rect key="frame" x="304" y="20" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCPowerCPUColor" id="XlE-Ib-8Ca">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="ukA-sl-qAg">
+                    <rect key="frame" x="363" y="58" width="100" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="ALL ⚡" id="KsJ-dT-ZR3">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell id="0xQ-y5-nZy">
+                    <rect key="frame" x="387" y="20" width="53" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCPowerAllColor" id="QGe-al-CsY">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+            </subviews>
+            <point key="canvasLocation" x="139.5" y="154.5"/>
+        </customView>
+        <sliderCell controlSize="small" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="e4S-V0-Mag"/>
+        <userDefaultsController representsSharedInstance="YES" id="Hgt-OO-N56"/>
+    </objects>
+</document>

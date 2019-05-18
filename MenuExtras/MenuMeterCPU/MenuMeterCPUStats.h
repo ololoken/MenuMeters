@@ -22,7 +22,6 @@
 //
 
 #import <sys/sysctl.h>
-#import "../../smc_reader/smc_reader.h"
 
 @interface MenuMeterCPULoad : NSObject
 @property(nonatomic) double system;
@@ -58,6 +57,5 @@
 - (NSString *)currentProcessorTasks;
 - (NSString *)loadAverage;
 - (NSArray *)currentLoadBySorting:(BOOL)sorted andCombineLowerHalf:(BOOL)combine;
-- (float_t)cpuProximityTemperature;
 
 @end

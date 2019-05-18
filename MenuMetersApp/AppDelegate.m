@@ -11,6 +11,7 @@
 #import "MenuMeterDiskExtra.h"
 #import "MenuMeterMemExtra.h"
 #import "MenuMeterNetExtra.h"
+#import "MenuMeterSMCExtra.h"
 #import "PreferencesController.h"
 
 @interface AppDelegate ()
@@ -44,6 +45,7 @@ static PreferencesController *preferencesController;
     [extras addObject:[[MenuMeterMemExtra alloc] initWithBundle:[NSBundle mainBundle]]];
     [extras addObject:[[MenuMeterDiskExtra alloc] initWithBundle:[NSBundle mainBundle]]];
     [extras addObject:[[MenuMeterNetExtra alloc] initWithBundle:[NSBundle mainBundle]]];
+    [extras addObject:[[MenuMeterSMCExtra alloc] initWithBundle:[NSBundle mainBundle]]];
 
     NSMutableDictionary*prefs = [[NSMutableDictionary alloc] init];
     for (MenuMetersMenuExtraBase*extra in extras) {

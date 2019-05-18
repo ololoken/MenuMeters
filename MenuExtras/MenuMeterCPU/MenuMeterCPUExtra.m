@@ -30,7 +30,6 @@
 ///////////////////////////////////////////////////////////////
 
 @interface MenuMeterCPUExtra (PrivateMethods)
--(NSDictionary*)defaults;
 
 // Image renderers
 - (void)renderHistoryGraphIntoImage:(NSImage *)image forProcessor:(uint32_t)processor atOffset:(float)offset;
@@ -120,7 +119,6 @@ static NSImage* defaultIcon;
 
                      @"kCPUSystemColor": [NSArchiver archivedDataWithRootObject:kCPUSystemColorDefault],
                      @"kCPUUserColor": [NSArchiver archivedDataWithRootObject:kCPUUserColorDefault],
-                     @"kCPUTemperatureColor": [NSArchiver archivedDataWithRootObject:kCPUTemperatureColorDefault],
 
                      @"kCPUHorizontalWidthMin": @60,
                      @"kCPUHorizontalWidthMax": @400,
@@ -129,7 +127,6 @@ static NSImage* defaultIcon;
                      @"kCPUAvgAllProcs": @NO,
                      @"kCPUAvgLowerHalfProcs": @NO,
                      @"kCPUSortByUsage": @NO,
-                     @"kCPUShowTemperature": @YES,
                      };
     }
     return defaults;
@@ -285,11 +282,6 @@ static NSImage* defaultIcon;
     // Horizontal CPU thermometer is handled differently because it has to
     // manage rows and columns in a very different way from normal horizontal
     // layout
-    BOOL cpuShowTemperature = [[NSUserDefaults standardUserDefaults] boolForKey:@"kCPUShowTemperature"];
-    if (cpuShowTemperature) {
-        [self renderSingleTemperatureIntoImage:currentImage atOffset:renderOffset];
-        renderOffset += kCPUTemperatureDisplayWidth;
-    }
     long mode = [[NSUserDefaults standardUserDefaults] integerForKey:@"kCPUDisplayMode"]+1;
     if (mode & kCPUDisplayHorizontalThermometer) {
         // Calculate the minimum number of columns that will be needed
@@ -298,9 +290,6 @@ static NSImage* defaultIcon;
         long columnCount = (cpuCount+rowCount-1)/rowCount;
         // Calculate a column width
         float columnWidth = (menuWidth - 1.0f) / columnCount;
-        if (cpuShowTemperature) {
-            columnWidth -= kCPUTemperatureDisplayWidth;
-        }
         // Image height
         float imageHeight = (float) ([currentImage size].height);
         // Calculate a thermometer height
@@ -581,21 +570,6 @@ static NSImage* defaultIcon;
 
 } // renderSplitPercentIntoImage:forProcessor:atOffset:
 
-- (void)renderSingleTemperatureIntoImage:(NSImage *)image atOffset:(float)offset {
-    float_t celsius = [cpuInfo cpuProximityTemperature];
-    [image lockFocus];
-    NSAttributedString *renderTemperatureString = [[NSAttributedString alloc]
-         initWithString:[NSString stringWithFormat:@"%.1f°", celsius]
-         attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:9.5f],
-                     NSFontAttributeName, temperatureColor, NSForegroundColorAttributeName,
-                     nil]];
-    [renderTemperatureString drawAtPoint:NSMakePoint(
-         kCPUTemperatureDisplayWidth - (float)round([renderTemperatureString size].width) - 1,
-         (float)floor(([image size].height-[renderTemperatureString size].height) / 2)
-    )];
-    [image unlockFocus];
-} // renderSingleTemperatureIntoImage:atOffset:
-
 
 - (void)renderThermometerIntoImage:(NSImage *)image forProcessor:(uint32_t)processor atOffset:(float)offset {
 
@@ -743,15 +717,11 @@ static NSImage* defaultIcon;
 	// Cache colors to skip archiver
     userColor = kCPUUserColorDefault;
     systemColor = kCPUSystemColorDefault;
-    temperatureColor = kCPUTemperatureColorDefault;
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kCPUUserColor"]) {
         userColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kCPUUserColor"]];
     }
     if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kCPUSystemColor"]) {
         systemColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kCPUSystemColor"]];
-    }
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kCPUTemperatureColor"]) {
-        temperatureColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kCPUTemperatureColor"]];
     }
 
 	// It turns out that text drawing is _much_ slower than compositing images together
@@ -856,9 +826,6 @@ static NSImage* defaultIcon;
         if (!cpuAvgAllProcs && (numberOfCPUs > 1)) {
             menuWidth += ((numberOfCPUs - 1) * kCPUDisplayMultiProcGapWidth);
         }
-    }
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kCPUShowTemperature"]) {
-        menuWidth += kCPUTemperatureDisplayWidth;
     }
 
 	// Resize the view

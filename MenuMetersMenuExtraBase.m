@@ -29,18 +29,18 @@ static AppDelegate *appDelegate;
     return nil;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    [self doesNotRecognizeSelector:_cmd];
-}
-
 - (void)configFromPrefs:(id)sender {
     [self doesNotRecognizeSelector:_cmd];
 }
 
 #pragma mark -
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    [self configFromPrefs:object];
+}
 
 -(instancetype)initWithBundle:(NSBundle*)bundle
 {

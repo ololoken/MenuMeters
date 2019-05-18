@@ -173,13 +173,13 @@
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>
-                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUGraphWidthMax" id="eZI-1X-Eya"/>
-                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUGraphWidthMin" previousBinding="eZI-1X-Eya" id="bg3-qu-h18"/>
                         <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUGraphWidth" previousBinding="bg3-qu-h18" id="8pi-o6-qNx">
                             <dictionary key="options">
                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
                             </dictionary>
                         </binding>
+                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUGraphWidthMax" id="eZI-1X-Eya"/>
+                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUGraphWidthMin" previousBinding="eZI-1X-Eya" id="bg3-qu-h18"/>
                     </connections>
                 </slider>
                 <slider verticalHuggingPriority="750" id="BDf-rO-e7F">
@@ -189,9 +189,9 @@
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUHorizontalRows" previousBinding="eTR-p1-u6a" id="WAq-hv-zK4"/>
                         <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUHorizontalRowsMax" id="3dW-z4-wyh"/>
                         <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUHorizontalRowsMin" previousBinding="3dW-z4-wyh" id="eTR-p1-u6a"/>
-                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUHorizontalRows" previousBinding="eTR-p1-u6a" id="WAq-hv-zK4"/>
                     </connections>
                 </slider>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="9g7-tz-zyN">
@@ -210,13 +210,13 @@
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUHorizontalWidth" previousBinding="ldx-79-Gem" id="LK2-xL-3Ax"/>
                         <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUHorizontalWidthMax" id="vMa-0g-Mev"/>
                         <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUHorizontalWidthMin" previousBinding="vMa-0g-Mev" id="ldx-79-Gem"/>
-                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUHorizontalWidth" previousBinding="ldx-79-Gem" id="LK2-xL-3Ax"/>
                     </connections>
                 </slider>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="a4X-Xl-ji0">
-                    <rect key="frame" x="233" y="57" width="100" height="14"/>
+                    <rect key="frame" x="303" y="57" width="100" height="14"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="System" id="qHH-be-0Pd">
                         <font key="font" metaFont="smallSystem"/>
@@ -225,7 +225,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="8Sw-yy-aVG">
-                    <rect key="frame" x="93" y="57" width="100" height="14"/>
+                    <rect key="frame" x="163" y="57" width="100" height="14"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="User" id="Hfw-1H-fqM">
                         <font key="font" metaFont="smallSystem"/>
@@ -234,7 +234,7 @@
                     </textFieldCell>
                 </textField>
                 <colorWell id="ftQ-Bg-hWv">
-                    <rect key="frame" x="117" y="19" width="53" height="30"/>
+                    <rect key="frame" x="187" y="19" width="53" height="30"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
@@ -246,7 +246,7 @@
                     </connections>
                 </colorWell>
                 <colorWell id="8zb-43-RDF">
-                    <rect key="frame" x="257" y="19" width="53" height="30"/>
+                    <rect key="frame" x="327" y="19" width="53" height="30"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
@@ -280,14 +280,14 @@
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>
-                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUUpdateIntervalMax" id="zOe-QH-tRa"/>
-                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUUpdateIntervalMin" previousBinding="zOe-QH-tRa" id="H7G-RJ-yhY"/>
                         <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUUpdateInterval" previousBinding="H7G-RJ-yhY" id="WfT-1F-m4O">
                             <dictionary key="options">
                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
                             </dictionary>
                         </binding>
+                        <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUUpdateIntervalMax" id="zOe-QH-tRa"/>
+                        <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUUpdateIntervalMin" previousBinding="zOe-QH-tRa" id="H7G-RJ-yhY"/>
                     </connections>
                 </slider>
                 <popUpButton verticalHuggingPriority="750" id="Uxb-Ou-7ts">
@@ -365,32 +365,11 @@
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>
+                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUProcessCount" previousBinding="ARU-tx-E43" id="D4I-he-yZf"/>
                         <binding destination="8Tl-Bt-w0i" name="maxValue" keyPath="values.kCPUProcessCountMax" id="P7Q-Sm-Jzl"/>
                         <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUProcessCountMin" previousBinding="P7Q-Sm-Jzl" id="ARU-tx-E43"/>
-                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUProcessCount" previousBinding="ARU-tx-E43" id="D4I-he-yZf"/>
                     </connections>
                 </slider>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="wfz-n8-gWH">
-                    <rect key="frame" x="367" y="57" width="100" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Temperature" id="0tZ-yw-wYO">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <colorWell id="B61-z7-4dB">
-                    <rect key="frame" x="391" y="19" width="53" height="30"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <connections>
-                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUTemperatureColor" id="h05-Rq-7ki">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </colorWell>
                 <button verticalHuggingPriority="750" id="eju-3i-Qti">
                     <rect key="frame" x="99" y="116" width="178" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
