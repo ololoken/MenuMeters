@@ -18,7 +18,7 @@
                     <autoresizingMask key="autoresizingMask"/>
                 </box>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="IBT-W4-R6P">
-                    <rect key="frame" x="25" y="68" width="45" height="17"/>
+                    <rect key="frame" x="25" y="74" width="45" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Colors" id="Pwj-fS-edz">
                         <font key="font" metaFont="system"/>
@@ -370,17 +370,6 @@
                         <binding destination="8Tl-Bt-w0i" name="minValue" keyPath="values.kCPUProcessCountMin" previousBinding="P7Q-Sm-Jzl" id="ARU-tx-E43"/>
                     </connections>
                 </slider>
-                <button verticalHuggingPriority="750" id="eju-3i-Qti">
-                    <rect key="frame" x="99" y="116" width="178" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Include CPU Temperature" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ioc-Ma-y21">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="8Tl-Bt-w0i" name="value" keyPath="values.kCPUShowTemperature" id="hdl-9U-UfY"/>
-                    </connections>
-                </button>
             </subviews>
             <point key="canvasLocation" x="139.5" y="154.5"/>
         </customView>

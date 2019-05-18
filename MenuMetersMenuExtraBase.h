@@ -6,6 +6,7 @@
 //
 //
 #define CLAMP(v, min, max) MIN(max, MAX(v, min))
+#define PREF(type, key) [NSUserDefaults.standardUserDefaults type##ForKey:@#key]
 
 #define kMenuIndentFormat                  @"    %@"
 #define kMenuDoubleIndentFormat            @"        %@"

@@ -59,7 +59,7 @@ NSColor     *temperatureCPUColor,
 }
 
 - (BOOL)enabled {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"kSMCMenuBundleID"];
+    return PREF(bool, kSMCMenuBundleID);
 }
 
 - initWithBundle:(NSBundle *)bundle {
@@ -97,21 +97,9 @@ NSColor     *temperatureCPUColor,
     SMCClose();
 }
 
-- (void)renderSingleNumberIntoImage:(NSImage *)image atPoint:(NSPoint)point withColor:(NSColor*)color {
-    float_t celsius = 0.1f;
-    [image lockFocus];
-    NSAttributedString *renderTemperatureString = [[NSAttributedString alloc]
-                                                   initWithString:[NSString stringWithFormat:@"%.1f°", celsius]
-                                                   attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:9.5f],
-                                                               NSFontAttributeName, color, NSForegroundColorAttributeName,
-                                                               nil]];
-    [renderTemperatureString drawAtPoint:point];
-    [image unlockFocus];
-}
-
 - (void)configFromPrefs:(NSNotification *)notification {
-    [super configDisplay:[[NSUserDefaults standardUserDefaults] boolForKey:@"kSMCMenuBundleID"]
-       withTimerInterval:[[NSUserDefaults standardUserDefaults] floatForKey:@"kSMCUpdateInterval"]];
+    [super configDisplay:PREF(bool, kSMCMenuBundleID)
+       withTimerInterval:PREF(float, kSMCUpdateInterval)];
 
     // Resize the view
     [extraView setFrameSize:NSMakeSize(32.0, extraView.frame.size.height)];
@@ -121,17 +109,17 @@ NSColor     *temperatureCPUColor,
     temperatureGPUColor = kSMCTemperatureGPUColorDefault;
     powerCPUColor = kSMCPowerCPUColorDefault;
     powerAllColor = kSMCPowerAllColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kSMCTemperatureCPUColor"]) {
-        temperatureCPUColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kSMCTemperatureCPUColor"]];
+    if (PREF(data, kSMCTemperatureCPUColor)) {
+        temperatureCPUColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kSMCTemperatureCPUColor)];
     }
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kSMCTemperatureGPUColor"]) {
-        temperatureGPUColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kSMCTemperatureGPUColor"]];
+    if (PREF(data, kSMCTemperatureGPUColor)) {
+        temperatureGPUColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kSMCTemperatureGPUColor)];
     }
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kSMCPowerCPUColor"]) {
-        powerCPUColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kSMCPowerCPUColor"]];
+    if (PREF(data, kSMCPowerCPUColor)) {
+        powerCPUColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kSMCPowerCPUColor)];
     }
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kSMCPowerAllColor"]) {
-        powerAllColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] dataForKey:@"kSMCPowerAllColor"]];
+    if (PREF(data, kSMCPowerAllColor)) {
+        powerAllColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kSMCPowerAllColor)];
     }
 
     // Force initial update
@@ -144,7 +132,7 @@ NSColor     *temperatureCPUColor,
                                                                      [extraView frame].size.height - 1)];
     if (!currentImage) return nil;
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kSMCTemperatureCPU"]) {
+    if (PREF(bool, kSMCTemperatureCPU)) {
         [currentImage lockFocus];
         NSAttributedString *renderString = [[NSAttributedString alloc]
                                             initWithString:[NSString stringWithFormat:@"%.1f℃", [self cpuProximityTemperature]]
@@ -159,7 +147,7 @@ NSColor     *temperatureCPUColor,
         [currentImage unlockFocus];
     }
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kSMCPowerAll"]) {
+    if (PREF(bool, kSMCPowerAll)) {
         [currentImage lockFocus];
         NSAttributedString *renderString = [[NSAttributedString alloc]
                                             initWithString:[NSString stringWithFormat:@"%.1fW", [self allPower]]

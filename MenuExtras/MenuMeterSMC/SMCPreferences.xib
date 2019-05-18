@@ -21,6 +21,13 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="displayPatternValue1" keyPath="values.kSMCUpdateInterval" id="SKM-Aq-f92">
+                            <dictionary key="options">
+                                <string key="NSDisplayPattern">Update interval (seconds):           %{value1}@</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
                 </textField>
                 <slider verticalHuggingPriority="750" id="AjM-Vb-F46">
                     <rect key="frame" x="26" y="508" width="515" height="25"/>
@@ -146,7 +153,7 @@
                     <textFieldCell key="cell" enabled="NO" sendsActionOnEndEditing="YES" alignment="center" title="GPU 🌡" id="74v-fh-Iw0">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <colorWell enabled="NO" id="nlT-nr-aWU">
@@ -203,6 +210,30 @@
                         </binding>
                     </connections>
                 </colorWell>
+                <box verticalHuggingPriority="750" boxType="separator" id="IKv-E2-Jao">
+                    <rect key="frame" x="75" y="80" width="464" height="5"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="4p6-T6-lNn">
+                    <rect key="frame" x="25" y="80" width="45" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Colors" id="wHx-3s-Iqx">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" id="xmw-aE-L9m">
+                    <rect key="frame" x="292" y="433" width="154" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="CPU Total Power" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="Fa7-G2-ldO">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="Hgt-OO-N56" name="value" keyPath="values.kSMCPowerCPU" id="ZSb-DD-usd"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="139.5" y="154.5"/>
         </customView>

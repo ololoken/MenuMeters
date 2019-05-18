@@ -266,9 +266,9 @@
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>
+                        <binding destination="J6h-sk-jJf" name="value" keyPath="values.kNetGraphWidth" previousBinding="yAk-Em-NSe" id="84n-dr-9hp"/>
                         <binding destination="J6h-sk-jJf" name="maxValue" keyPath="values.kNetGraphWidthMax" id="CZZ-zr-Lrp"/>
                         <binding destination="J6h-sk-jJf" name="minValue" keyPath="values.kNetGraphWidthMin" previousBinding="CZZ-zr-Lrp" id="yAk-Em-NSe"/>
-                        <binding destination="J6h-sk-jJf" name="value" keyPath="values.kNetGraphWidth" previousBinding="yAk-Em-NSe" id="84n-dr-9hp"/>
                     </connections>
                 </slider>
                 <colorWell id="FmR-Pb-Bm4">
@@ -357,9 +357,9 @@
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>
+                        <binding destination="J6h-sk-jJf" name="value" keyPath="values.kNetUpdateInterval" previousBinding="M60-kw-mZ9" id="C58-lP-PVF"/>
                         <binding destination="J6h-sk-jJf" name="maxValue" keyPath="values.kNetUpdateIntervalMax" id="Sxg-uw-a3o"/>
                         <binding destination="J6h-sk-jJf" name="minValue" keyPath="values.kNetUpdateIntervalMin" previousBinding="Sxg-uw-a3o" id="M60-kw-mZ9"/>
-                        <binding destination="J6h-sk-jJf" name="value" keyPath="values.kNetUpdateInterval" previousBinding="M60-kw-mZ9" id="C58-lP-PVF"/>
                     </connections>
                 </slider>
             </subviews>

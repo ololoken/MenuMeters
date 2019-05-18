@@ -138,7 +138,7 @@ static NSDictionary* defaults;
 }
 
 - (BOOL)enabled {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"kMemMenuBundleID"];
+    return PREF(bool, kMemMenuBundleID);
 }
 
 
@@ -301,7 +301,7 @@ static NSDictionary* defaults;
 	// Don't render without data
 	if (![memHistory count]) return nil;
 
-	switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"kMemDisplayMode"]) {
+	switch (PREF(integer, kMemDisplayMode)) {
 		case kMemDisplayPie:
 			[self renderPieIntoImage:currentImage];
 			break;
@@ -309,17 +309,17 @@ static NSDictionary* defaults;
 			[self renderNumbersIntoImage:currentImage];
 			break;
 		case kMemDisplayBar:
-      if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kMemPressure"]) {
-        [self renderPressureBar:currentImage];
-      }
-      else {
-        [self renderBarIntoImage:currentImage];
-      }
+            if (PREF(bool, kMemPressure)) {
+                [self renderPressureBar:currentImage];
+            }
+            else {
+                [self renderBarIntoImage:currentImage];
+            }
 			break;
 		case kMemDisplayGraph:
 			[self renderMemHistoryIntoImage:currentImage];
 	}
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kMemPageIndicator"]) {
+	if (PREF(bool, kMemPageIndicator)) {
 		[self renderPageIndicatorIntoImage:currentImage];
 	}
 
@@ -334,10 +334,10 @@ static NSDictionary* defaults;
 	// (menu is called before image for view)
 	NSDictionary *currentStats = [memStats memStats];
 	if (currentStats) {
-		if ([[NSUserDefaults standardUserDefaults] integerForKey:@"kMemDisplayMode"] == kMemDisplayGraph) {
-            NSInteger graphWidth = [[NSUserDefaults standardUserDefaults] integerForKey:@"kMemGraphWidth"];
-			if ([memHistory count] >= graphWidth) {
-				[memHistory removeObjectsInRange:NSMakeRange(0, [memHistory count] - graphWidth + 1)];
+		if (PREF(integer, kMemDisplayMode) == kMemDisplayGraph) {
+            NSInteger graphWidth = PREF(integer, kMemGraphWidth);
+			if (memHistory.count >= graphWidth) {
+				[memHistory removeObjectsInRange:NSMakeRange(0, memHistory.count - graphWidth + 1)];
 			}
 		} else {
 			[memHistory removeAllObjects];
@@ -494,7 +494,7 @@ static NSDictionary* defaults;
 	[image lockFocus];
 	NSBezierPath *renderPath = nil;
 	float totalArc = 0;
-	NSPoint pieCenter = NSMakePoint(kMemPieDisplayWidth / 2, (float)[image size].height / 2);
+	NSPoint pieCenter = NSMakePoint(kMemPieDisplayWidth / 2, image.size.height / 2);
 
 	// Draw wired
 	renderPath = [NSBezierPath bezierPath];
@@ -545,7 +545,7 @@ static NSDictionary* defaults;
 	totalArc += inactiveMB / totalMB;
 
 	// Finish arc with black or gray
-	if ([@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]) {
+	if ([@"Dark" isEqualToString:PREF(string, AppleInterfaceStyle)]) {
 		[[NSColor darkGrayColor] set];		
 	} else {
 		[[NSColor blackColor] set];
@@ -603,14 +603,16 @@ static NSDictionary* defaults;
 																		nil]];
 
 	// Draw the prerendered label
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kMemUsedFreeLabel"]) {
-        [numberLabelPrerender drawAtPoint:NSMakePoint(0, 0) fromRect:NSMakeRect(0, 0, [numberLabelPrerender size].width, [numberLabelPrerender size].height) operation:NSCompositeSourceOver fraction:1.0f];
+	if (PREF(bool, kMemUsedFreeLabel)) {
+        [numberLabelPrerender drawAtPoint:NSMakePoint(0, 0)
+                                 fromRect:NSMakeRect(0, 0, numberLabelPrerender.size.width, numberLabelPrerender.size.height)
+                                operation:NSCompositeSourceOver fraction:1.0f];
 	}
 	// Using NSParagraphStyle to right align clipped weird, so do it manually
 	// No descenders so render lower
-	[renderUString drawAtPoint:NSMakePoint(textWidth - (float)round([renderUString size].width),
-										   (float)floor([image size].height / 2) - 1)];
-	[renderFString drawAtPoint:NSMakePoint(textWidth - (float)round([renderFString size].width), -1)];
+	[renderUString drawAtPoint:NSMakePoint(textWidth - round(renderUString.size.width),
+                                           floor(image.size.height / 2) - 1)];
+	[renderFString drawAtPoint:NSMakePoint(textWidth - (float)round(renderFString.size.width), -1)];
 
 	// Unlock focus
 	[image unlockFocus];
@@ -629,7 +631,7 @@ static NSDictionary* defaults;
   
   // Lock focus and draw
   [image lockFocus];
-  float thermometerTotalHeight = (float)[image size].height - 3.0f;
+  float thermometerTotalHeight = image.size.height - 3.0f;
   
   NSBezierPath *pressurePath = [NSBezierPath bezierPathWithRect:NSMakeRect(1.5f, 1.5f, kMemThermometerDisplayWidth - 3, thermometerTotalHeight * pressure)];
   
@@ -638,7 +640,7 @@ static NSDictionary* defaults;
   [activeColor set];
   [pressurePath fill];
   
-  if ([@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]) {
+  if ([@"Dark" isEqualToString:PREF(string, AppleInterfaceStyle)]) {
     [[NSColor darkGrayColor] set];
   } else {
     [fgMenuThemeColor set];
@@ -674,7 +676,7 @@ static NSDictionary* defaults;
 
 	// Lock focus and draw
 	[image lockFocus];
-	float thermometerTotalHeight = (float)[image size].height - 3.0f;
+	float thermometerTotalHeight = image.size.height - 3.0f;
 
 	NSBezierPath *wirePath = [NSBezierPath bezierPathWithRect:NSMakeRect(1.5f, 1.5f, kMemThermometerDisplayWidth - 3,
 																		 thermometerTotalHeight * (wireMB / totalMB))];
@@ -693,7 +695,7 @@ static NSDictionary* defaults;
 	[activePath fill];
 	[wireColor set];
 	[wirePath fill];
-	if ([@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]) {
+	if ([@"Dark" isEqualToString:PREF(string, AppleInterfaceStyle)]) {
 		[[NSColor darkGrayColor] set];
 	} else {
 		[fgMenuThemeColor set];
@@ -725,8 +727,8 @@ static NSDictionary* defaults;
 	int renderPosition = 0;
 	// Graph height does not include baseline, reserve the space for real data
 	// since memory usage can never be zero.
-	float renderHeight = (float)[image size].height;
-    NSInteger graphWidth = [[NSUserDefaults standardUserDefaults] integerForKey:@"kMemGraphWidth"];
+	float renderHeight = image.size.height;
+    NSInteger graphWidth = PREF(integer, kMemGraphWidth);
  	for (renderPosition = 0; renderPosition < graphWidth; renderPosition++) {
 
 		// No data at this position?
@@ -800,7 +802,7 @@ static NSDictionary* defaults;
 	[image lockFocus];
 	float indicatorHeight = (float)[image size].height;
 	
-	BOOL darkTheme = [@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]];
+	BOOL darkTheme = [@"Dark" isEqualToString:PREF(string, AppleInterfaceStyle)];
 
 	// Set up the pageout path
 	NSBezierPath *arrow = [NSBezierPath bezierPath];
@@ -875,8 +877,8 @@ static NSDictionary* defaults;
 	if (!currentStats) return;
 
 	// Add to history (at least one)
-	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"kMemDisplayMode"] == kMemDisplayGraph) {
-        NSInteger graphWidth = [[NSUserDefaults standardUserDefaults] integerForKey:@"kMemGraphWidth"];
+	if (PREF(integer, kMemDisplayMode) == kMemDisplayGraph) {
+        NSInteger graphWidth = PREF(integer, kMemGraphWidth);
 		if ([memHistory count] >= graphWidth) {
 			[memHistory removeObjectsInRange:NSMakeRange(0, [memHistory count] - graphWidth + 1)];
 		}
@@ -911,54 +913,46 @@ static NSDictionary* defaults;
 ///////////////////////////////////////////////////////////////
 
 - (void)configFromPrefs:(NSNotification *)notification {
-    [super configDisplay:[[NSUserDefaults standardUserDefaults] doubleForKey:@"kMemMenuBundleID"]
-       withTimerInterval:[[NSUserDefaults standardUserDefaults] floatForKey:@"kMemUpdateInterval"]];
+    [super configDisplay:PREF(double, kMemMenuBundleID)
+       withTimerInterval:PREF(float, kMemUpdateInterval)];
 
 	// Handle menubar theme changes
-    fgMenuThemeColor = [@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]
+    fgMenuThemeColor = [@"Dark" isEqualToString:PREF(string, AppleInterfaceStyle)]
         ? [NSColor whiteColor]
         : [NSColor blackColor];
 	
 	// Cache colors to skip archive cycle from prefs
     freeColor = kMemFreeColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemFreeColor"]) {
-        freeColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
-                                               dataForKey:@"kMemFreeColor"]];
+    if (PREF(data, kMemFreeColor)) {
+        freeColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kMemFreeColor)];
     }
     usedColor = kMemUsedColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemUsedColor"]) {
-        usedColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
-                                                       dataForKey:@"kMemUsedColor"]];
+    if (PREF(data, kMemUsedColor)) {
+        usedColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kMemUsedColor)];
     }
     activeColor = kMemActiveColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemActiveColor"]) {
-        activeColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
-                                                         dataForKey:@"kMemActiveColor"]];
+    if (PREF(data, kMemActiveColor)) {
+        activeColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kMemActiveColor)];
     }
     inactiveColor = kMemInactiveColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemInactiveColor"]) {
-        inactiveColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
-                                                           dataForKey:@"kMemInactiveColor"]];
+    if (PREF(data, kMemInactiveColor)) {
+        inactiveColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kMemInactiveColor)];
     }
     wireColor = kMemWireColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemWireColor"]) {
-        wireColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
-                                                       dataForKey:@"kMemWireColor"]];
+    if (PREF(data, kMemWireColor)) {
+        wireColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kMemWireColor)];
     }
     compressedColor = kMemCompressedColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemCompressedColor"]) {
-        compressedColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
-                                                             dataForKey:@"kMemCompressedColor"]];
+    if (PREF(data, kMemCompressedColor)) {
+        compressedColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kMemCompressedColor)];
     }
     pageInColor = kMemPageInColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemPageInColor"]) {
-        pageInColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
-                                                         dataForKey:@"kMemPageInColor"]];
+    if (PREF(data, kMemPageInColor)) {
+        pageInColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kMemPageInColor)];
     }
     pageOutColor = kMemPageOutColorDefault;
-    if ([[NSUserDefaults standardUserDefaults] dataForKey:@"kMemPageOutColor"]) {
-        pageOutColor = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]
-                                                          dataForKey:@"kMemPageOutColor"]];
+    if (PREF(data, kMemPageOutColor)) {
+        pageOutColor = [NSUnarchiver unarchiveObjectWithData:PREF(data, kMemPageOutColor)];
     }
 
 	// Since text rendering is so CPU intensive we minimize this by
@@ -982,22 +976,22 @@ static NSDictionary* defaults;
 																[NSFont systemFontOfSize:9.5f], NSFontAttributeName,
 																freeColor, NSForegroundColorAttributeName,
 																nil]];
-	if ([renderUString size].width > [renderFString size].width) {
-		numberLabelPrerender = [[NSImage alloc] initWithSize:NSMakeSize([renderUString size].width,
-																		[extraView frame].size.height - 1)];
+	if (renderUString.size.width > renderFString.size.width) {
+		numberLabelPrerender = [[NSImage alloc] initWithSize:NSMakeSize(renderUString.size.width,
+																		extraView.frame.size.height - 1)];
 	} else {
-		numberLabelPrerender = [[NSImage alloc] initWithSize:NSMakeSize([renderFString size].width,
-																		[extraView frame].size.height - 1)];
+		numberLabelPrerender = [[NSImage alloc] initWithSize:NSMakeSize(renderFString.size.width,
+																		extraView.frame.size.height - 1)];
 	}
 	[numberLabelPrerender lockFocus];
 	// No descenders so render both lines lower than normal
-	[renderUString drawAtPoint:NSMakePoint(0, (float)floor([numberLabelPrerender size].height / 2) - 1)];
+	[renderUString drawAtPoint:NSMakePoint(0, floor(numberLabelPrerender.size.height / 2) - 1)];
 	[renderFString drawAtPoint:NSMakePoint(0, -1)];
 	[numberLabelPrerender unlockFocus];
 
 	// Figure out the length of "MB" localization
 	float mbLength = 0;
-    NSInteger displayMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"kMemDisplayMode"];
+    NSInteger displayMode = PREF(integer, kMemDisplayMode);
 	if (displayMode == kMemDisplayNumber) {
 		NSAttributedString *renderMBString =  [[NSAttributedString alloc]
 													initWithString:[localizedStrings objectForKey:kMBLabel]
@@ -1025,25 +1019,25 @@ static NSDictionary* defaults;
 				menuWidth = kMemNumberDisplayShortWidth + mbLength;
 				textWidth = kMemNumberDisplayShortWidth + mbLength;
 			}
-			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kMemUsedFreeLabel"]) {
-				menuWidth += (float)ceil([numberLabelPrerender size].width);
-				textWidth += (float)ceil([numberLabelPrerender size].width);
+			if (PREF(bool, kMemUsedFreeLabel)) {
+				menuWidth += ceil(numberLabelPrerender.size.width);
+				textWidth += ceil(numberLabelPrerender.size.width);
 			}
 			break;
 		case kMemDisplayBar:
 			menuWidth = kMemThermometerDisplayWidth;
 			break;
 		case kMemDisplayGraph:
-			menuWidth = [[NSUserDefaults standardUserDefaults] integerForKey:@"kMemGraphWidth"];
+			menuWidth = PREF(integer, kMemGraphWidth);
 			break;
 	}
 	// Adjust width for paging indicator
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kMemPageIndicator"]) {
+	if (PREF(bool, kMemPageIndicator)) {
 		menuWidth += kMemPagingDisplayWidth + kMemPagingDisplayGapWidth;
 	}
 
 	// Resize the view
-	[extraView setFrameSize:NSMakeSize(menuWidth, [extraView frame].size.height)];
+	[extraView setFrameSize:NSMakeSize(menuWidth, extraView.frame.size.height)];
 	[self setLength:menuWidth];
 
 	// Force initial update

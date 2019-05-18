@@ -77,7 +77,7 @@ static NSArray* kDiskDarkImageSets;
                 [diskImageSet addItemWithTitle:
                  [[NSBundle bundleForClass:[self class]] localizedStringForKey:imageSetName value:nil table:nil]];
             }
-            [diskImageSet selectItemAtIndex:[[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskImageSet"]];
+            [diskImageSet selectItemAtIndex:PREF(integer, kDiskImageSet)];
             return prefView;
         }
     }
@@ -85,7 +85,7 @@ static NSArray* kDiskDarkImageSets;
 }
 
 - (BOOL)enabled {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"kDiskMenuBundleID"];
+    return PREF(bool, kDiskMenuBundleID);
 }
 
 
@@ -382,7 +382,7 @@ static NSArray* kDiskDarkImageSets;
 	UInt32 modKeys = GetCurrentKeyModifiers();
 
 	// Decide action
-	BOOL eject = ([[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskSelectMode"] == kDiskSelectModeEject);
+	BOOL eject = (PREF(integer, kDiskSelectMode) == kDiskSelectModeEject);
 	if (modKeys & optionKey) eject = !eject;
 
 	if (eject) {
@@ -428,19 +428,19 @@ static NSArray* kDiskDarkImageSets;
 ///////////////////////////////////////////////////////////////
 
 - (void)configFromPrefs:(NSNotification *)notification {
-    [super configDisplay:[[NSUserDefaults standardUserDefaults] doubleForKey:@"kDiskMenuBundleID"]
-       withTimerInterval:[[NSUserDefaults standardUserDefaults] doubleForKey:@"kDiskUpdateInterval"]];
+    [super configDisplay:PREF(double, kDiskMenuBundleID)
+       withTimerInterval:PREF(double, kDiskUpdateInterval)];
 
 
 	// Handle menubar theme changes
-    fgMenuThemeColor = [@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]
+    fgMenuThemeColor = [@"Dark" isEqualToString:PREF(string, AppleInterfaceStyle)]
         ? [NSColor whiteColor]
         : [NSColor blackColor];
 	
 	// Decide on image set name prefix
-    NSInteger imageSet = [[NSUserDefaults standardUserDefaults] integerForKey:@"kDiskImageSet"];
+    NSInteger imageSet = PREF(integer, kDiskImageSet);
 	NSString *imageSetNamePrefix = [kDiskImageSets objectAtIndex:imageSet];
-	if ([@"Dark" isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]]) {
+	if ([@"Dark" isEqualToString:PREF(string, AppleInterfaceStyle)]) {
 		imageSetNamePrefix = [kDiskDarkImageSets objectAtIndex:imageSet];
 	}
 

@@ -34,7 +34,7 @@
 #define kMemPieDisplayWidth					17.0f
 #define kMemNumberDisplayShortWidth			20.0f
 #define kMemNumberDisplayLongWidth			26.0f
-#define kMemNumberDisplayExtraLongWidth		34.0f
+#define kMemNumberDisplayExtraLongWidth		30.0f
 #define kMemThermometerDisplayWidth			11.0f
 #define kMemPagingDisplayWidth				17.0f
 #define kMemPagingDisplayGapWidth			4.0f
