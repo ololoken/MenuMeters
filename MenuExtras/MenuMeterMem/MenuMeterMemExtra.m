@@ -78,7 +78,7 @@
 #define kMaxMultiSwapFormat					@"%@ swap files at peak usage"
 #define kSwapSizeFormat						@"%@ total swap space"
 #define kSwapSizeUsedFormat					@"%@ total swap space (%@ used)"
-#define kMBLabel							@"MB"
+#define kMBLabel							@"M"
 
 ///////////////////////////////////////////////////////////////
 //

@@ -102,7 +102,7 @@ NSColor     *temperatureCPUColor,
        withTimerInterval:PREF(float, kSMCUpdateInterval)];
 
     // Resize the view
-    [extraView setFrameSize:NSMakeSize(32.0, extraView.frame.size.height)];
+    [extraView setFrameSize:NSMakeSize(30.0, extraView.frame.size.height)];
     [self setLength:extraView.frame.size.width];
 
     temperatureCPUColor = kSMCTemperatureCPUColorDefault;
@@ -128,14 +128,13 @@ NSColor     *temperatureCPUColor,
 
 - (NSImage *)image {
 
-    NSImage *currentImage = [[NSImage alloc] initWithSize:NSMakeSize([extraView frame].size.width,
-                                                                     [extraView frame].size.height - 1)];
+    NSImage *currentImage = [[NSImage alloc] initWithSize:NSMakeSize(extraView.frame.size.width, extraView.frame.size.height - 1)];
     if (!currentImage) return nil;
 
     if (PREF(bool, kSMCTemperatureCPU)) {
         [currentImage lockFocus];
         NSAttributedString *renderString = [[NSAttributedString alloc]
-                                            initWithString:[NSString stringWithFormat:@"%.1f℃", [self cpuProximityTemperature]]
+                                            initWithString:[NSString stringWithFormat:@"%.1f°", [self cpuProximityTemperature]]
                                                 attributes:@{
                                                              NSFontAttributeName: [NSFont systemFontOfSize:9.5f],
                                                              NSForegroundColorAttributeName: temperatureCPUColor
@@ -150,7 +149,7 @@ NSColor     *temperatureCPUColor,
     if (PREF(bool, kSMCPowerAll)) {
         [currentImage lockFocus];
         NSAttributedString *renderString = [[NSAttributedString alloc]
-                                            initWithString:[NSString stringWithFormat:@"%.1fW", [self allPower]]
+                                            initWithString:[NSString stringWithFormat:@"%.1fʷ", [self allPower]]
                                                 attributes:@{
                                                              NSFontAttributeName: [NSFont systemFontOfSize:9.5f],
                                                              NSForegroundColorAttributeName: powerAllColor
